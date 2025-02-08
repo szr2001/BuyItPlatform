@@ -1,0 +1,6 @@
+@BuyItPlatform.Auth_HostAddress = http://localhost:5220
+
+GET {{BuyItPlatform.Auth_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
