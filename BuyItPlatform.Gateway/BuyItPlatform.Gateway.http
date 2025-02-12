@@ -1,6 +1,0 @@
-@BuyItPlatform.Gateway_HostAddress = http://localhost:5125
-
-GET {{BuyItPlatform.Gateway_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
