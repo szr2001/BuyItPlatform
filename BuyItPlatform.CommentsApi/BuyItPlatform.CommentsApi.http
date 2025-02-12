@@ -1,0 +1,6 @@
+@BuyItPlatform.CommentsApi_HostAddress = http://localhost:5029
+
+GET {{BuyItPlatform.CommentsApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

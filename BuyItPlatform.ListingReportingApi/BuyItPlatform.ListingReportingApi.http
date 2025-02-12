@@ -1,0 +1,6 @@
+@BuyItPlatform.ListingReportingApi_HostAddress = http://localhost:5122
+
+GET {{BuyItPlatform.ListingReportingApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
