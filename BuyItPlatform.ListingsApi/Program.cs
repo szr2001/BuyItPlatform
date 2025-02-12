@@ -1,4 +1,7 @@
 
+using BuyItPlatform.ListingsApi.Data;
+using Microsoft.EntityFrameworkCore;
+
 namespace BuyItPlatform.ListingsApi
 {
     public class Program
@@ -8,7 +11,10 @@ namespace BuyItPlatform.ListingsApi
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-
+            builder.Services.AddDbContext<AppDbContext>(options =>
+            {
+                options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
+            });
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
@@ -30,7 +36,22 @@ namespace BuyItPlatform.ListingsApi
 
             app.MapControllers();
 
+            ApplyMigration();
+
             app.Run();
+
+            void ApplyMigration()
+            {
+                using (var scope = app.Services.CreateScope())
+                {
+                    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+                    if(db.Database.GetMigrations().Count() > 0)
+                    {
+                        db.Database.Migrate();
+                    }
+                }
+            }
         }
+
     }
 }
