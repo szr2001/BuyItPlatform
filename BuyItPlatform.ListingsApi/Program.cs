@@ -1,4 +1,5 @@
 
+using AutoMapper;
 using BuyItPlatform.ListingsApi.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,6 +16,11 @@ namespace BuyItPlatform.ListingsApi
             {
                 options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
+
+            IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();
+
+            builder.Services.AddSingleton(mapper);
+
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
