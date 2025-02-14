@@ -1,6 +1,8 @@
 
 using AutoMapper;
 using BuyItPlatform.ListingsApi.Data;
+using BuyItPlatform.ListingsApi.Services;
+using BuyItPlatform.ListingsApi.Services.IServices;
 using Microsoft.EntityFrameworkCore;
 
 namespace BuyItPlatform.ListingsApi
@@ -20,7 +22,7 @@ namespace BuyItPlatform.ListingsApi
             IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();
 
             builder.Services.AddSingleton(mapper);
-
+            builder.Services.AddSingleton<IImageUploader, ListingImagesTestService>();
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
