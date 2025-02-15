@@ -9,6 +9,7 @@ namespace BuyItPlatform.ListingsApi.Models.Dto
         public string Name { get; set; }
         public string Description { get; set; }
         public string[] ImagePaths { get; set; }
+        public IFormFile[] ImageFiles { get; set; }
         public float Price { get; set; }
         public string Currency { get; set; }
         public string ListingType { get; set; }

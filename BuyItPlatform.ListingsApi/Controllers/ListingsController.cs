@@ -24,11 +24,31 @@ namespace BuyItPlatform.ListingsApi.Controllers
         }
 
         [HttpPost]
-        public ResponseDto Post([FromBody] ListingDto listing)
+        public async Task<ResponseDto> Post([FromBody] ListingDto listingDto)
         {
             try
             {
+                if(listingDto.ImageFiles.Length > 3)
+                {
+                    response.Success = false;
+                    response.Message = "Each listing can have a maximum of 3 images";
+                    return response;
+                }
 
+                Listing newListing = mapper.Map<Listing>(listingDto);
+
+                dbContext.Listings.Add(newListing);
+                dbContext.SaveChanges();
+                //get id
+                if(listingDto.ImageFiles.Length > 1)
+                {
+                    var result = await imageUploader.UploadImagesAsync(newListing.Id, listingDto.ImageFiles);
+                    if(result.Success)
+                    {
+                        //add imagePath to listing
+                        //save db
+                    }
+                }
             }
             catch(Exception ex)
             {
