@@ -9,7 +9,6 @@ namespace BuyItPlatform.ListingsApi.Services
     public class ListingImagesTestService : IImageUploader
     {
         private string testPath = @"";
-        private ResponseDto response = new();
         //move to appsettings
         private readonly string[] _allowedExtensions = { ".jpg", ".jpeg", ".png" };
         private readonly string[] _allowedMimeTypes = { "image/jpeg", "image/png" };
@@ -18,70 +17,58 @@ namespace BuyItPlatform.ListingsApi.Services
             testPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         }
         //rewrite without responseDto, just return the object, separation of concerns
-        public async Task<ResponseDto> DeleteImagesAsync(int listingId)
+        public async Task DeleteImagesAsync(int listingId)
         {
             List<string> imagesToDelete = new();
-            try
+            foreach (var filePath in Directory.GetFiles(testPath))
             {
-                foreach(var filePath in Directory.GetFiles(testPath))
+                if (filePath.Split('_').Contains(listingId.ToString()))
                 {
-                    if (filePath.Split('_').Contains(listingId.ToString()))
-                    {
-                        imagesToDelete.Add(filePath);
-                    }
+                    imagesToDelete.Add(filePath);
                 }
+            }
 
-                foreach(var deleteImage in imagesToDelete)
-                {
-                    File.Delete(deleteImage);
-                }
-            }
-            catch (Exception ex)
+            foreach (var deleteImage in imagesToDelete)
             {
-                response.Success = false;
-                response.Message = ex.Message;
+                File.Delete(deleteImage);
             }
-            response.Success = true;
-            return response;
         }
 
-        public async Task<ResponseDto> UploadImagesAsync(int listingId, ICollection<IFormFile> files)
+        public async Task UploadImagesAsync(int listingId, ICollection<IFormFile> files)
         {
             List<string> paths = new();
-            foreach(var file in files)
+
+            //verify files before saving
+            foreach (var file in files)
             {
-                try
+                if (file == null || file.Length == 0)
                 {
-                    if (file == null || file.Length == 0)
-                    {
-                        return new ResponseDto { Success = false, Message = "Invalid file." };
-                    }
-
-                    string fileExtension = Path.GetExtension(file.FileName).ToLower();
-                    string mimeType = file.ContentType.ToLower();
-
-                    if (!_allowedExtensions.Contains(fileExtension) || !_allowedMimeTypes.Contains(mimeType))
-                    {
-                        return new ResponseDto { Success = false, Message = "Only JPG and PNG files are allowed." };
-                    }
-                    string fileName = $"{listingId}_{Guid.NewGuid()}{fileExtension}";
-                    string filePath = Path.Combine(testPath, fileName);
-                    using (var stream = new FileStream(filePath, FileMode.Create))
-                    {
-                        await file.CopyToAsync(stream);
-                    }
-                    paths.Add(filePath);
+                    throw new Exception("File not specified.");
                 }
-                catch(Exception ex)
+
+                string fileExtension = Path.GetExtension(file.FileName).ToLower();
+                string mimeType = file.ContentType.ToLower();
+
+                if (!_allowedExtensions.Contains(fileExtension) || !_allowedMimeTypes.Contains(mimeType))
                 {
-                    response.Success = false;
-                    response.Message = ex.Message;
-                    break;
+                    throw new Exception("Only JPG and PNG files are allowed");
                 }
             }
-            response.Result = paths.ToArray();
-            response.Success = true;
-            return response;
+
+            //save files
+            foreach (var file in files)
+            {
+                string fileExtension = Path.GetExtension(file.FileName).ToLower();
+                string mimeType = file.ContentType.ToLower();
+
+                string fileName = $"{listingId}_{Guid.NewGuid()}{fileExtension}";
+                string filePath = Path.Combine(testPath, fileName);
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await file.CopyToAsync(stream);
+                }
+                paths.Add(filePath);
+            }
         }
     }
 }
