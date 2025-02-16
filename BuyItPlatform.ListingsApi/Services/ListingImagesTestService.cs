@@ -17,7 +17,7 @@ namespace BuyItPlatform.ListingsApi.Services
         {
             testPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         }
-
+        //rewrite without responseDto, just return the object, separation of concerns
         public async Task<ResponseDto> DeleteImagesAsync(int listingId)
         {
             List<string> imagesToDelete = new();
@@ -45,7 +45,7 @@ namespace BuyItPlatform.ListingsApi.Services
             return response;
         }
 
-        public async Task<ResponseDto> UploadImagesAsync(int listingId, IFormFile[] files)
+        public async Task<ResponseDto> UploadImagesAsync(int listingId, ICollection<IFormFile> files)
         {
             List<string> paths = new();
             foreach(var file in files)
@@ -79,7 +79,7 @@ namespace BuyItPlatform.ListingsApi.Services
                     break;
                 }
             }
-            response.Result = paths;
+            response.Result = paths.ToArray();
             response.Success = true;
             return response;
         }

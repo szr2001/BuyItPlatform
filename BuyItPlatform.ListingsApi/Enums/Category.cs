@@ -3,6 +3,8 @@
     public enum Category
     {
         None,
+        Furniture,
+        Animals,
         Electronics,
         Fashion,
         HomeGarden,

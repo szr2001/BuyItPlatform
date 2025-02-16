@@ -2,6 +2,7 @@
 using BuyItPlatform.ListingsApi.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -10,9 +11,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BuyItPlatform.ListingsApi.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250216082020_AddedNullablePropertiesDb")]
+    partial class AddedNullablePropertiesDb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -46,7 +49,6 @@ namespace BuyItPlatform.ListingsApi.Migrations
                         .HasColumnType("character varying(200)");
 
                     b.PrimitiveCollection<string[]>("ImagePaths")
-                        .IsRequired()
                         .HasMaxLength(3)
                         .HasColumnType("text[]");
 
@@ -65,7 +67,6 @@ namespace BuyItPlatform.ListingsApi.Migrations
                         .HasColumnType("integer");
 
                     b.PrimitiveCollection<int[]>("Tags")
-                        .IsRequired()
                         .HasMaxLength(5)
                         .HasColumnType("integer[]");
 
@@ -74,7 +75,7 @@ namespace BuyItPlatform.ListingsApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Listings", (string)null);
+                    b.ToTable("Listings");
                 });
 #pragma warning restore 612, 618
         }
