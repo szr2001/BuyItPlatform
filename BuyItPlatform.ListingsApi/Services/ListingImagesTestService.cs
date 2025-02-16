@@ -34,7 +34,7 @@ namespace BuyItPlatform.ListingsApi.Services
             }
         }
 
-        public async Task UploadImagesAsync(int listingId, ICollection<IFormFile> files)
+        public async Task<string[]> UploadImagesAsync(int listingId, ICollection<IFormFile> files)
         {
             List<string> paths = new();
 
@@ -69,6 +69,8 @@ namespace BuyItPlatform.ListingsApi.Services
                 }
                 paths.Add(filePath);
             }
+
+            return paths.ToArray();
         }
     }
 }

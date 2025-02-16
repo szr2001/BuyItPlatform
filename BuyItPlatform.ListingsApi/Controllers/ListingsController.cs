@@ -77,5 +77,45 @@ namespace BuyItPlatform.ListingsApi.Controllers
 
             return response;
         }
+
+        [HttpGet]
+        [Route("DeleteListing/{listingId:int}")]
+        public async Task<ResponseDto> DeleteListing(int listingId)
+        {
+            try
+            {
+                await listingService.DeleteListingAsync(listingId);
+
+                response.Success = true;
+
+            }
+            catch (Exception ex)
+            {
+                response.Success = false;
+                response.Message = ex.Message;
+            }
+
+            return response;
+        }
+
+        [HttpGet]
+        [Route("DeleteUserListings/{userid:int}")]
+        public async Task<ResponseDto> DeleteUserListings(int userid)
+        {
+            try
+            {
+                await listingService.DeleteUserListingsAsync(userid);
+
+                response.Success = true;
+
+            }
+            catch (Exception ex)
+            {
+                response.Success = false;
+                response.Message = ex.Message;
+            }
+
+            return response;
+        }
     }
 }

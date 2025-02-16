@@ -100,6 +100,7 @@ namespace BuyItPlatform.ListingsApi.Services
 
         public async Task DeleteListingAsync(int listingId)
         {
+            await imageUploader.DeleteImagesAsync(listingId);//problm
             Listing listing = await dbContext.Listings.Where(i => i.Id == listingId).FirstAsync();
             dbContext.Listings.Remove(listing);
             await dbContext.SaveChangesAsync();
