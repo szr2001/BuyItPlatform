@@ -22,7 +22,8 @@ namespace BuyItPlatform.ListingsApi.Services
             List<string> imagesToDelete = new();
             foreach (var filePath in Directory.GetFiles(testPath))
             {
-                if (filePath.Split('_').Contains(listingId.ToString()))
+                string[] path = filePath.Split('_');
+                if (path[0] == $"{testPath}\\{listingId}")
                 {
                     imagesToDelete.Add(filePath);
                 }
