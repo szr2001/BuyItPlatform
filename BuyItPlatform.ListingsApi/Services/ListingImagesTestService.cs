@@ -16,7 +16,7 @@ namespace BuyItPlatform.ListingsApi.Services
         {
             testPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         }
-        //rewrite without responseDto, just return the object, separation of concerns
+
         public async Task DeleteImagesAsync(int listingId)
         {
             List<string> imagesToDelete = new();

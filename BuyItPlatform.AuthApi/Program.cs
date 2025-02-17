@@ -1,4 +1,9 @@
 
+using BuyItPlatform.AuthApi.Data;
+using BuyItPlatform.AuthApi.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+
 namespace BuyItPlatform.AuthApi
 {
     public class Program
@@ -8,6 +13,16 @@ namespace BuyItPlatform.AuthApi
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            builder.Services.AddDbContext<AppDbContext>(options =>
+            {
+                options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
+            });
+
+            builder.Services.AddIdentity<BuyItUser, BuyItRole>()
+                .AddEntityFrameworkStores<AppDbContext>()
+                .AddDefaultTokenProviders();
+
+            builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection("ApiSettings:JwtOptions"));
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -25,12 +40,26 @@ namespace BuyItPlatform.AuthApi
 
             app.UseHttpsRedirection();
 
+            app.UseAuthentication();
             app.UseAuthorization();
-
 
             app.MapControllers();
 
+            ApplyMigration();
+
             app.Run();
+
+            void ApplyMigration()
+            {
+                using (var scope = app.Services.CreateScope())
+                {
+                    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+                    if (db.Database.GetMigrations().Count() > 0)
+                    {
+                        db.Database.Migrate();
+                    }
+                }
+            }
         }
     }
 }

@@ -61,6 +61,5 @@ namespace BuyItPlatform.ListingsApi
                 }
             }
         }
-
     }
 }
