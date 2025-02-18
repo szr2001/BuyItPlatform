@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using BuyItPlatform.AuthApi.Models;
+using BuyItPlatform.AuthApi.Models.Dto;
 
 namespace BuyItPlatform.AuthApi
 {
@@ -8,6 +10,7 @@ namespace BuyItPlatform.AuthApi
         {
             MapperConfiguration mappingConfig = new(config => 
             {
+                config.CreateMap<BuyItUser, UserDto>();
             });
 
             return mappingConfig;

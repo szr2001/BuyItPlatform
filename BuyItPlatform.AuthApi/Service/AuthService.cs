@@ -23,12 +23,52 @@ namespace BuyItPlatform.AuthApi.Service
 
         public async Task<UserDto> RegisterUser(RegisterRequestDto registerData)
         {
-            return null;
+            if(registerData.Password != registerData.RepeatPassword)
+            {
+                throw new Exception("Passwords doesn't match.");
+            }
+
+            BuyItUser newUser = new()
+            {
+                UserName = registerData.Name,
+                Email = registerData.Email
+            };
+            var result = await userManager.CreateAsync(newUser, registerData.Password);
+            if (!result.Succeeded)
+            {
+                throw new Exception(string.Join(",", result.Errors.Select(i=> i.Description)));
+            }
+
+            BuyItUser returnedUser = await userManager.FindByEmailAsync(registerData.Email);
+
+            UserDto userDto = mapper.Map<UserDto>(returnedUser);
+
+            return userDto;
         }
 
         public async Task<LoginResponseDto> LoginUser(LoginRequestDto registerData)
         {
-            return null;
+            BuyItUser user = await userManager.FindByEmailAsync(registerData.Email);
+            if(user == null)
+            {
+                throw new Exception("Wrong Email or password!");
+            }
+            var isValid = await userManager.CheckPasswordAsync(user,registerData.Password);
+
+            if (!isValid)
+            {
+                throw new Exception("Wrong Email or password!");
+            }
+
+            string token = ""; //generate token
+
+            LoginResponseDto loginResponseDto = new LoginResponseDto() 
+            {
+                User = mapper.Map<UserDto>(user),
+                Token = token,
+            };
+
+            return loginResponseDto;
         }
     }
 }

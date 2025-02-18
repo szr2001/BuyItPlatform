@@ -29,7 +29,7 @@ namespace BuyItPlatform.AuthApi.Controllers
             catch(Exception ex)
             {
                 response.Success = false;
-                response.Message = ex.Message;
+                response.Message = $"{ex.Message}";
             }
             return response;
         }
@@ -40,12 +40,12 @@ namespace BuyItPlatform.AuthApi.Controllers
         {
             try
             {
-                await authService.LoginUser(loginData);
+                response.Result = await authService.LoginUser(loginData);
             }
             catch (Exception ex)
             {
                 response.Success = false;
-                response.Message = ex.Message;
+                response.Message = $"{ex.Message}";
             }
             return response;
         }
