@@ -1,5 +1,4 @@
-﻿using BuyItPlatform.ListingsApi.Models.Dto;
-using BuyItPlatform.ListingsApi.Services.IServices;
+﻿using BuyItPlatform.ListingsApi.Services.IServices;
 
 namespace BuyItPlatform.ListingsApi.Services
 {

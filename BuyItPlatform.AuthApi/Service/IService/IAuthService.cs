@@ -1,6 +1,10 @@
-﻿namespace BuyItPlatform.AuthApi.Service.IService
+﻿using BuyItPlatform.AuthApi.Models.Dto;
+
+namespace BuyItPlatform.AuthApi.Service.IService
 {
     public interface IAuthService
     {
+        Task<LoginResponseDto> LoginUser(LoginRequestDto registerData);
+        Task<UserDto> RegisterUser(RegisterRequestDto registerData);
     }
 }

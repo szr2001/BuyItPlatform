@@ -1,6 +1,9 @@
 
+using AutoMapper;
 using BuyItPlatform.AuthApi.Data;
 using BuyItPlatform.AuthApi.Models;
+using BuyItPlatform.AuthApi.Service;
+using BuyItPlatform.AuthApi.Service.IService;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,10 +21,14 @@ namespace BuyItPlatform.AuthApi
                 options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
 
+            IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();
+            builder.Services.AddSingleton(mapper);
+
             builder.Services.AddIdentity<BuyItUser, BuyItRole>()
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddDefaultTokenProviders();
 
+            builder.Services.AddScoped<IAuthService, AuthService>();
             builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection("ApiSettings:JwtOptions"));
 
             builder.Services.AddControllers();

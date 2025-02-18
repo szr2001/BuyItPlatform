@@ -20,9 +20,9 @@ namespace BuyItPlatform.ListingsApi
             });
 
             IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();
-
             builder.Services.AddSingleton(mapper);
-            builder.Services.AddSingleton<IImageUploader, ListingImagesTestService>();
+            
+            builder.Services.AddScoped<IImageUploader, ListingImagesTestService>();
             builder.Services.AddScoped<IListingsService, ListingsService>();
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
