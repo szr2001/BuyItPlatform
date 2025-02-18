@@ -10,15 +10,17 @@ namespace BuyItPlatform.AuthApi.Service
     public class AuthService : IAuthService
     {
         public readonly IMapper mapper;
+        public readonly IJwtTokenGenerator jwtTokenGenerator;
         public readonly AppDbContext appContext;
         public readonly UserManager<BuyItUser> userManager;
         public readonly RoleManager<BuyItRole> roleManager;
-        public AuthService(AppDbContext appContext, IMapper mapper, UserManager<BuyItUser> userManager, RoleManager<BuyItRole> roleManager)
+        public AuthService(AppDbContext appContext, IMapper mapper, UserManager<BuyItUser> userManager, RoleManager<BuyItRole> roleManager, IJwtTokenGenerator jwtTokenGenerator)
         {
             this.mapper = mapper;
             this.appContext = appContext;
             this.userManager = userManager;
             this.roleManager = roleManager;
+            this.jwtTokenGenerator = jwtTokenGenerator;
         }
 
         public async Task<UserDto> RegisterUser(RegisterRequestDto registerData)
@@ -60,7 +62,7 @@ namespace BuyItPlatform.AuthApi.Service
                 throw new Exception("Wrong Email or password!");
             }
 
-            string token = ""; //generate token
+            string token = jwtTokenGenerator.GenerateToken(user);
 
             LoginResponseDto loginResponseDto = new LoginResponseDto() 
             {
