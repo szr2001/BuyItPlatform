@@ -41,6 +41,8 @@ namespace BuyItPlatform.AuthApi.Service
                 throw new Exception(string.Join(",", result.Errors.Select(i=> i.Description)));
             }
 
+            await AssignRole(newUser.Email, "User");
+
             BuyItUser returnedUser = await userManager.FindByEmailAsync(registerData.Email);
 
             UserDto userDto = mapper.Map<UserDto>(returnedUser);
@@ -61,8 +63,8 @@ namespace BuyItPlatform.AuthApi.Service
             {
                 throw new Exception("Wrong Email or password!");
             }
-
-            string token = jwtTokenGenerator.GenerateToken(user);
+            var roles = await userManager.GetRolesAsync(user);
+            string token = jwtTokenGenerator.GenerateToken(user, roles);
 
             LoginResponseDto loginResponseDto = new LoginResponseDto() 
             {
@@ -71,6 +73,21 @@ namespace BuyItPlatform.AuthApi.Service
             };
 
             return loginResponseDto;
+        }
+
+        public async Task AssignRole(string email, string rolename)
+        {
+            BuyItUser user = await userManager.FindByEmailAsync(email);
+            if(user == null )
+            {
+                throw new Exception("AsignRole failed");
+            }
+
+            if(!await roleManager.RoleExistsAsync(rolename))
+            {
+                await roleManager.CreateAsync(new BuyItRole() { Name = rolename});
+            }
+            await userManager.AddToRoleAsync(user, rolename);
         }
     }
 }

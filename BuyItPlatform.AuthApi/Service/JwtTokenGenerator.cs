@@ -17,7 +17,7 @@ namespace BuyItPlatform.AuthApi.Service
             this.jwtOptions = jwtOptions.Value;
         }
 
-        public string GenerateToken(BuyItUser user)
+        public string GenerateToken(BuyItUser user, IEnumerable<string> roles)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             
@@ -32,6 +32,8 @@ namespace BuyItPlatform.AuthApi.Service
                 new Claim(JwtRegisteredClaimNames.Name, user.UserName),
             };
 
+            claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
+
             //set the token data
             var tokenDescriptor = new SecurityTokenDescriptor
             {
@@ -45,6 +47,7 @@ namespace BuyItPlatform.AuthApi.Service
             //create token
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
+            //return the encrypted token as string
             return tokenHandler.WriteToken(token);
         }
     }

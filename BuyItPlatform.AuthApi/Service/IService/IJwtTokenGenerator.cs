@@ -4,6 +4,6 @@ namespace BuyItPlatform.AuthApi.Service.IService
 {
     public interface IJwtTokenGenerator
     {
-        string GenerateToken(BuyItUser user);
+        string GenerateToken(BuyItUser user, IEnumerable<string> roles);
     }
 }

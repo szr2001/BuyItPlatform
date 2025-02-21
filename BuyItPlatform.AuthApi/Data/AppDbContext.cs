@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BuyItPlatform.AuthApi.Data
 {
-    public class AppDbContext : IdentityDbContext<BuyItUser>
+    public class AppDbContext : IdentityDbContext<BuyItUser, BuyItRole, string>
     {
         //add more user data
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) 

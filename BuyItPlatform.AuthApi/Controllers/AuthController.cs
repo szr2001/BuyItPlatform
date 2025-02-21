@@ -49,5 +49,21 @@ namespace BuyItPlatform.AuthApi.Controllers
             }
             return response;
         }
+        [HttpPost]
+        [Route("assignRole")]
+        public async Task<ResponseDto> AssignRole([FromQuery] string email, [FromQuery] string roleName)
+        {
+            try
+            {
+                await authService.AssignRole(email,roleName);
+                response.Success= true;
+            }
+            catch (Exception ex)
+            {
+                response.Success = false;
+                response.Message = $"{ex.Message}";
+            }
+            return response;
+        }
     }
 }
