@@ -2,12 +2,14 @@
 using BuyItPlatform.ListingsApi.Models;
 using BuyItPlatform.ListingsApi.Models.Dto;
 using BuyItPlatform.ListingsApi.Services.IServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BuyItPlatform.ListingsApi.Controllers
 {
     [ApiController]
     [Route("api/listingsApi")]
+    [Authorize]
     public class ListingsController : Controller
     {
         private readonly IMapper mapper;

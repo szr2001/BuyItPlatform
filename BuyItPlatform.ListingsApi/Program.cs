@@ -1,9 +1,15 @@
 
 using AutoMapper;
 using BuyItPlatform.ListingsApi.Data;
+using BuyItPlatform.ListingsApi.Extensions;
 using BuyItPlatform.ListingsApi.Services;
 using BuyItPlatform.ListingsApi.Services.IServices;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.ObjectPool;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using System.Text;
 
 namespace BuyItPlatform.ListingsApi
 {
@@ -27,7 +33,38 @@ namespace BuyItPlatform.ListingsApi
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            //configure Swagger UI to work with The JWT token
+            builder.Services.AddSwaggerGen(option => 
+            {
+                //add the UI for the token input
+                option.AddSecurityDefinition(name: JwtBearerDefaults.AuthenticationScheme, securityScheme: new OpenApiSecurityScheme
+                {
+                    Name = "Authorization",
+                    Description = "Enter the Bearer Authorization string as following: 'Bearer Generated-JWT-Token'",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer"
+                });
+                option.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = JwtBearerDefaults.AuthenticationScheme,
+
+                            }
+                        },new string[]{ }
+                    }
+                });
+            });
+
+            builder.AddAppAuthentication();
+
+            //adds the default authorization
+            builder.Services.AddAuthorization();
 
             var app = builder.Build();
 
@@ -40,9 +77,11 @@ namespace BuyItPlatform.ListingsApi
 
             app.UseHttpsRedirection();
 
+            //specify the app should use the authentication and authorization we added
+            //in the dependency injection
+            app.UseAuthentication();
             app.UseAuthorization();
-
-
+            
             app.MapControllers();
 
             ApplyMigration();

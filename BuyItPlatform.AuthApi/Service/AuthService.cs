@@ -41,7 +41,7 @@ namespace BuyItPlatform.AuthApi.Service
                 throw new Exception(string.Join(",", result.Errors.Select(i=> i.Description)));
             }
 
-            await AssignRole(newUser.Email, "User");
+            await AssignRole(newUser.Email, RolesDefaults.User);
 
             BuyItUser returnedUser = await userManager.FindByEmailAsync(registerData.Email);
 
