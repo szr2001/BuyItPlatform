@@ -11,14 +11,11 @@
   <ItemGroup>
     <Folder Include="src\Components\Categories\" />
     <Folder Include="src\Components\Listings\" />
-    <Folder Include="src\Components\Footer\" />
-    <Folder Include="src\Components\Navbar\" />
     <Folder Include="src\Components\Search\" />
-    <Folder Include="src\Pages\Home\" />
-    <Folder Include="src\Pages\Login\" />
-    <Folder Include="src\Pages\Listings\" />
-    <Folder Include="src\Pages\Listing\" />
-    <Folder Include="src\Pages\AddListing\" />
-    <Folder Include="src\Pages\Register\" />
+    <Folder Include="src\Containers\Login\" />
+    <Folder Include="src\Containers\Listings\" />
+    <Folder Include="src\Containers\Listing\" />
+    <Folder Include="src\Containers\AddListing\" />
+    <Folder Include="src\Containers\Register\" />
   </ItemGroup>
 </Project>
