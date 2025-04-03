@@ -8,13 +8,11 @@ function Navbar() {
               <h1>Medieval Marketplace</h1>
           </header>
 
-          <nav className="navbar">
-              <ul>
-                  <Link to="/">Home</Link>
-                  <Link to="/Village/">Village</Link>
-                  <Link to="/Account/">Account</Link>
-              </ul>
-          </nav>
+          <div className="navbar">
+              <Link className="navbar-option" to="/">Home</Link>
+              <Link className="navbar-option" to="/Account/">Account</Link>
+              <Link className="navbar-option" to="/Village/">Village</Link>
+          </div>
       </>
   );
 }

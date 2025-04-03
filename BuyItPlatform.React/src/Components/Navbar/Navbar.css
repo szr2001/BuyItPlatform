@@ -1,21 +1,16 @@
-nav {
+.navbar {
     background-color: var(--secondary-color);
-    padding: 10px;
-    text-align: center;
-}
-
-nav ul {
-    list-style: none;
+    display: flex;
+    justify-content:center;
     padding: 0;
 }
 
-nav ul li {
-    display: inline;
-    margin: 0 15px;
-}
-
-nav ul li a {
-    color: var(--primary-color);
+.navbar-option {
+    color: var(--text-color);
+    font-family: var(--primary-font);
     text-decoration: none;
     font-weight: bold;
+    padding: 20px;
+    cursor: pointer;
+    font-size: 25px;
 }
