@@ -1,13 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Uncial+Antiqua&family=EB+Garamond&display=swap');
 :root {
     --primary-color: #2D3A4D;
-    --primary-color-rgb: 23, 21, 59;
-    --secondary-color: #F0E3C7;
-    --secondary-color-rgb: 46, 35, 108;
-    --text-color: #C8ACD6;
-    --text-color-rgb: 200, 172, 214;
+    --secondary-color: #D9BF77;
+    --highlight-color: #6A4C93;
+    --accent-color: #A8D8B9;
+    --text-color: #2D3A4D;
     --background-color: #F0E3C7;
-    --background-color-rgb: 67, 61, 139;
     --primary-font: 'EB Garamond', serif;
     background-color: var(--primary-color);
     -ms-overflow-style: none;

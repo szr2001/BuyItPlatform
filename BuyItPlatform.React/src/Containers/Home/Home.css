@@ -1,6 +1,6 @@
 body {
-    background-color: #F0E3C7; 
-    color: #2D3A4D; 
+    background-color: var(--background-color);
+    color: var(--text-color);
     font-family: 'EB Garamond', serif;
     margin: 0;
     padding: 0;
@@ -17,7 +17,7 @@ main {
 }
 
 header {
-    background-color: #2D3A4D;
+    background-color: var(--text-color);
     color: #F0E3C7; 
     text-align: center;
     padding: 20px;
@@ -26,7 +26,7 @@ header {
 }
 
 button {
-    background-color: #6A4C93;
+    background-color: var(--highlight-color);
     text-align: center;
     padding: 10px;
     color: white;
@@ -35,7 +35,7 @@ button {
 }
 
 button:hover {
-    background-color: #6A4C93;
+    background-color: var(--highlight-color);
     text-align: center;
     padding: 10px;
     color: white;
@@ -45,7 +45,7 @@ button:hover {
 }
 
 nav {
-    background-color: #D9BF77; 
+    background-color: var(--secondary-color);
     padding: 10px;
     text-align: center;
 }
@@ -61,14 +61,14 @@ nav ul li {
 }
 
 nav ul li a {
-    color: #2D3A4D; 
+    color: var(--primary-color);
     text-decoration: none;
     font-weight: bold;
 }
 
 .content {
     padding: 20px;
-    background-color: #A8D8B9;
+    background-color: var(--accent-color);
     margin: 20px;
     border-radius: 10px;
     box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
@@ -76,15 +76,15 @@ nav ul li a {
 
 .content:hover {
     padding: 20px;
-    background-color: #A8D8B9; 
+    background-color: var(--accent-color);
     margin: 20px;
     border-radius: 50px;
     box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
 }
 
 footer {
-    background-color: #2D3A4D;
-    color: #F0E3C7; 
+    background-color: var(--primary-color);
+    color: #F0E3C7;
     text-align: center;
     padding: 10px;
     margin-top: 20px;
