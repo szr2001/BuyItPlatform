@@ -1,7 +1,9 @@
 import './Footer.css'
 function Footer() {
   return (
-      <p>Footer</p>
+      <footer>
+          <p>© 2025 Medieval Chronicles. All Rights Reserved.</p>
+      </footer>
   );
 }
 
