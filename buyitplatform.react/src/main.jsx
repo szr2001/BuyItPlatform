@@ -3,12 +3,12 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 
 import { Navbar, Footer } from './Components';
-import { Home } from './Containers';
+import { App } from './Containers';
 
 createRoot(document.getElementById('root')).render(
     <StrictMode>
         <Navbar/>
-        <Home/>
+        <App />
         <Footer/>
     </StrictMode>,
 )
