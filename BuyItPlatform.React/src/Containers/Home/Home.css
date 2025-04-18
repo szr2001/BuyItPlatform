@@ -1,4 +1,4 @@
-.Holder {
+.holder {
     display: flex;
     justify-content: center;
 }
@@ -8,13 +8,77 @@ main {
     padding: 15px;
 }
 
+.searchbar{
+    display:flex;
+    justify-content:center;
+    width: 80%;
+    max-width:950px;
+    height:65px;
+}
+
+.searchbar-img{
+    width:25px;
+    height:25px;
+    align-self:center;
+    margin:5px;
+}
+
+.searchbar-text{
+    border:none;
+    height:55px;
+    font-family:var(--primary-font);
+    background-color:transparent;
+    width:100%;
+    font-size:25px;
+    outline:none;
+}
+.searchbar-text:focus{
+    border-bottom:groove;
+    border-width:2px;
+}
+
+.searchbar-element-obj {
+    width: 70%;
+}
+
+.searchbar-element {
+    display: flex;
+    padding:5px;
+    justify-content: center;
+    text-align: center;
+    background-color: white;
+}
+
+.searchbar-button {
+    margin: 5px 5px 5px 15px;
+    border: none;
+    background-color: var(--highlight-color);
+    width: 100px;
+    color:white;
+    font-family:var(--primary-font);
+    font-size:20px;
+    border-radius: 15px;
+}
+
+.searchbar-button:hover{
+
+}
+
+.rounded-left {
+    border-radius: 15px 0px 0px 15px;
+}
+
+.rounded-right {
+    border-radius: 0px 15px 15px 0px;
+}
+
 header {
     background-color: var(--text-color);
     color: #F0E3C7; 
     text-align: center;
-    padding: 20px;
+    padding: 5px;
     font-family: 'Uncial Antiqua', cursive;
-    font-size: 24px;
+    font-size: 20px;
 }
 
 button:hover {

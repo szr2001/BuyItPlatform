@@ -15,7 +15,7 @@
 body {
     background-color: var(--background-color);
     color: var(--text-color);
-    font-family: 'EB Garamond', serif;
+    font-family: var(--primary-font);
     margin: 0;
     padding: 0;
 }
