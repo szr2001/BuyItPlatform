@@ -13,7 +13,7 @@ main {
     justify-content:center;
     width: 80%;
     max-width:950px;
-    height:65px;
+    height:70px;
 }
 
 .searchbar-img{
@@ -23,18 +23,20 @@ main {
     margin:5px;
 }
 
-.searchbar-text{
-    border:none;
-    height:55px;
-    font-family:var(--primary-font);
-    background-color:transparent;
-    width:100%;
-    font-size:25px;
-    outline:none;
+.searchbar-text {
+    border: none;
+    height: 55px;
+    font-family: var(--primary-font);
+    background-color: transparent;
+    width: 100%;
+    border-color: var(--highlight-color);
+    font-size: 25px;
+    outline: none;
 }
 .searchbar-text:focus{
     border-bottom:groove;
-    border-width:2px;
+    border-color: var(--highlight-color);
+    border-width:3px;
 }
 
 .searchbar-element-obj {
@@ -52,16 +54,19 @@ main {
 .searchbar-button {
     margin: 5px 5px 5px 15px;
     border: none;
-    background-color: var(--highlight-color);
+    background-color: var(--primary-color);
     width: 100px;
-    color:white;
-    font-family:var(--primary-font);
-    font-size:20px;
+    color: white;
+    font-family: var(--primary-font);
+    font-size: 20px;
+    transition: all 0.1s;
     border-radius: 15px;
+    cursor: pointer;
 }
 
-.searchbar-button:hover{
-
+.searchbar-button:hover {
+    background-color: var(--highlight-color);
+    border-radius: 25px;
 }
 
 .rounded-left {
@@ -79,16 +84,6 @@ header {
     padding: 5px;
     font-family: 'Uncial Antiqua', cursive;
     font-size: 20px;
-}
-
-button:hover {
-    background-color: var(--highlight-color);
-    text-align: center;
-    padding: 10px;
-    color: white;
-    font-family: bold;
-    font-size: 15px;
-    border-radius: 15px;
 }
 
 .content {
