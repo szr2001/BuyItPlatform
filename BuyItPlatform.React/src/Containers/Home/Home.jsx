@@ -1,19 +1,18 @@
 ﻿import './Home.css'
+import { useState } from 'react';
+import { ListingSearch, Categories, ListingsDisplay } from '../../Components';
 function Home() {
+    const [listings, setListings] = useState([]);
+    const handleSearch = ({ title, location }) => {
+        console.log(title + location); // do the api call to get the listings
+    };
+
   return (
         <main>
           <div className = "holder">
-              <form className="searchbar">
-                  <div className="searchbar-element searchbar-element-obj rounded-left">
-                        <img className = "searchbar-img"/>
-                        <input className="searchbar-text" autoComplete="off" type="text" id="searchItem" placeholder="Searching for Treasure?"/>
-                  </div>
-                  <div className="searchbar-element rounded-right">
-                      <img className="searchbar-img" />
-                      <input className="searchbar-text" autoComplete="off" type="text" id="searchLocation" placeholder="Village?" />
-                  </div>
-                  <button className="searchbar-button" type="submit">Search</button>
-              </form>
+              <ListingSearch onSearch={handleSearch} />
+              <Categories />
+              <ListingsDisplay listings={listings} />
           </div>
 
         </main>

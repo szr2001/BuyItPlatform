@@ -8,67 +8,6 @@ main {
     padding: 15px;
 }
 
-.searchbar{
-    display:flex;
-    justify-content:center;
-    width: 80%;
-    max-width:950px;
-    height:70px;
-}
-
-.searchbar-img{
-    width:25px;
-    height:25px;
-    align-self:center;
-    margin:5px;
-}
-
-.searchbar-text {
-    border: none;
-    height: 55px;
-    font-family: var(--primary-font);
-    background-color: transparent;
-    width: 100%;
-    border-color: var(--highlight-color);
-    font-size: 25px;
-    outline: none;
-}
-.searchbar-text:focus{
-    border-bottom:groove;
-    border-color: var(--highlight-color);
-    border-width:3px;
-}
-
-.searchbar-element-obj {
-    width: 70%;
-}
-
-.searchbar-element {
-    display: flex;
-    padding:5px;
-    justify-content: center;
-    text-align: center;
-    background-color: white;
-}
-
-.searchbar-button {
-    margin: 5px 5px 5px 15px;
-    border: none;
-    background-color: var(--primary-color);
-    width: 100px;
-    color: white;
-    font-family: var(--primary-font);
-    font-size: 20px;
-    transition: all 0.1s;
-    border-radius: 15px;
-    cursor: pointer;
-}
-
-.searchbar-button:hover {
-    background-color: var(--highlight-color);
-    border-radius: 25px;
-}
-
 .rounded-left {
     border-radius: 15px 0px 0px 15px;
 }
