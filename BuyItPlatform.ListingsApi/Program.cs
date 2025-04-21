@@ -15,16 +15,6 @@ namespace BuyItPlatform.ListingsApi
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            //temporary allow Cross-Origin Resource Sharing for testing
-            //allowing the frontend on localhost and the port to access the api on a different port
-            builder.Services.AddCors(options =>
-            {
-                options.AddPolicy("AllowReactApp",
-                    policy => policy.WithOrigins("http://localhost:52633")
-                                    .AllowAnyMethod()
-                                    .AllowAnyHeader());
-            });
-
             // Add services to the container.
             builder.Services.AddDbContext<AppDbContext>(options =>
             {
@@ -77,7 +67,6 @@ namespace BuyItPlatform.ListingsApi
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
-                app.UseCors("AllowReactApp");
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
