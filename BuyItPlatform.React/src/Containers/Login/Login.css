@@ -1,0 +1,77 @@
+.holder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.login-img {
+    width: 40px;
+    height: 40px;
+    align-self: center;
+    color: var(--primary-color);
+    margin: 5px;
+}
+.login-button {
+    justify-content: center;
+    border: none;
+    background-color: var(--primary-color);
+    color: white;
+    height: 50px;
+    font-family: var(--primary-font);
+    transition: all 0.1s;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.login-button label {
+    border: none;
+    align-self: center;
+    font-family: var(--primary-font);
+    border-color: var(--highlight-color);
+    font-size: 20px;
+    outline: none;
+    pointer-events: none;
+    font-weight: bold;
+}
+
+.login-button:hover {
+    background-color: var(--highlight-color);
+    border-radius: 20px;
+}
+
+.welcome-text {
+    font-family: var(--primary-font);
+    font-size: 35px;
+    font-weight: bold;
+    margin: 35px;
+    margin-bottom: 5px;
+}
+
+.login-text {
+    border: none;
+    height: 55px;
+    align-self: center;
+    font-family: var(--primary-font);
+    background-color: transparent;
+    border-color: var(--highlight-color);
+    font-size: 25px;
+    outline: none;
+    width: 100%;
+    margin: 10px;
+}
+
+    .login-text:focus {
+        border-bottom: groove;
+        border-color: var(--highlight-color);
+        border-width: 3px;
+    }
+
+.login-element {
+    margin: 20px;
+    display: flex;
+    padding: 5px;
+    background-color: white;
+    border-radius: 25px;
+    width: 400px;
+    height: 55px;
+}

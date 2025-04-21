@@ -3,12 +3,11 @@
     justify-content: center;
     width: 80%;
     max-width: 950px;
-    height: 70px;
 }
 
 .searchbar-img {
-    width: 35px;
-    height: 35px;
+    width: 40px;
+    height: 40px;
     align-self: center;
     color: var(--primary-color);
     margin: 5px;
@@ -24,6 +23,7 @@
     border-color: var(--highlight-color);
     font-size: 25px;
     outline: none;
+    margin:10px;
 }
 
 .searchbar-text:focus {
@@ -38,6 +38,7 @@
 
 .searchbar-element {
     display: flex;
+    height: 55px;
     padding: 5px;
     justify-content: center;
     text-align: center;
@@ -80,4 +81,25 @@
 
 .searchbar-button:hover svg {
     color: var(--primary-color);
+}
+
+/*responsive design example in pure css*/
+@media (max-width: 868px) {
+    .searchbar {
+        flex-direction:column;
+        justify-content: space-between;
+    }
+    .searchbar-element-obj {
+        width: 100%;
+    }
+    .searchbar-element {
+        margin:10px;
+        align-self:center;
+        border-radius:25px !important;
+    }
+    .searchbar-button {
+        width: 130px;
+        height:55px;
+        align-self:center;
+    }
 }
