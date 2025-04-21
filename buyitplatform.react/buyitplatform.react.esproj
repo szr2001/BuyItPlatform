@@ -9,12 +9,11 @@
     <BuildOutputFolder>$(MSBuildProjectDirectory)\dist</BuildOutputFolder>
   </PropertyGroup>
   <ItemGroup>
+    <Folder Include="src\assets\" />
     <Folder Include="src\Components\Listings\" />
-    <Folder Include="src\Containers\Login\" />
     <Folder Include="src\Containers\Listings\" />
     <Folder Include="src\Containers\Listing\" />
     <Folder Include="src\Containers\AddListing\" />
-    <Folder Include="src\Containers\Register\" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".vscode\launch.json" />
