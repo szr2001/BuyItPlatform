@@ -1,8 +1,9 @@
 ﻿import './Register.css'
+import { useState } from 'react';
 
 function Register() {
 
-    const handleRegister = () =>
+    const handleRegister = async () =>
     {
 
     }

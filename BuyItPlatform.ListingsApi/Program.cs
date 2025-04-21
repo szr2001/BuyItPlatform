@@ -1,4 +1,3 @@
-
 using AutoMapper;
 using BuyItPlatform.ListingsApi.Data;
 using BuyItPlatform.ListingsApi.Extensions;
@@ -6,10 +5,7 @@ using BuyItPlatform.ListingsApi.Services;
 using BuyItPlatform.ListingsApi.Services.IServices;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.ObjectPool;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using System.Text;
 
 namespace BuyItPlatform.ListingsApi
 {
@@ -18,6 +14,16 @@ namespace BuyItPlatform.ListingsApi
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            //temporary allow Cross-Origin Resource Sharing for testing
+            //allowing the frontend on localhost and the port to access the api on a different port
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowReactApp",
+                    policy => policy.WithOrigins("http://localhost:52633")
+                                    .AllowAnyMethod()
+                                    .AllowAnyHeader());
+            });
 
             // Add services to the container.
             builder.Services.AddDbContext<AppDbContext>(options =>
@@ -71,6 +77,7 @@ namespace BuyItPlatform.ListingsApi
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
+                app.UseCors("AllowReactApp");
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
