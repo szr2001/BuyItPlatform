@@ -28,9 +28,10 @@
     background-color: transparent;
     border-color: var(--highlight-color);
     font-size: 25px;
+    animation-delay: 0.1s;
     outline: none;
-    width:100%;
-    margin:10px;
+    width: 100%;
+    margin: 10px;
 }
 
 .register-button {
@@ -38,7 +39,8 @@
     border: none;
     background-color: var(--primary-color);
     color: white;
-    height:50px;
+    animation-delay: 0.3s;
+    height: 50px;
     font-family: var(--primary-font);
     transition: all 0.1s;
     border-radius: 10px;
@@ -67,6 +69,7 @@
 
 .register-element {
     margin: 20px;
+    animation-delay: 0.2s;
     display: flex;
     padding: 5px;
     background-color: white;
