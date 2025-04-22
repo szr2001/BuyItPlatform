@@ -11,6 +11,11 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
 }
+.holder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
 .fade-in {
     opacity: 0;
