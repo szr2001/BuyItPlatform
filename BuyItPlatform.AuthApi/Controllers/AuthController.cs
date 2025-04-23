@@ -1,12 +1,10 @@
-﻿using BuyItPlatform.AuthApi.Data;
-using BuyItPlatform.AuthApi.Models.Dto;
-using BuyItPlatform.AuthApi.Service;
+﻿using BuyItPlatform.AuthApi.Models.Dto;
 using BuyItPlatform.AuthApi.Service.IService;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BuyItPlatform.AuthApi.Controllers
 {
-    [Route("api/authApi")]
+    [Route("authApi")]
     [ApiController]
     public class AuthController : Controller
     {

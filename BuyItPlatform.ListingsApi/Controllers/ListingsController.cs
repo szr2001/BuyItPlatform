@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BuyItPlatform.ListingsApi.Controllers
 {
     [ApiController]
-    [Route("api/listingsApi")]
+    [Route("listingsApi")]
     [Authorize]
     public class ListingsController : Controller
     {

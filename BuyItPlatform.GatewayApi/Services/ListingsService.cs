@@ -6,11 +6,11 @@ namespace BuyItPlatform.GatewayApi.Services
 {
     public class ListingsService : IListingsService
     {
-        private readonly IApiCallsService serviceBase;
+        private readonly IApiCallsService apiCallsService;
         private readonly MicroservicesUrls microservicesUrl;
         public ListingsService(IApiCallsService serviceBase, MicroservicesUrls microservicesUrl)
         {
-            this.serviceBase = serviceBase;
+            this.apiCallsService = serviceBase;
             this.microservicesUrl = microservicesUrl;
         }
 
