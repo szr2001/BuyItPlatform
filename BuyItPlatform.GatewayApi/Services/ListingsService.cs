@@ -1,15 +1,17 @@
 ﻿using BuyItPlatform.GatewayApi.Models;
 using BuyItPlatform.GatewayApi.Services.IServices;
+using BuyItPlatform.GatewayApi.Utility;
 
 namespace BuyItPlatform.GatewayApi.Services
 {
     public class ListingsService : IListingsService
     {
         private readonly IApiCallsService serviceBase;
-
-        public ListingsService(IApiCallsService serviceBase)
+        private readonly MicroservicesUrls microservicesUrl;
+        public ListingsService(IApiCallsService serviceBase, MicroservicesUrls microservicesUrl)
         {
             this.serviceBase = serviceBase;
+            this.microservicesUrl = microservicesUrl;
         }
 
         public Task DeleteListingAsync(int listingId)
