@@ -29,6 +29,7 @@ namespace BuyItPlatform.ListingsApi.Controllers
             try
             {
                 await listingService.UploadListingAsync(listingDto);
+                response.Success = true;
             }
             catch(Exception ex)
             {
@@ -46,12 +47,9 @@ namespace BuyItPlatform.ListingsApi.Controllers
             try
             {
                 Listing listing = await listingService.GetListingWithIdAsync(listingId);
-
                 ListingDto responseDto = mapper.Map<ListingDto>(listing);
-
                 response.Result = responseDto;
                 response.Success = true;
-                
             }
             catch(Exception ex)
             {
@@ -68,7 +66,9 @@ namespace BuyItPlatform.ListingsApi.Controllers
         {
             try
             {
-                response.Result = await listingService.GetListingsAsync(listFilter, count, offset);
+                List<Listing> listings = await listingService.GetListingsAsync(listFilter, count, offset);
+                List<ListingDto> listingDtos = mapper.Map<List<ListingDto>>(listings);
+                response.Result = listingDtos;
                 response.Success = true;
             }
             catch (Exception ex)
@@ -87,9 +87,7 @@ namespace BuyItPlatform.ListingsApi.Controllers
             try
             {
                 await listingService.DeleteListingAsync(listingId);
-
                 response.Success = true;
-
             }
             catch (Exception ex)
             {
@@ -107,9 +105,7 @@ namespace BuyItPlatform.ListingsApi.Controllers
             try
             {
                 await listingService.DeleteUserListingsAsync(userid);
-
                 response.Success = true;
-
             }
             catch (Exception ex)
             {

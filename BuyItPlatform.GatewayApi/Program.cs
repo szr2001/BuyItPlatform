@@ -1,4 +1,7 @@
 
+using BuyItPlatform.GatewayApi.Services;
+using BuyItPlatform.GatewayApi.Services.IServices;
+
 namespace BuyItPlatform.GatewayApi
 {
     public class Program
@@ -18,6 +21,15 @@ namespace BuyItPlatform.GatewayApi
                                     .AllowAnyHeader());
             });
             builder.Services.AddControllers();
+            builder.Services.AddHttpContextAccessor();
+            builder.Services.AddHttpClient();
+            builder.Services.AddHttpClient<IListingsService, ListingsService>();
+            builder.Services.AddHttpClient<IAuthService, AuthService>();
+
+            builder.Services.AddScoped<IApiCallsService, ApiCallsService>();
+            builder.Services.AddScoped<IListingsService, ListingsService>();
+            builder.Services.AddScoped<IAuthService, AuthService>();
+
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
