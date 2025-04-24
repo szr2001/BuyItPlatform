@@ -14,29 +14,48 @@ namespace BuyItPlatform.GatewayApi.Services
             this.microservicesUrl = microservicesUrl;
         }
 
-        public Task DeleteListingAsync(int listingId)
+        public async Task<ResponseDto> DeleteListingAsync(int listingId)
         {
-            throw new NotImplementedException();
+            return await apiCallsService.SendAsync(new RequestDto() 
+            {
+                Url = $"{microservicesUrl.ListingsApiUrl}/DeleteListing/{listingId}"
+            });
         }
 
-        public Task DeleteUserListingsAsync(int userId)
+        public async Task<ResponseDto> DeleteUserListingsAsync(int userId)
         {
-            throw new NotImplementedException();
+            return await apiCallsService.SendAsync(new RequestDto()
+            {
+                Url = $"{microservicesUrl.ListingsApiUrl}/DeleteUserListings/{userId}"
+            });
         }
 
-        public Task<List<ListingDto>> GetListingsAsync(ListingFIlterDto listFilter, int count, int offset)
+        public async Task<ResponseDto> GetListingsAsync(ListingFIlterDto listFilter, int count, int offset)
         {
-            throw new NotImplementedException();
+            return await apiCallsService.SendAsync(new RequestDto()
+            {
+                ApiType = Enums.ApiType.POST,
+                Url = $"{microservicesUrl.ListingsApiUrl}/GetListings?count={count}&offset={offset}",
+                Data = listFilter
+            });
         }
 
-        public Task<ListingDto> GetListingWithIdAsync(int id)
+        public async Task<ResponseDto> GetListingWithIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await apiCallsService.SendAsync(new RequestDto()
+            {
+                Url = $"{microservicesUrl.ListingsApiUrl}/GetListingWithId/{id}"
+            });
         }
 
-        public Task UploadListingAsync(ListingDto listingDto)
+        public async Task<ResponseDto> UploadListingAsync(ListingDto listingDto)
         {
-            throw new NotImplementedException();
+            return await apiCallsService.SendAsync(new RequestDto()
+            {
+                ApiType = Enums.ApiType.POST,
+                Url = $"{microservicesUrl.ListingsApiUrl}/UploadListing",
+                Data = listingDto
+            });
         }
     }
 }

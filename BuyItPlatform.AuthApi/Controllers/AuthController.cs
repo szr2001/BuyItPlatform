@@ -22,7 +22,8 @@ namespace BuyItPlatform.AuthApi.Controllers
         {
             try
             {
-                await authService.RegisterUser(registerData);
+                response.Result = await authService.RegisterUser(registerData);
+                response.Success = true;
             }
             catch(Exception ex)
             {
@@ -39,6 +40,7 @@ namespace BuyItPlatform.AuthApi.Controllers
             try
             {
                 response.Result = await authService.LoginUser(loginData);
+                response.Success = true;
             }
             catch (Exception ex)
             {

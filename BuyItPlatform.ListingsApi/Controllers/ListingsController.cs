@@ -60,9 +60,9 @@ namespace BuyItPlatform.ListingsApi.Controllers
             return response;
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("GetListings")]
-        public async Task<ResponseDto> GetListings([FromQuery] ListingFIlterDto listFilter, [FromQuery] int count, [FromQuery] int offset)
+        public async Task<ResponseDto> GetListings([FromBody] ListingFIlterDto listFilter, [FromQuery] int count, [FromQuery] int offset)
         {
             try
             {
