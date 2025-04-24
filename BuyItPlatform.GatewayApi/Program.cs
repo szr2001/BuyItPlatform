@@ -41,10 +41,10 @@ namespace BuyItPlatform.GatewayApi
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
-                app.UseCors("AllowReactApp");
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+                app.UseCors("AllowReactApp");
 
             app.UseHttpsRedirection();
 
