@@ -22,6 +22,19 @@
     animation: fadeIn 0.2s ease-in forwards;
 }
 
+.custom-toast {
+    background-color: var(--highlight-color) !important;
+    color: var(--background-color) !important;
+    font-weight: bold !important;
+}
+.custom-toast-body {
+    font-size: 1rem !important;
+    padding: 16px !important;
+}
+.custom-progress {
+    background: var(--primary-color) !important;
+}
+
 @keyframes fadeIn {
     to {
         opacity: 1;

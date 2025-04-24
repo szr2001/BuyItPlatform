@@ -1,4 +1,6 @@
 ﻿import './Register.css'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
@@ -33,11 +35,22 @@ function Register() {
 
         try {
             const response = await api.post('/register', registerData);
-            console.log('Registration successful:', response.data);
+
+            if (!response.data.success) {
+                toast.error(response.data.message, {
+                    autoClose: 2000 + response.data.message.length * 50,
+                });
+                console.log(response);
+                return;
+            }
+
             navigate("/Login");
         }
         catch (error) {
-
+            toast.error(error.message, {
+                autoClose: 2000 + error.message.length * 50,
+            });
+            console.log(error.message);
         }
         finally {
             setIsLoading(false);
@@ -76,6 +89,11 @@ function Register() {
                     </div>
                 )
             }
+            <ToastContainer
+                toastClassName="custom-toast"
+                bodyClassName="custom-toast-body"
+                progressClassName="custom-progress"
+            />
       </main>
   );
 }
