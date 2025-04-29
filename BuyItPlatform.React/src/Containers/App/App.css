@@ -1,3 +1,5 @@
 main{
     min-height:68vh !important;
+    display:flex;
+    flex-direction:column;
 }

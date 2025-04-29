@@ -4,6 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
+import { Loading } from '../../Components'
 function Register() {
 
     const [registerData, setRegisterData] = useState({
@@ -62,7 +63,7 @@ function Register() {
             {
                 loading ? (
                     <div className="holder">
-                        <label className="register-text">Loading...</label>
+                        <Loading displayText = "Registering user..." />
                     </div>
                 ):(
                     <div className="holder">

@@ -14,7 +14,9 @@
 .holder {
     display: flex;
     flex-direction: column;
+    animation-delay: 0.1s;
     align-items: center;
+    flex:1;
 }
 
 .fade-in {

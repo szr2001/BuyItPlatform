@@ -1,0 +1,24 @@
+.loading-holder{
+    justify-content:center !important;
+}
+.loading-icon {
+    width:150px;
+    display:flex;
+    justify-self:center;
+    animation: loadingFade 1s infinite alternate, loadingRot 1s infinite forwards;
+}
+.loading-text {
+    font-family: var(--primary-font);
+    font-size: 25px;
+    font-weight: bold;
+}
+@keyframes loadingFade {
+    to {
+        opacity: .2;
+    }
+}
+@keyframes loadingRot {
+    to {
+        transform: rotate(-360deg);
+    }
+}
