@@ -45,6 +45,7 @@ function Register() {
                 return;
             }
 
+            console.log(response.data);
             navigate("/Login");
         }
         catch (error) {
@@ -63,7 +64,7 @@ function Register() {
             {
                 loading ? (
                     <div className="holder">
-                        <Loading displayText = "Registering user..." />
+                        <Loading displayText = "Registering peasent..." />
                     </div>
                 ):(
                     <div className="holder">
