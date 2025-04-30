@@ -14,25 +14,25 @@ namespace BuyItPlatform.GatewayApi.Services
             this.microservicesUrl = microservicesUrl;
         }
 
-        public async Task<ResponseDto> DeleteListingAsync(int listingId)
+        public async Task<ResponseDto<T>> DeleteListingAsync<T>(int listingId)
         {
-            return await apiCallsService.SendAsync(new RequestDto() 
+            return await apiCallsService.SendAsync<T>(new RequestDto() 
             {
                 Url = $"{microservicesUrl.ListingsApiUrl}/DeleteListing/{listingId}"
             });
         }
 
-        public async Task<ResponseDto> DeleteUserListingsAsync(int userId)
+        public async Task<ResponseDto<T>> DeleteUserListingsAsync<T>(int userId)
         {
-            return await apiCallsService.SendAsync(new RequestDto()
+            return await apiCallsService.SendAsync<T>(new RequestDto()
             {
                 Url = $"{microservicesUrl.ListingsApiUrl}/DeleteUserListings/{userId}"
             });
         }
 
-        public async Task<ResponseDto> GetListingsAsync(ListingFIlterDto listFilter, int count, int offset)
+        public async Task<ResponseDto<T>> GetListingsAsync<T>(ListingFIlterDto listFilter, int count, int offset)
         {
-            return await apiCallsService.SendAsync(new RequestDto()
+            return await apiCallsService.SendAsync<T>(new RequestDto()
             {
                 ApiType = Enums.ApiType.POST,
                 Url = $"{microservicesUrl.ListingsApiUrl}/GetListings?count={count}&offset={offset}",
@@ -40,17 +40,17 @@ namespace BuyItPlatform.GatewayApi.Services
             });
         }
 
-        public async Task<ResponseDto> GetListingWithIdAsync(int id)
+        public async Task<ResponseDto<T>> GetListingWithIdAsync<T>(int id)
         {
-            return await apiCallsService.SendAsync(new RequestDto()
+            return await apiCallsService.SendAsync<T>(new RequestDto()
             {
                 Url = $"{microservicesUrl.ListingsApiUrl}/GetListingWithId/{id}"
             });
         }
 
-        public async Task<ResponseDto> UploadListingAsync(ListingDto listingDto)
+        public async Task<ResponseDto<T>> UploadListingAsync<T>(ListingDto listingDto)
         {
-            return await apiCallsService.SendAsync(new RequestDto()
+            return await apiCallsService.SendAsync<T>(new RequestDto()
             {
                 ApiType = Enums.ApiType.POST,
                 Url = $"{microservicesUrl.ListingsApiUrl}/UploadListing",

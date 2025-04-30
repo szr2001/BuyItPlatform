@@ -4,8 +4,8 @@ namespace BuyItPlatform.GatewayApi.Services.IServices
 {
     public interface IAuthService
     {
-        Task<ResponseDto> LoginUser(LoginRequestDto registerData);
-        Task<ResponseDto> RegisterUser(RegisterRequestDto registerData);
-        Task<ResponseDto> AssignRole(string email, string rolename);
+        Task<ResponseDto<T>> LoginUser<T>(LoginRequestDto registerData);
+        Task<ResponseDto<T>> RegisterUser<T>(RegisterRequestDto registerData);
+        Task<ResponseDto<T>> AssignRole<T>(string email, string rolename);
     }
 }

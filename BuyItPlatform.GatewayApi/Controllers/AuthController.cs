@@ -16,22 +16,23 @@ namespace BuyItPlatform.GatewayApi.Controllers
 
         [HttpPost]
         [Route("register")]
-        public async Task<ResponseDto> Register([FromBody] RegisterRequestDto registerData)
+        public async Task<ResponseDto<UserDto>> Register([FromBody] RegisterRequestDto registerData)
         {
-            return await authService.RegisterUser(registerData);
+            return await authService.RegisterUser<UserDto>(registerData);
         }
 
         [HttpPost]
         [Route("login")]
-        public async Task<ResponseDto> Login([FromBody] LoginRequestDto loginData)
+        public async Task<ResponseDto<LoginResponseDto>> Login([FromBody] LoginRequestDto loginData)
         {
-            return await authService.LoginUser(loginData);
+            return await authService.LoginUser<LoginResponseDto>(loginData);
         }
+
         [HttpPost]
         [Route("assignRole")]
-        public async Task<ResponseDto> AssignRole([FromQuery] string email, [FromQuery] string roleName)
+        public async Task<ResponseDto<object>> AssignRole([FromQuery] string email, [FromQuery] string roleName)
         {
-            return await authService.AssignRole(email, roleName);
+            return await authService.AssignRole<object>(email, roleName);
         }
     }
 }

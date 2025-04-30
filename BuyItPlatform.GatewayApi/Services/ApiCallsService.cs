@@ -16,7 +16,7 @@ namespace BuyItPlatform.GatewayApi.Services
             this.httpClientFactory = httpClientFactory;
         }
 
-        public async Task<ResponseDto> SendAsync(RequestDto request)
+        public async Task<ResponseDto<T>> SendAsync<T>(RequestDto request)
         {
             try
             {
@@ -63,7 +63,9 @@ namespace BuyItPlatform.GatewayApi.Services
                         return new() { Success = false, Message = "Internal Server Error" };
                     default:
                         var apiContent = await apiResponse.Content.ReadAsStringAsync();
-                        var apiResponseDto = JsonConvert.DeserializeObject<ResponseDto>(apiContent);
+                        //use generics so it's able to deserialize the responseDto correctly, if we just use an object type,
+                        //then it would faill because it does't know in what to deserialize it.
+                        var apiResponseDto = JsonConvert.DeserializeObject<ResponseDto<T>>(apiContent);
                         return apiResponseDto!;
                 }
             }

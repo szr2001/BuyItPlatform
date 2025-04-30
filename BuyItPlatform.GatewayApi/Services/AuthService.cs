@@ -14,18 +14,18 @@ namespace BuyItPlatform.GatewayApi.Services
             this.microservicesUrl = microservicesUrl;
         }
 
-        public async Task<ResponseDto> AssignRole(string email, string rolename)
+        public async Task<ResponseDto<T>> AssignRole<T>(string email, string rolename)
         {
-            return await apiCallsService.SendAsync(new RequestDto()
+            return await apiCallsService.SendAsync<T>(new RequestDto()
             {
                 ApiType = Enums.ApiType.POST,
                 Url = $"{microservicesUrl.AuthApiUrl}/assignRole?email={email}&roleName={rolename}"
             });
         }
 
-        public async Task<ResponseDto> LoginUser(LoginRequestDto loginData)
+        public async Task<ResponseDto<T>> LoginUser<T>(LoginRequestDto loginData)
         {
-            return await apiCallsService.SendAsync(new RequestDto()
+            return await apiCallsService.SendAsync<T>(new RequestDto()
             {
                 ApiType = Enums.ApiType.POST,
                 Data = loginData,
@@ -33,9 +33,9 @@ namespace BuyItPlatform.GatewayApi.Services
             });
         }
 
-        public async Task<ResponseDto> RegisterUser(RegisterRequestDto registerData)
+        public async Task<ResponseDto<T>> RegisterUser<T>(RegisterRequestDto registerData)
         {
-            return await apiCallsService.SendAsync(new RequestDto()
+            return await apiCallsService.SendAsync<T>(new RequestDto()
             {
                 ApiType = Enums.ApiType.POST,
                 Data = registerData,
