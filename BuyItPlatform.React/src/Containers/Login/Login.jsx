@@ -3,7 +3,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import axios from 'axios';
+import axios from '../../Api/axios';
 import { Loading } from '../../Components'
 function Login() {
 
@@ -11,9 +11,6 @@ function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const api = axios.create({
-        baseURL: 'https://localhost:7054/gateway/authApi',
-    });
 
     const navigate = useNavigate();
 
@@ -21,7 +18,7 @@ function Login() {
     {
         setIsLoading(true);
         try {
-            const response = await api.post('/login', {Email: email, Password: password});
+            const response = await axios.post('/login', {Email: email, Password: password});
 
             if (!response.data.success) {
                 toast.error(response.data.message, {

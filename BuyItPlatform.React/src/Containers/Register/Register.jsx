@@ -3,8 +3,9 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import axios from 'axios';
 import { Loading } from '../../Components'
+import axios from '../../Api/axios';
+
 function Register() {
 
     const [registerData, setRegisterData] = useState({
@@ -14,10 +15,6 @@ function Register() {
         RepeatPassword: '',
     });
     const [loading, setIsLoading] = useState(false);
-
-    const api = axios.create({
-        baseURL: 'https://localhost:7054/gateway/authApi',
-    });
 
     const navigate = useNavigate();
 
@@ -35,7 +32,7 @@ function Register() {
         setIsLoading(true);
 
         try {
-            const response = await api.post('/register', registerData);
+            const response = await axios.post('/register', registerData);
 
             if (!response.data.success) {
                 toast.error(response.data.message, {
