@@ -1,6 +1,9 @@
 ﻿using BuyItPlatform.GatewayApi.Models;
+using BuyItPlatform.GatewayApi.Models.Dto;
 using BuyItPlatform.GatewayApi.Services.IServices;
 using BuyItPlatform.GatewayApi.Utility;
+using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
 
 namespace BuyItPlatform.GatewayApi.Services
 {
@@ -30,6 +33,16 @@ namespace BuyItPlatform.GatewayApi.Services
                 ApiType = Enums.ApiType.POST,
                 Data = loginData,
                 Url = $"{microservicesUrl.AuthApiUrl}/login"
+            });
+        }
+
+        public async Task<ResponseDto<T>> RefreshToken<T>(RefreshTokenRequest request)
+        {
+            return await apiCallsService.SendAsync<T>(new RequestDto()
+            {
+                ApiType = Enums.ApiType.POST,
+                Data = request,
+                Url = $"{microservicesUrl.AuthApiUrl}/RefreshToken"
             });
         }
 

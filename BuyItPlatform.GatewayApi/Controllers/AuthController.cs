@@ -1,6 +1,8 @@
 ﻿using BuyItPlatform.GatewayApi.Models;
+using BuyItPlatform.GatewayApi.Models.Dto;
 using BuyItPlatform.GatewayApi.Services.IServices;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Server.HttpSys;
 
 namespace BuyItPlatform.GatewayApi.Controllers
 {
@@ -33,6 +35,13 @@ namespace BuyItPlatform.GatewayApi.Controllers
         public async Task<ResponseDto<object>> AssignRole([FromQuery] string email, [FromQuery] string roleName)
         {
             return await authService.AssignRole<object>(email, roleName);
+        }
+
+        [HttpPost]
+        [Route("refreshToken")]
+        public async Task<ResponseDto<LoginResponseDto>> RefreshToken([FromBody] RefreshTokenRequest request)
+        {
+            return await authService.RefreshToken<LoginResponseDto>(request);
         }
     }
 }
