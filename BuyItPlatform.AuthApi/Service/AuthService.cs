@@ -86,20 +86,28 @@ namespace BuyItPlatform.AuthApi.Service
 
         public async Task<LoginResponseDto?> RefreshToken(RefreshTokenRequest request)
         {
+            //verify if the token is legit, if it is get the token data
             var principal = jwtTokenHandler.GetTokenPrincipal(request.Token);
 
+            //get the user email from the token
             string? email = principal?.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
             if (email == null) return null;
 
             var user = await userManager.FindByEmailAsync(email);
 
+            //if the user doesn't exist, or the refresh token is not the same as the one in the db 
+            //or if the refreshToken expired, return, user needs to re-authentificate using pass and email
             if (user == null || user.RefreshToken != request.RefreshToken 
                 || user.RefreshTokenExpiryTime <= DateTime.UtcNow) return null;
 
             var roles = await userManager.GetRolesAsync(user);
+            //generate the token and the refresh token again, save the refresh token in the db
             string token = jwtTokenHandler.GenerateToken(user, roles);
             string refreshToken = jwtTokenHandler.GenerateRefreshToken();
 
+            //the refresh token will be valid for 7 days, if no activity happens in 7 days then the refresh token
+            //will expire and the user needs to re-auth.
+            //if the user becomes active in that time, he gets a new token and refresh token for another 7 days
             user.RefreshToken = refreshToken;
             user.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(7);
 
