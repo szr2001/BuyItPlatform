@@ -60,13 +60,13 @@ namespace BuyItPlatform.AuthApi.Controllers
                 
                 if(result == null)
                 {
-                    response.Result = result;
-                    response.Success = true;
+                    response.Message = $"Tokens are not correct, or tokens are still valid";
+                    response.Success = false;
                     return response;
                 }
 
-                response.Success = false;
-                response.Message = $"Tokens are not correct, or tokens are still valid";
+                response.Result = result;
+                response.Success = true;
             }
             catch (Exception ex)
             {

@@ -40,6 +40,7 @@ namespace BuyItPlatform.AuthApi.Service
                 ValidateLifetime = false,
                 ValidateActor = false,
                 ValidateAudience = false,
+                ValidateIssuer = false,
             };
 
             return new JwtSecurityTokenHandler().ValidateToken(token, validation, out _ );
@@ -55,9 +56,9 @@ namespace BuyItPlatform.AuthApi.Service
             //create the cookies data, add more based on the requirements
             var claims = new List<Claim> 
             {
-                new Claim(JwtRegisteredClaimNames.Email, user.Email),
-                new Claim(JwtRegisteredClaimNames.Sub, user.Id),
-                new Claim(JwtRegisteredClaimNames.Name, user.UserName),
+                new Claim(ClaimTypes.Email, user.Email),
+                new Claim(ClaimTypes.NameIdentifier, user.Id),
+                new Claim(ClaimTypes.Name, user.UserName),
             };
 
             claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));

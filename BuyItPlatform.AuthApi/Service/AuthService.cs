@@ -4,6 +4,8 @@ using BuyItPlatform.AuthApi.Models;
 using BuyItPlatform.AuthApi.Models.Dto;
 using BuyItPlatform.AuthApi.Service.IService;
 using Microsoft.AspNetCore.Identity;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 namespace BuyItPlatform.AuthApi.Service
 {
@@ -85,9 +87,11 @@ namespace BuyItPlatform.AuthApi.Service
         public async Task<LoginResponseDto?> RefreshToken(RefreshTokenRequest request)
         {
             var principal = jwtTokenHandler.GetTokenPrincipal(request.Token);
-            if(principal?.Identity?.Name == null) return null;
 
-            var user = await userManager.FindByEmailAsync(principal.Identity.Name);
+            string? email = principal?.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
+            if (email == null) return null;
+
+            var user = await userManager.FindByEmailAsync(email);
 
             if (user == null || user.RefreshToken != request.RefreshToken 
                 || user.RefreshTokenExpiryTime > DateTime.UtcNow) return null;
