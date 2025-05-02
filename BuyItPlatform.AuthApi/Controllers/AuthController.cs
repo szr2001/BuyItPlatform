@@ -49,6 +49,33 @@ namespace BuyItPlatform.AuthApi.Controllers
             }
             return response;
         }
+
+        [HttpPost]
+        [Route("RefreshToken")]
+        public async Task<ResponseDto> RefreshToken([FromBody] RefreshTokenRequest request)
+        {
+            try
+            {
+                var result = await authService.RefreshToken(request);
+                
+                if(result == null)
+                {
+                    response.Result = result;
+                    response.Success = true;
+                    return response;
+                }
+
+                response.Success = false;
+                response.Message = $"Tokens are not correct, or tokens are still valid";
+            }
+            catch (Exception ex)
+            {
+                response.Success = false;
+                response.Message = $"{ex.Message}";
+            }
+            return response;
+        }
+
         [HttpPost]
         [Route("assignRole")]
         public async Task<ResponseDto> AssignRole([FromQuery] string email, [FromQuery] string roleName)

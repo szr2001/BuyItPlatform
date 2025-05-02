@@ -10,17 +10,17 @@ namespace BuyItPlatform.AuthApi.Service
     public class AuthService : IAuthService
     {
         public readonly IMapper mapper;
-        public readonly IJwtTokenGenerator jwtTokenGenerator;
+        public readonly IJwtTokenHandler jwtTokenHandler;
         public readonly AppDbContext appContext;
         public readonly UserManager<BuyItUser> userManager;
         public readonly RoleManager<BuyItRole> roleManager;
-        public AuthService(AppDbContext appContext, IMapper mapper, UserManager<BuyItUser> userManager, RoleManager<BuyItRole> roleManager, IJwtTokenGenerator jwtTokenGenerator)
+        public AuthService(AppDbContext appContext, IMapper mapper, UserManager<BuyItUser> userManager, RoleManager<BuyItRole> roleManager, IJwtTokenHandler jwtTokenGenerator)
         {
             this.mapper = mapper;
             this.appContext = appContext;
             this.userManager = userManager;
             this.roleManager = roleManager;
-            this.jwtTokenGenerator = jwtTokenGenerator;
+            this.jwtTokenHandler = jwtTokenGenerator;
         }
 
         public async Task<UserDto> RegisterUser(RegisterRequestDto registerData)
@@ -64,12 +64,48 @@ namespace BuyItPlatform.AuthApi.Service
                 throw new Exception("Wrong Email or password!");
             }
             var roles = await userManager.GetRolesAsync(user);
-            string token = jwtTokenGenerator.GenerateToken(user, roles);
+            string token = jwtTokenHandler.GenerateToken(user, roles);
+            string refreshToken = jwtTokenHandler.GenerateRefreshToken();
+
+            user.RefreshToken = refreshToken;
+            user.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(7);
+
+            await userManager.UpdateAsync(user);
 
             LoginResponseDto loginResponseDto = new LoginResponseDto() 
             {
                 User = mapper.Map<UserDto>(user),
                 Token = token,
+                RefreshToken = refreshToken
+            };
+
+            return loginResponseDto;
+        }
+
+        public async Task<LoginResponseDto?> RefreshToken(RefreshTokenRequest request)
+        {
+            var principal = jwtTokenHandler.GetTokenPrincipal(request.Token);
+            if(principal?.Identity?.Name == null) return null;
+
+            var user = await userManager.FindByEmailAsync(principal.Identity.Name);
+
+            if (user == null || user.RefreshToken != request.RefreshToken 
+                || user.RefreshTokenExpiryTime > DateTime.UtcNow) return null;
+
+            var roles = await userManager.GetRolesAsync(user);
+            string token = jwtTokenHandler.GenerateToken(user, roles);
+            string refreshToken = jwtTokenHandler.GenerateRefreshToken();
+
+            user.RefreshToken = refreshToken;
+            user.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(7);
+
+            await userManager.UpdateAsync(user);
+
+            LoginResponseDto loginResponseDto = new LoginResponseDto()
+            {
+                User = mapper.Map<UserDto>(user),
+                Token = token,
+                RefreshToken = refreshToken
             };
 
             return loginResponseDto;

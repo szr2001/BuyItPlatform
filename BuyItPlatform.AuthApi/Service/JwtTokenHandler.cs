@@ -1,20 +1,48 @@
 ﻿using BuyItPlatform.AuthApi.Models;
+using BuyItPlatform.AuthApi.Models.Dto;
 using BuyItPlatform.AuthApi.Service.IService;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace BuyItPlatform.AuthApi.Service
 {
-    public class JwtTokenGenerator : IJwtTokenGenerator
+    public class JwtTokenHandler : IJwtTokenHandler
     {
         private readonly JwtOptions jwtOptions;
 
-        public JwtTokenGenerator(IOptions<JwtOptions> jwtOptions)
+        public JwtTokenHandler(IOptions<JwtOptions> jwtOptions)
         {
             this.jwtOptions = jwtOptions.Value;
+        }
+
+        public string GenerateRefreshToken()
+        {
+            var randomNumber = new byte[64];
+
+            using(var numberGenerator = RandomNumberGenerator.Create())
+            {
+                numberGenerator.GetBytes(randomNumber);
+            }
+
+            return Convert.ToBase64String(randomNumber);
+        }
+
+        public ClaimsPrincipal? GetTokenPrincipal(string token)
+        {
+            var securityKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtOptions.Secret));
+            var validation = new TokenValidationParameters
+            {
+                IssuerSigningKey = securityKey,
+                ValidateLifetime = false,
+                ValidateActor = false,
+                ValidateAudience = false,
+            };
+
+            return new JwtSecurityTokenHandler().ValidateToken(token, validation, out _ );
         }
 
         public string GenerateToken(BuyItUser user, IEnumerable<string> roles)
@@ -40,7 +68,7 @@ namespace BuyItPlatform.AuthApi.Service
                 Audience = jwtOptions.Audiance,
                 Issuer = jwtOptions.Issuer,
                 Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.UtcNow.AddDays(1),
+                Expires = DateTime.UtcNow.AddSeconds(60),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
 

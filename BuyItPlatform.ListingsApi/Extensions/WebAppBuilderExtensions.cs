@@ -33,6 +33,7 @@ namespace BuyItPlatform.ListingsApi.Extensions
                     ValidIssuer = issuer,
                     ValidateAudience = true,
                     ValidAudience = audiance,
+                    ClockSkew = TimeSpan.Zero,
                 };
             });
             return builder;
