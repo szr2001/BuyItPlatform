@@ -94,7 +94,7 @@ namespace BuyItPlatform.AuthApi.Service
             var user = await userManager.FindByEmailAsync(email);
 
             if (user == null || user.RefreshToken != request.RefreshToken 
-                || user.RefreshTokenExpiryTime > DateTime.UtcNow) return null;
+                || user.RefreshTokenExpiryTime <= DateTime.UtcNow) return null;
 
             var roles = await userManager.GetRolesAsync(user);
             string token = jwtTokenHandler.GenerateToken(user, roles);
