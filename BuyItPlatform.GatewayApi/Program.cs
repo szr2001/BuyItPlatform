@@ -19,6 +19,7 @@ namespace BuyItPlatform.GatewayApi
                 options.AddPolicy("AllowReactApp",
                     policy => policy.WithOrigins("http://localhost:52633")
                                     .AllowAnyMethod()
+                                    .AllowCredentials()
                                     .AllowAnyHeader());
             });
             builder.Services.AddControllers();

@@ -48,14 +48,30 @@ namespace BuyItPlatform.GatewayApi.Controllers
 
         [HttpPost]
         [Route("refreshToken")]
-        public async Task<ResponseDto<UserDto>> RefreshToken([FromBody] RefreshTokenRequest request)
+        public async Task<ResponseDto<object>> RefreshToken()
         {
-            var result = await authService.RefreshToken<LoginResponseDto>(request);
-            if (result.Success)
+            ResponseDto<object> result = new() { Success = false, Message = "Missing tokens" };
+
+            var token = tokenProvider.GetToken();
+            var refreshToken = tokenProvider.GetRefreshToken();
+            if (token == null || refreshToken == null) return result;
+
+            var tokenResult = await authService.RefreshToken<LoginResponseDto>
+                (
+                    new RefreshTokenRequest(){Token = token, RefreshToken = refreshToken }
+                );
+            
+            if (!tokenResult.Success)
             {
-                tokenProvider.SetTokens(result.Result?.Token!, result.Result?.RefreshToken!);
+                result.Message = tokenResult.Message;
+                return result;
             }
-            return new ResponseDto<UserDto> { Success = result.Success, Result = result.Result!.User };
+
+            tokenProvider.SetTokens(tokenResult.Result?.Token!, tokenResult.Result?.RefreshToken!);
+            result.Success = true;
+            result.Message = "";
+
+            return result;
         }
     }
 }

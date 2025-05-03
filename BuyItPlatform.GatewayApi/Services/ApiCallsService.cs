@@ -12,9 +12,10 @@ namespace BuyItPlatform.GatewayApi.Services
     {
         private readonly IHttpClientFactory httpClientFactory;
         private readonly ITokensProvider tokensProvider;
-        public ApiCallsService(IHttpClientFactory httpClientFactory)
+        public ApiCallsService(IHttpClientFactory httpClientFactory, ITokensProvider tokensProvider)
         {
             this.httpClientFactory = httpClientFactory;
+            this.tokensProvider = tokensProvider;
         }
 
         public async Task<ResponseDto<T>> SendAsync<T>(RequestDto request, bool withTokens = true)
