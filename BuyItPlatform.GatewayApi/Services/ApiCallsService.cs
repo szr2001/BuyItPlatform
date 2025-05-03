@@ -11,19 +11,28 @@ namespace BuyItPlatform.GatewayApi.Services
     public class ApiCallsService : IApiCallsService
     {
         private readonly IHttpClientFactory httpClientFactory;
+        private readonly ITokensProvider tokensProvider;
         public ApiCallsService(IHttpClientFactory httpClientFactory)
         {
             this.httpClientFactory = httpClientFactory;
         }
 
-        public async Task<ResponseDto<T>> SendAsync<T>(RequestDto request)
+        public async Task<ResponseDto<T>> SendAsync<T>(RequestDto request, bool withTokens = true)
         {
             try
             {
                 HttpClient client = httpClientFactory.CreateClient("BuyItApi");
                 HttpRequestMessage message = new();
                 message.Headers.Add("Accept", "application/json");
-                //add token later on god, no cap
+                
+                //add the tokens
+                if (withTokens)
+                {
+                    var token = tokensProvider.GetToken();
+                    var refreshToken = tokensProvider.GetRefreshToken();
+                    message.Headers.Add("Authorization", $"Bearer {token}");
+                    message.Headers.Add("RefreshToken", refreshToken);
+                }
 
                 message.RequestUri = new Uri(request.Url);
                 if (request.Data != null)

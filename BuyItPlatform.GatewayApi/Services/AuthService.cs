@@ -11,6 +11,7 @@ namespace BuyItPlatform.GatewayApi.Services
     {
         private readonly IApiCallsService apiCallsService;
         private readonly MicroservicesUrls microservicesUrl;
+
         public AuthService(IApiCallsService serviceBase, MicroservicesUrls microservicesUrl)
         {
             this.apiCallsService = serviceBase;
@@ -33,7 +34,7 @@ namespace BuyItPlatform.GatewayApi.Services
                 ApiType = Enums.ApiType.POST,
                 Data = loginData,
                 Url = $"{microservicesUrl.AuthApiUrl}/login"
-            });
+            },false);
         }
 
         public async Task<ResponseDto<T>> RefreshToken<T>(RefreshTokenRequest request)
@@ -53,7 +54,7 @@ namespace BuyItPlatform.GatewayApi.Services
                 ApiType = Enums.ApiType.POST,
                 Data = registerData,
                 Url = $"{microservicesUrl.AuthApiUrl}/register"
-            });
+            }, false);
         }
     }
 }

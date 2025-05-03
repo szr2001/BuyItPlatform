@@ -28,6 +28,7 @@ namespace BuyItPlatform.GatewayApi
             builder.Services.AddHttpClient<IAuthService, AuthService>();
 
             builder.Services.AddSingleton<MicroservicesUrls>();
+            builder.Services.AddScoped<ITokensProvider, TokensProvider>();
             builder.Services.AddScoped<IApiCallsService, ApiCallsService>();
             builder.Services.AddScoped<IListingsService, ListingsService>();
             builder.Services.AddScoped<IAuthService, AuthService>();

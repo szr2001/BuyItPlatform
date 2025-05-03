@@ -25,7 +25,7 @@ namespace BuyItPlatform.AuthApi.Service
             this.jwtTokenHandler = jwtTokenGenerator;
         }
 
-        public async Task<UserDto> RegisterUser(RegisterRequestDto registerData)
+        public async Task RegisterUser(RegisterRequestDto registerData)
         {
             if(registerData.Password != registerData.RepeatPassword)
             {
@@ -44,12 +44,6 @@ namespace BuyItPlatform.AuthApi.Service
             }
 
             await AssignRole(newUser.Email, RolesDefaults.User);
-
-            BuyItUser returnedUser = await userManager.FindByEmailAsync(registerData.Email);
-
-            UserDto userDto = mapper.Map<UserDto>(returnedUser);
-
-            return userDto;
         }
 
         public async Task<LoginResponseDto> LoginUser(LoginRequestDto registerData)

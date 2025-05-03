@@ -4,7 +4,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import axios from '../../Api/axios';
-import { decodeToken, isExpired } from "react-jwt";
 import { Loading } from '../../Components'
 function Login() {
 
@@ -12,19 +11,7 @@ function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-
     const navigate = useNavigate();
-
-    useEffect(() => {
-        const token = localStorage.getItem("token");
-        const decoded = decodeToken(token);
-
-        if (!isExpired(token)) {
-            navigate("/");
-        }
-        return () => {
-        };
-    }, []);
 
     const handleLogin = async () =>
     {
@@ -41,7 +28,6 @@ function Login() {
             }
 
             console.log(response);
-            localStorage.setItem("token", response.data.result.token);
             navigate("/");
         }
         catch (error) {

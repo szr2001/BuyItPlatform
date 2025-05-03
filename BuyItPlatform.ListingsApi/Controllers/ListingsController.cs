@@ -29,6 +29,7 @@ namespace BuyItPlatform.ListingsApi.Controllers
             try
             {
                 await listingService.UploadListingAsync(listingDto);
+                response.Result = null;
                 response.Success = true;
             }
             catch(Exception ex)
@@ -87,6 +88,7 @@ namespace BuyItPlatform.ListingsApi.Controllers
             try
             {
                 await listingService.DeleteListingAsync(listingId);
+                response.Result = null;
                 response.Success = true;
             }
             catch (Exception ex)
@@ -105,6 +107,7 @@ namespace BuyItPlatform.ListingsApi.Controllers
             try
             {
                 await listingService.DeleteUserListingsAsync(userid);
+                response.Result = null;
                 response.Success = true;
             }
             catch (Exception ex)

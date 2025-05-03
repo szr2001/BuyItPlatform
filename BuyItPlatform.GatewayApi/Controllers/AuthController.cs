@@ -11,23 +11,32 @@ namespace BuyItPlatform.GatewayApi.Controllers
     public class AuthController : Controller
     {
         private readonly IAuthService authService;
-        public AuthController(IAuthService authService)
+        private readonly ITokensProvider tokenProvider;
+        public AuthController(IAuthService authService, ITokensProvider tokenProvider)
         {
             this.authService = authService;
+            this.tokenProvider = tokenProvider;
         }
 
         [HttpPost]
         [Route("register")]
-        public async Task<ResponseDto<UserDto>> Register([FromBody] RegisterRequestDto registerData)
+        public async Task<ResponseDto<object>> Register([FromBody] RegisterRequestDto registerData)
         {
-            return await authService.RegisterUser<UserDto>(registerData);
+            return await authService.RegisterUser<object>(registerData);
         }
 
         [HttpPost]
         [Route("login")]
-        public async Task<ResponseDto<LoginResponseDto>> Login([FromBody] LoginRequestDto loginData)
+        public async Task<ResponseDto<UserDto>> Login([FromBody] LoginRequestDto loginData)
         {
-            return await authService.LoginUser<LoginResponseDto>(loginData);
+            var result =  await authService.LoginUser<LoginResponseDto>(loginData);
+            if (result.Success)
+            { 
+                //if the request was a success, get the tokens and save them in the cookies for the frontend
+                tokenProvider.SetTokens(result.Result?.Token!, result.Result?.RefreshToken!);
+            }
+            //and now return the userDto, without the tokens for security.
+            return new ResponseDto<UserDto> {Success = result.Success, Result = result.Result!.User };
         }
 
         [HttpPost]
@@ -39,9 +48,14 @@ namespace BuyItPlatform.GatewayApi.Controllers
 
         [HttpPost]
         [Route("refreshToken")]
-        public async Task<ResponseDto<LoginResponseDto>> RefreshToken([FromBody] RefreshTokenRequest request)
+        public async Task<ResponseDto<UserDto>> RefreshToken([FromBody] RefreshTokenRequest request)
         {
-            return await authService.RefreshToken<LoginResponseDto>(request);
+            var result = await authService.RefreshToken<LoginResponseDto>(request);
+            if (result.Success)
+            {
+                tokenProvider.SetTokens(result.Result?.Token!, result.Result?.RefreshToken!);
+            }
+            return new ResponseDto<UserDto> { Success = result.Success, Result = result.Result!.User };
         }
     }
 }
