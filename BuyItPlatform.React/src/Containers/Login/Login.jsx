@@ -1,7 +1,7 @@
 ﻿import './Login.css'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import axios from '../../Api/axios';
 import { Loading } from '../../Components'
@@ -13,37 +13,11 @@ function Login() {
 
     const navigate = useNavigate();
 
-    const test = async () => {
-        setIsLoading(true);
-        try {
-            const response = await axios.post('/refreshToken');
-
-            if (!response.data.success) {
-                toast.error(response.data.message, {
-                    autoClose: 2000 + response.data.message.length * 50,
-                });
-                console.log(response.data);
-                return;
-            }
-
-            console.log(response);
-        }
-        catch (error) {
-            toast.error(error.message, {
-                autoClose: 2000 + error.message.length * 50,
-            });
-            console.log(error.message);
-        }
-        finally {
-            setIsLoading(false);
-        }
-    }
-
     const handleLogin = async () =>
     {
         setIsLoading(true);
         try {
-            const response = await axios.post('/login', {Email: email, Password: password});
+            const response = await axios.post('authApi/login', {Email: email, Password: password});
 
             if (!response.data.success) {
                 toast.error(response.data.message, {
@@ -87,9 +61,6 @@ function Login() {
                       </div>
                       <button className="login-button fade-in" onClick={handleLogin} >
                           <label className="login-text" >Thank you kindly!</label>
-                          </button>
-                          <button className="login-button fade-in" onClick={test} >
-                              <label className="login-text" >Rawr!</label>
                           </button>
                     </div>
                   )

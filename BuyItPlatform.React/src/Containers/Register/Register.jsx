@@ -32,7 +32,7 @@ function Register() {
         setIsLoading(true);
 
         try {
-            const response = await axios.post('/register', registerData);
+            const response = await axios.post('authApi/register', registerData);
 
             if (!response.data.success) {
                 toast.error(response.data.message, {
