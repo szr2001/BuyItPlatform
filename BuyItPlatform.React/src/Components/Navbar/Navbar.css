@@ -1,9 +1,20 @@
 .navbar {
     background-color: var(--secondary-color);
     display: flex;
-    justify-content:center;
+    justify-content: space-between;
     padding: 0;
-    height:75px;
+    height: 75px;
+}
+
+.navbar-left {
+    display: flex;
+    gap: 1rem;
+}
+
+.navbar-right {
+    display: flex;
+    gap: 1rem;
+    margin-left: auto; /* Pushes it to the end */
 }
 
 .navbar-option {
@@ -34,4 +45,10 @@
 .navbar-option:hover {
     color: var(--highlight-color);
     transform: scale(1.08);
+}
+
+@media (max-width: 868px) {
+    .navbar-option {
+        font-size: 0px;
+    }
 }

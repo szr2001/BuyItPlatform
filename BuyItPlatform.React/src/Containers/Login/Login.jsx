@@ -51,6 +51,7 @@ function Login() {
                 return;
             }
 
+            window.localStorage.setItem('user', JSON.stringify(response.data.result));
             console.log(response);
         }
         catch (error) {
