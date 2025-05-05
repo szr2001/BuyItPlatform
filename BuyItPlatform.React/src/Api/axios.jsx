@@ -18,18 +18,19 @@ api.interceptors.response.use(
         // refresh token api call to get new tokens and then try again
         if (response?.data?.success === false && response?.data?.message === 'Unauthorized') {
             const originalRequest = response.config;
-            console.log("Main call response", response);
             if (!originalRequest._retry && !isRefreshing) {
                 originalRequest._retry = true;
                 isRefreshing = true;
 
                 try {
-                    const resp = await privateApi.get('authApi/refreshToken');
-                    console.log("refreshToken Response", resp);
+                    let resp = await privateApi.get('authApi/refreshToken');
                     isRefreshing = false;
-                    return api(originalRequest);
+                    if (resp?.data?.success === true) {
+                        return api(originalRequest);
+                    }
+                    return resp;
                 } catch (err) {
-                    console.log("refreshToken Error", err);
+                    console.error(err);
                     isRefreshing = false;
                     return Promise.reject(err);
                 }
@@ -39,6 +40,7 @@ api.interceptors.response.use(
         return response;
     },
     error => {
+        console.error(error);
         return Promise.reject(error);
     }
 );
