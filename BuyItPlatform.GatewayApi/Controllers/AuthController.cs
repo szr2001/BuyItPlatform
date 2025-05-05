@@ -1,5 +1,4 @@
 ﻿using BuyItPlatform.GatewayApi.Models;
-using BuyItPlatform.GatewayApi.Models.Dto;
 using BuyItPlatform.GatewayApi.Services.IServices;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Server.HttpSys;
@@ -33,7 +32,8 @@ namespace BuyItPlatform.GatewayApi.Controllers
             if (result.Success)
             { 
                 //if the request was a success, get the tokens and save them in the cookies for the frontend
-                tokenProvider.SetTokens(result.Result?.Token!, result.Result?.RefreshToken!);
+                tokenProvider.SetToken(result.Result?.Token!);
+                tokenProvider.SetRefreshToken(result.Result?.RefreshToken!);
             }
             //and now return the userDto, without the tokens for security.
             return new ResponseDto<UserDto> {Success = result.Success, Result = result.Result!.User };
@@ -46,30 +46,21 @@ namespace BuyItPlatform.GatewayApi.Controllers
             return await authService.AssignRole<object>(email, roleName);
         }
 
-        [HttpPost]
-        [Route("refreshToken")]
+        [HttpGet]
+        [Route("RefreshToken")]
         public async Task<ResponseDto<object>> RefreshToken()
         {
-            ResponseDto<object> result = new() { Success = false, Message = "Missing tokens" };
+            ResponseDto<object> result = new();
 
-            var token = tokenProvider.GetToken();
-            var refreshToken = tokenProvider.GetRefreshToken();
-            if (token == null || refreshToken == null) return result;
+            var tokenResult = await authService.RefreshToken<LoginResponseDto>();
 
-            var tokenResult = await authService.RefreshToken<LoginResponseDto>
-                (
-                    new RefreshTokenRequest(){Token = token, RefreshToken = refreshToken }
-                );
+            result.Success = tokenResult.Success;
+            result.Message = tokenResult.Message;
             
-            if (!tokenResult.Success)
+            if (tokenResult.Success)
             {
-                result.Message = tokenResult.Message;
-                return result;
+                tokenProvider.SetTokens(tokenResult.Result?.Token!, tokenResult.Result?.RefreshToken!);
             }
-
-            tokenProvider.SetTokens(tokenResult.Result?.Token!, tokenResult.Result?.RefreshToken!);
-            result.Success = true;
-            result.Message = "";
 
             return result;
         }

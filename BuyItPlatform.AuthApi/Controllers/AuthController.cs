@@ -1,5 +1,6 @@
 ﻿using BuyItPlatform.AuthApi.Models.Dto;
 using BuyItPlatform.AuthApi.Service.IService;
+using BuyItPlatform.AuthApi.Services.IServices;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BuyItPlatform.AuthApi.Controllers
@@ -9,10 +10,12 @@ namespace BuyItPlatform.AuthApi.Controllers
     public class AuthController : Controller
     {
         private readonly IAuthService authService;
+        private readonly ITokensProvider tokenProvider;
         private ResponseDto response = new();
 
-        public AuthController(IAuthService authService)
+        public AuthController(IAuthService authService, ITokensProvider tokenProvider)
         {
+            this.tokenProvider = tokenProvider;
             this.authService = authService;
         }
 
@@ -51,17 +54,25 @@ namespace BuyItPlatform.AuthApi.Controllers
             return response;
         }
 
-        [HttpPost]
+        [HttpGet]
         [Route("RefreshToken")]
-        public async Task<ResponseDto> RefreshToken([FromBody] RefreshTokenRequest request)
+        public async Task<ResponseDto> RefreshToken()
         {
             try
             {
-                var result = await authService.RefreshToken(request);
+                var refreshToken = tokenProvider.GetRefreshToken();
+                if(refreshToken == null)
+                {
+                    response.Success = false;
+                    response.Message = "Refresh token is missing in the request";
+                    return response;
+                }
+
+                var result = await authService.RefreshToken(refreshToken);
                 
                 if(result == null)
                 {
-                    response.Message = $"Tokens are not correct, or tokens are still valid";
+                    response.Message = $"Tokens are not correct, or tokens are not valid anymore";
                     response.Success = false;
                     return response;
                 }

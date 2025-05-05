@@ -1,4 +1,4 @@
-﻿namespace BuyItPlatform.GatewayApi.Services.IServices
+﻿namespace BuyItPlatform.AuthApi.Services.IServices
 {
     public interface ITokensProvider
     {

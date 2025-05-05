@@ -3,6 +3,8 @@ using BuyItPlatform.AuthApi.Data;
 using BuyItPlatform.AuthApi.Models;
 using BuyItPlatform.AuthApi.Service;
 using BuyItPlatform.AuthApi.Service.IService;
+using BuyItPlatform.AuthApi.Services;
+using BuyItPlatform.AuthApi.Services.IServices;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -27,10 +29,12 @@ namespace BuyItPlatform.AuthApi
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddDefaultTokenProviders();
 
+            builder.Services.AddScoped<ITokensProvider, TokensProvider>();
             builder.Services.AddScoped<IAuthService, AuthService>();
             builder.Services.AddScoped<IJwtTokenHandler, JwtTokenHandler>();
             builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection("ApiSettings:JwtOptions"));
 
+            builder.Services.AddHttpContextAccessor();
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();

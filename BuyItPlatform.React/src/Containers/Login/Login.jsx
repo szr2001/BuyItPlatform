@@ -12,7 +12,31 @@ function Login() {
     const [password, setPassword] = useState("");
 
     const navigate = useNavigate();
+    const test = async () => {
+        setIsLoading(true);
+        try {
+            const response = await axios.get('authApi/refreshToken');
 
+            if (!response.data.success) {
+                toast.error(response.data.message, {
+                    autoClose: 2000 + response.data.message.length * 50,
+                });
+                console.log(response.data);
+                return;
+            }
+
+            console.log(response);
+        }
+        catch (error) {
+            toast.error(error.message, {
+                autoClose: 2000 + error.message.length * 50,
+            });
+            console.log(error.message);
+        }
+        finally {
+            setIsLoading(false);
+        }
+    }
     const handleLogin = async () =>
     {
         setIsLoading(true);
@@ -61,6 +85,9 @@ function Login() {
                       </div>
                       <button className="login-button fade-in" onClick={handleLogin} >
                           <label className="login-text" >Thank you kindly!</label>
+                          </button>
+                          <button className="login-button fade-in" onClick={test} >
+                              <label className="login-text" >Test!</label>
                           </button>
                     </div>
                   )

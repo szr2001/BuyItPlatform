@@ -32,7 +32,14 @@ namespace BuyItPlatform.GatewayApi.Services
                     var token = tokensProvider.GetToken();
                     var refreshToken = tokensProvider.GetRefreshToken();
                     message.Headers.Add("Authorization", $"Bearer {token}");
-                    message.Headers.Add("RefreshToken", refreshToken);
+                    if(token != null)
+                    {
+                        tokensProvider.SetToken(token);
+                    }
+                    if (refreshToken != null) 
+                    {
+                        tokensProvider.SetRefreshToken(refreshToken);
+                    }
                 }
 
                 message.RequestUri = new Uri(request.Url);

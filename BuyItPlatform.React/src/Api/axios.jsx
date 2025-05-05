@@ -24,12 +24,12 @@ api.interceptors.response.use(
                 isRefreshing = true;
 
                 try {
-                    const resp = await privateApi.post('authApi/refreshToken');
-                    console.log("refreshToken Response" + resp);
+                    const resp = await privateApi.get('authApi/refreshToken');
+                    console.log("refreshToken Response", resp);
                     isRefreshing = false;
                     return api(originalRequest);
                 } catch (err) {
-                    console.log("refreshToken Response" + err);
+                    console.log("refreshToken Error", err);
                     isRefreshing = false;
                     return Promise.reject(err);
                 }

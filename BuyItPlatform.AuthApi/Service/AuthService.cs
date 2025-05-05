@@ -4,6 +4,7 @@ using BuyItPlatform.AuthApi.Models;
 using BuyItPlatform.AuthApi.Models.Dto;
 using BuyItPlatform.AuthApi.Service.IService;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
@@ -78,26 +79,18 @@ namespace BuyItPlatform.AuthApi.Service
             return loginResponseDto;
         }
 
-        public async Task<LoginResponseDto?> RefreshToken(RefreshTokenRequest request)
+        public async Task<LoginResponseDto?> RefreshToken(string refreshToken)
         {
-            //verify if the token is legit, if it is get the token data
-            var principal = jwtTokenHandler.GetTokenPrincipal(request.Token);
-
-            //get the user email from the token
-            string? email = principal?.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
-            if (email == null) return null;
-
-            var user = await userManager.FindByEmailAsync(email);
+            var user = await userManager.Users.FirstOrDefaultAsync(u => u.RefreshToken == refreshToken);
 
             //if the user doesn't exist, or the refresh token is not the same as the one in the db 
             //or if the refreshToken expired, return, user needs to re-authentificate using pass and email
-            if (user == null || user.RefreshToken != request.RefreshToken 
-                || user.RefreshTokenExpiryTime <= DateTime.UtcNow) return null;
+            if (user == null || user.RefreshTokenExpiryTime <= DateTime.UtcNow) return null;
 
             var roles = await userManager.GetRolesAsync(user);
             //generate the token and the refresh token again, save the refresh token in the db
             string token = jwtTokenHandler.GenerateToken(user, roles);
-            string refreshToken = jwtTokenHandler.GenerateRefreshToken();
+            //string refreshToken = jwtTokenHandler.GenerateRefreshToken();
 
             //the refresh token will be valid for 7 days, if no activity happens in 7 days then the refresh token
             //will expire and the user needs to re-auth.

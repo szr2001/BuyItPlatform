@@ -1,8 +1,6 @@
-﻿using BuyItPlatform.GatewayApi.Services.IServices;
-using Newtonsoft.Json.Linq;
-using System.Reflection.Metadata.Ecma335;
+﻿using BuyItPlatform.AuthApi.Services.IServices;
 
-namespace BuyItPlatform.GatewayApi.Services
+namespace BuyItPlatform.AuthApi.Services
 {
     public class TokensProvider : ITokensProvider
     {

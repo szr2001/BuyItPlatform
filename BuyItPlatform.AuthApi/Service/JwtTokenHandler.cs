@@ -31,21 +31,6 @@ namespace BuyItPlatform.AuthApi.Service
             return Convert.ToBase64String(randomNumber);
         }
 
-        public ClaimsPrincipal? GetTokenPrincipal(string token)
-        {
-            var securityKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtOptions.Secret));
-            var validation = new TokenValidationParameters
-            {
-                IssuerSigningKey = securityKey,
-                ValidateLifetime = false,
-                ValidateActor = false,
-                ValidateAudience = false,
-                ValidateIssuer = false,
-            };
-
-            return new JwtSecurityTokenHandler().ValidateToken(token, validation, out _ );
-        }
-
         public string GenerateToken(BuyItUser user, IEnumerable<string> roles)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
