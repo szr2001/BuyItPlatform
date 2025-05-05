@@ -59,7 +59,9 @@ namespace BuyItPlatform.GatewayApi.Controllers
             
             if (tokenResult.Success)
             {
-                tokenProvider.SetTokens(tokenResult.Result?.Token!, tokenResult.Result?.RefreshToken!);
+                //if the request was a success, get the tokens and save them in the cookies for the frontend
+                tokenProvider.SetToken(tokenResult.Result?.Token!);
+                tokenProvider.SetRefreshToken(tokenResult.Result?.RefreshToken!);
             }
 
             return result;
