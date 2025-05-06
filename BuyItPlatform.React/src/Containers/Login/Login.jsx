@@ -5,8 +5,12 @@ import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import axios from '../../Api/axios';
 import { Loading } from '../../Components'
+import { useContext } from 'react';
+import { AuthContext } from '../../Containers/App/App'
+
 function Login() {
 
+    const [authState, dispatch] = useContext(AuthContext);
     const [loading, setIsLoading] = useState(false);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -50,8 +54,11 @@ function Login() {
                 console.log(response.data);
                 return;
             }
-
             window.localStorage.setItem('user', JSON.stringify(response.data.result));
+
+            //move the logic in the APP or in a AUTH component
+            dispatch({ type: "SET_USER", payload: { user: response.data.result } });
+            dispatch({ type: "SET_AUTH", payload: { isAuthenticated: true} });
             console.log(response);
         }
         catch (error) {
