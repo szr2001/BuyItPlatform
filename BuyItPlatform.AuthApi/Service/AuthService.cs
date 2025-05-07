@@ -92,13 +92,6 @@ namespace BuyItPlatform.AuthApi.Service
             var roles = await userManager.GetRolesAsync(user);
             //generate the token and the refresh token again, save the refresh token in the db
             string token = jwtTokenHandler.GenerateToken(user, roles);
-            string newRefreshToken = jwtTokenHandler.GenerateRefreshToken();
-
-            //the refresh token will be valid for 7 days, if no activity happens in 7 days then the refresh token
-            //will expire and the user needs to re-auth.
-            //if the user becomes active in that time, he gets a new token and refresh token for another 7 days
-            user.RefreshToken = newRefreshToken;
-            user.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(7);
 
             await userManager.UpdateAsync(user);
 
@@ -106,7 +99,7 @@ namespace BuyItPlatform.AuthApi.Service
             {
                 User = mapper.Map<UserDto>(user),
                 Token = token,
-                RefreshToken = newRefreshToken
+                RefreshToken = refreshToken
             };
 
             return loginResponseDto;
