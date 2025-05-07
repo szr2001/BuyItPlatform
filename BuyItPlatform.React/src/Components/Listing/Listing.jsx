@@ -1,12 +1,12 @@
 import './Listing.css'
-import axios from '../../Api/axios';
+import Api from '../../Api/Api';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 function Listing() {
 
     const test = async () => {
         try {
-            const response = await axios.get('listingsApi/GetListingWithId/2');
+            const response = await Api.get('listingsApi/GetListingWithId/2');
 
             if (!response.data.success) {
                 toast.error(response.data.message, {

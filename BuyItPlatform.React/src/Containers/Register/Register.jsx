@@ -4,7 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { Loading } from '../../Components'
-import axios from '../../Api/axios';
+import Api from '../../Api/Api';
 
 function Register() {
 
@@ -32,7 +32,7 @@ function Register() {
         setIsLoading(true);
 
         try {
-            const response = await axios.post('authApi/register', registerData);
+            const response = await Api.post('authApi/register', registerData);
 
             if (!response.data.success) {
                 toast.error(response.data.message, {

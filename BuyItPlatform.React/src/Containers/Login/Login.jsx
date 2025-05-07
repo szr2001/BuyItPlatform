@@ -3,10 +3,10 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import axios from '../../Api/axios';
+import Api from '../../Api/Api';
 import { Loading } from '../../Components'
 import { useContext } from 'react';
-import { AuthContext } from '../../Containers/App/App'
+import { AuthContext } from '../../Components/Auth/Auth'
 
 function Login() {
 
@@ -19,7 +19,7 @@ function Login() {
     const test = async () => {
         setIsLoading(true);
         try {
-            const response = await axios.get('authApi/refreshToken');
+            const response = await Api.get('authApi/refreshToken');
 
             if (!response.data.success) {
                 toast.error(response.data.message, {
@@ -45,7 +45,7 @@ function Login() {
     {
         setIsLoading(true);
         try {
-            const response = await axios.post('authApi/login', {Email: email, Password: password});
+            const response = await Api.post('authApi/login', {Email: email, Password: password});
 
             if (!response.data.success) {
                 toast.error(response.data.message, {

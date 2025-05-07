@@ -10,6 +10,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="src\Assets\" />
+    <Folder Include="src\Components\Auth\" />
+    <Folder Include="src\Components\NewFolder\" />
     <Folder Include="src\Containers\Listings\" />
     <Folder Include="src\Containers\Listing\" />
     <Folder Include="src\Containers\AddListing\" />

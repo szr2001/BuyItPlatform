@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const api = axios.create({
+const Api = axios.create({
     baseURL: 'https://localhost:7054/gateway/',
     withCredentials: true
 });
@@ -12,7 +12,7 @@ const privateApi = axios.create({
 
 let isRefreshing = false;
 
-api.interceptors.response.use(
+Api.interceptors.response.use(
     async response => {
         // we intercept the response request, we check if it was unauthorized, if it was, we make the
         // refresh token api call to get new tokens and then try again
@@ -45,4 +45,4 @@ api.interceptors.response.use(
     }
 );
 
-export default api;
+export default Api;
