@@ -1,6 +1,7 @@
 ﻿using BuyItPlatform.AuthApi.Models.Dto;
 using BuyItPlatform.AuthApi.Service.IService;
 using BuyItPlatform.AuthApi.Services.IServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BuyItPlatform.AuthApi.Controllers
@@ -55,20 +56,15 @@ namespace BuyItPlatform.AuthApi.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         [Route("RefreshToken")]
         public async Task<ResponseDto> RefreshToken()
         {
             try
             {
                 var refreshToken = tokenProvider.GetRefreshToken();
-                if(refreshToken == null)
-                {
-                    response.Success = false;
-                    response.Message = "Refresh token is missing in the request";
-                    return response;
-                }
 
-                var result = await authService.RefreshToken(refreshToken);
+                var result = await authService.RefreshToken(refreshToken!);
                 
                 if(result == null)
                 {
@@ -95,6 +91,52 @@ namespace BuyItPlatform.AuthApi.Controllers
             try
             {
                 await authService.AssignRole(email,roleName);
+                response.Result = null;
+                response.Success = true;
+            }
+            catch (Exception ex)
+            {
+                response.Success = false;
+                response.Message = $"{ex.Message}";
+            }
+            return response;
+        }
+
+        [HttpGet]
+        [Authorize]
+        [Route("GetUserProfile/{userId}")]
+        public async Task<ResponseDto> GetUserProfile(string userId)
+        {
+            try
+            {
+                response.Result = await authService.GetUserProfile(userId);
+                response.Success = true;
+            }
+            catch (Exception ex)
+            {
+                response.Success = false;
+                response.Message = $"{ex.Message}";
+            }
+            return response;
+        }
+
+        [HttpPost]
+        [Authorize]
+        [Route("Logout")]
+        public async Task<ResponseDto> Logout()
+        {
+            try
+            {
+                var refreshToken = tokenProvider.GetRefreshToken();
+                if (refreshToken == null)
+                {
+                    response.Success = false;
+                    response.Message = "Refresh token is missing in the request";
+                    return response;
+                }
+
+                await authService.Logout(refreshToken);
+
                 response.Result = null;
                 response.Success = true;
             }

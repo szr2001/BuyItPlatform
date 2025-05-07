@@ -1,5 +1,7 @@
 ﻿using BuyItPlatform.GatewayApi.Models;
+using BuyItPlatform.GatewayApi.Models.Dto;
 using BuyItPlatform.GatewayApi.Services.IServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Server.HttpSys;
 
@@ -65,6 +67,20 @@ namespace BuyItPlatform.GatewayApi.Controllers
             }
 
             return result;
+        }
+
+        [HttpGet]
+        [Route("GetUserProfile/{userId}")]
+        public async Task<ResponseDto<UserProfile>> GetUserProfile(string userId)
+        {
+            return await authService.GetUserProfile<UserProfile>(userId);
+        }
+
+        [HttpPost]
+        [Route("Logout")]
+        public async Task<ResponseDto<object>> Logout()
+        {
+            return await authService.Logout<object>();
         }
     }
 }

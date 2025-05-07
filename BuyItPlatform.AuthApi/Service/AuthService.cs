@@ -81,6 +81,8 @@ namespace BuyItPlatform.AuthApi.Service
 
         public async Task<LoginResponseDto?> RefreshToken(string refreshToken)
         {
+            if (string.IsNullOrEmpty(refreshToken)) return null;
+
             var user = await userManager.Users.FirstOrDefaultAsync(u => u.RefreshToken == refreshToken);
 
             //if the user doesn't exist, or the refresh token is not the same as the one in the db 
@@ -123,6 +125,16 @@ namespace BuyItPlatform.AuthApi.Service
                 await roleManager.CreateAsync(new BuyItRole() { Name = rolename});
             }
             await userManager.AddToRoleAsync(user, rolename);
+        }
+
+        public Task<UserProfile> GetUserProfile(string userId)
+        {
+            return null;
+        }
+
+        public Task Logout(string refreshToken)
+        {
+            return Task.CompletedTask;
         }
     }
 }

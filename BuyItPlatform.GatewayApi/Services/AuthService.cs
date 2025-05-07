@@ -26,6 +26,15 @@ namespace BuyItPlatform.GatewayApi.Services
             });
         }
 
+        public async Task<ResponseDto<T>> GetUserProfile<T>(string userId)
+        {
+            return await apiCallsService.SendAsync<T>(new RequestDto()
+            {
+                ApiType = Enums.ApiType.GET,
+                Url = $"{microservicesUrl.AuthApiUrl}/GetUserProfile/{userId}"
+            });
+        }
+
         public async Task<ResponseDto<T>> LoginUser<T>(LoginRequestDto loginData)
         {
             return await apiCallsService.SendAsync<T>(new RequestDto()
@@ -34,6 +43,15 @@ namespace BuyItPlatform.GatewayApi.Services
                 Data = loginData,
                 Url = $"{microservicesUrl.AuthApiUrl}/login"
             },false);
+        }
+
+        public async Task<ResponseDto<T>> Logout<T>()
+        {
+            return await apiCallsService.SendAsync<T>(new RequestDto()
+            {
+                ApiType = Enums.ApiType.POST,
+                Url = $"{microservicesUrl.AuthApiUrl}/Logout"
+            });
         }
 
         public async Task<ResponseDto<T>> RefreshToken<T>()

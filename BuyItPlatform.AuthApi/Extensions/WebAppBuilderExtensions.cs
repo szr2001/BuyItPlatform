@@ -1,10 +1,9 @@
-﻿using BuyItPlatform.ListingsApi.Models;
+﻿using BuyItPlatform.AuthApi.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using System.Runtime.CompilerServices;
 using System.Text;
 
-namespace BuyItPlatform.ListingsApi.Extensions
+namespace BuyItPlatform.AuthApi.Extensions
 {
     public static class WebAppBuilderExtensions
     {
@@ -12,7 +11,7 @@ namespace BuyItPlatform.ListingsApi.Extensions
         {
             //get the JWt settings
             var jwtOptions = builder.Configuration.GetSection("ApiSettings:JwtOptions").Get<JwtOptions>();
-            if(jwtOptions == null)
+            if (jwtOptions == null)
             {
                 throw new ArgumentNullException();
             }
