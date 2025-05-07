@@ -54,7 +54,7 @@ namespace BuyItPlatform.AuthApi.Service
                 Audience = jwtOptions.Audiance,
                 Issuer = jwtOptions.Issuer,
                 Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.UtcNow.AddMinutes(1),
+                Expires = DateTime.UtcNow.AddSeconds(5),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
 

@@ -26,7 +26,7 @@ Api.interceptors.response.use(
                     let resp = await privateApi.get('authApi/refreshToken');
                     isRefreshing = false;
                     if (resp?.data?.success === true) {
-                        return api(originalRequest);
+                        return Api(originalRequest);
                     }
                     return resp;
                 } catch (err) {

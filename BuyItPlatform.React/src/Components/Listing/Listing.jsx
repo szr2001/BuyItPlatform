@@ -2,7 +2,13 @@ import './Listing.css'
 import Api from '../../Api/Api';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useContext } from 'react';
+import { AuthContext } from '../../Components/Auth/Auth'
+import { useNavigate } from "react-router-dom";
+
 function Listing() {
+    const [authState, dispatch] = useContext(AuthContext);
+    const navigate = useNavigate();
 
     const test = async () => {
         try {
@@ -12,7 +18,12 @@ function Listing() {
                 toast.error(response.data.message, {
                     autoClose: 2000 + response.data.message.length * 50,
                 });
-                console.log(response.data);
+                console.error(response.data);
+                if (response.data.message === 'Refresh token is missing in the request') {
+                    window.localStorage.setItem('user', null);
+                    dispatch({ type: "SET_AUTH", payload: { isAuthenticated: false } });
+                    navigate('/Login/');
+                }
                 return;
             }
 
@@ -22,7 +33,7 @@ function Listing() {
             toast.error(error.message, {
                 autoClose: 2000 + error.message.length * 50,
             });
-            console.log(error.message);
+            console.error(error.message);
         }
         finally {
         }
