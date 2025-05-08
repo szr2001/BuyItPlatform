@@ -7,8 +7,8 @@ namespace BuyItPlatform.AuthApi.Service.IService
         Task<LoginResponseDto> LoginUser(LoginRequestDto registerData);
         Task RegisterUser(RegisterRequestDto registerData);
         Task AssignRole(string email, string rolename);
-        Task<LoginResponseDto?> RefreshToken(string refreshToken);
-        Task<UserProfile> GetUserProfile(string userId);
+        Task<LoginResponseDto> RefreshToken(string refreshToken);
+        Task<UserProfileDto> GetUserProfile(string userId);
         Task Logout(string refreshToken);
     }
 }

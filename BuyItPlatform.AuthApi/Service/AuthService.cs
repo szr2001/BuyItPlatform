@@ -79,15 +79,18 @@ namespace BuyItPlatform.AuthApi.Service
             return loginResponseDto;
         }
 
-        public async Task<LoginResponseDto?> RefreshToken(string refreshToken)
+        public async Task<LoginResponseDto> RefreshToken(string refreshToken)
         {
-            if (string.IsNullOrEmpty(refreshToken)) return null;
+            if (string.IsNullOrEmpty(refreshToken)) throw new ArgumentNullException("refreshToken is null");
 
             var user = await userManager.Users.FirstOrDefaultAsync(u => u.RefreshToken == refreshToken);
 
             //if the user doesn't exist, or the refresh token is not the same as the one in the db 
             //or if the refreshToken expired, return, user needs to re-authentificate using pass and email
-            if (user == null || user.RefreshTokenExpiryTime <= DateTime.UtcNow) return null;
+            if (user == null || user.RefreshTokenExpiryTime <= DateTime.UtcNow)
+            {
+                throw new Exception("user is null or refresh token is expired");
+            }
 
             var roles = await userManager.GetRolesAsync(user);
             //generate the token and the refresh token again, save the refresh token in the db
@@ -120,14 +123,30 @@ namespace BuyItPlatform.AuthApi.Service
             await userManager.AddToRoleAsync(user, rolename);
         }
 
-        public Task<UserProfile> GetUserProfile(string userId)
+        public async Task<UserProfileDto> GetUserProfile(string userId)
         {
-            return null;
+            var user = await userManager.FindByIdAsync(userId);
+            if(user == null) throw new Exception("user could not be found");
+
+            UserProfileDto userProfile = mapper.Map<UserProfileDto>(user);
+
+            return userProfile;
         }
 
-        public Task Logout(string refreshToken)
+        public async Task Logout(string refreshToken)
         {
-            return Task.CompletedTask;
+            if (string.IsNullOrEmpty(refreshToken)) throw new ArgumentNullException("refreshToken is null");
+
+            var user = await userManager.Users.FirstOrDefaultAsync(u => u.RefreshToken == refreshToken);
+
+            if (user == null || user.RefreshTokenExpiryTime <= DateTime.UtcNow)
+            {
+                throw new Exception("user is null or refresh token is expired");
+            }
+
+            user.RefreshTokenExpiryTime = DateTime.UtcNow;
+
+            await userManager.UpdateAsync(user);
         }
     }
 }

@@ -71,9 +71,9 @@ namespace BuyItPlatform.GatewayApi.Controllers
 
         [HttpGet]
         [Route("GetUserProfile/{userId}")]
-        public async Task<ResponseDto<UserProfile>> GetUserProfile(string userId)
+        public async Task<ResponseDto<UserProfileDto>> GetUserProfile(string userId)
         {
-            return await authService.GetUserProfile<UserProfile>(userId);
+            return await authService.GetUserProfile<UserProfileDto>(userId);
         }
 
         [HttpPost]

@@ -11,6 +11,7 @@ namespace BuyItPlatform.AuthApi
             MapperConfiguration mappingConfig = new(config => 
             {
                 config.CreateMap<BuyItUser, UserDto>();
+                config.CreateMap<BuyItUser, UserProfileDto>();
             });
 
             return mappingConfig;
