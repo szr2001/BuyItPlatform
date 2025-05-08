@@ -56,7 +56,6 @@ namespace BuyItPlatform.AuthApi.Controllers
         }
 
         [HttpGet]
-        [Authorize]
         [Route("RefreshToken")]
         public async Task<ResponseDto> RefreshToken()
         {
@@ -64,16 +63,7 @@ namespace BuyItPlatform.AuthApi.Controllers
             {
                 var refreshToken = tokenProvider.GetRefreshToken();
 
-                var result = await authService.RefreshToken(refreshToken!);
-                
-                if(result == null)
-                {
-                    response.Message = $"Tokens are not correct, or tokens are not valid anymore";
-                    response.Success = false;
-                    return response;
-                }
-
-                response.Result = result;
+                response.Result = await authService.RefreshToken(refreshToken!);
                 response.Success = true;
             }
             catch (Exception ex)
@@ -128,15 +118,8 @@ namespace BuyItPlatform.AuthApi.Controllers
             try
             {
                 var refreshToken = tokenProvider.GetRefreshToken();
-                if (refreshToken == null)
-                {
-                    response.Success = false;
-                    response.Message = "Refresh token is missing in the request";
-                    return response;
-                }
 
                 await authService.Logout(refreshToken);
-
                 response.Result = null;
                 response.Success = true;
             }

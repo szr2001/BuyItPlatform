@@ -4,7 +4,7 @@ import { useContext } from 'react';
 import { AuthContext } from '../../Components/Auth/Auth'
 function Navbar() {
     const [authState, dispatch] = useContext(AuthContext);
-    console.log(authState);
+
   return (
       <>
           <header>
