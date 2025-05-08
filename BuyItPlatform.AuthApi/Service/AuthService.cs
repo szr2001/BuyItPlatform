@@ -96,7 +96,9 @@ namespace BuyItPlatform.AuthApi.Service
             }
 
             var roles = await userManager.GetRolesAsync(user);
-            //generate the token and the refresh token again, save the refresh token in the db
+            //generate the token 
+            //we don't use refresh token rotation because I am lazy
+            //and I won't host the project anyway
             string token = jwtTokenHandler.GenerateToken(user, roles);
 
             await userManager.UpdateAsync(user);

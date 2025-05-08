@@ -1,6 +1,5 @@
 ﻿import './Login.css'
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import Api from '../../Api/Api';
@@ -108,11 +107,6 @@ function Login() {
                     </div>
                   )
           }
-          <ToastContainer
-              toastClassName="custom-toast"
-              bodyClassName="custom-toast-body"
-              progressClassName="custom-progress"
-          />
       </main>
   );
 }
