@@ -11,10 +11,10 @@ namespace BuyItPlatform.AuthApi.Controllers
     public class AuthController : Controller
     {
         private readonly IAuthService authService;
-        private readonly ITokensProvider tokenProvider;
+        private readonly ITokenCookiesProvider tokenProvider;
         private ResponseDto response = new();
 
-        public AuthController(IAuthService authService, ITokensProvider tokenProvider)
+        public AuthController(IAuthService authService, ITokenCookiesProvider tokenProvider)
         {
             this.tokenProvider = tokenProvider;
             this.authService = authService;
@@ -56,7 +56,7 @@ namespace BuyItPlatform.AuthApi.Controllers
         }
 
         [HttpGet]
-        [Route("RefreshToken")]
+        [Route("refreshToken")]
         public async Task<ResponseDto> RefreshToken()
         {
             try
@@ -74,27 +74,28 @@ namespace BuyItPlatform.AuthApi.Controllers
             return response;
         }
 
-        [HttpPost]
-        [Route("assignRole")]
-        public async Task<ResponseDto> AssignRole([FromQuery] string email, [FromQuery] string roleName)
-        {
-            try
-            {
-                await authService.AssignRole(email,roleName);
-                response.Result = null;
-                response.Success = true;
-            }
-            catch (Exception ex)
-            {
-                response.Success = false;
-                response.Message = $"{ex.Message}";
-            }
-            return response;
-        }
+        //[HttpPost]
+        //[Authorize]
+        //[Route("assignRole")]
+        //public async Task<ResponseDto> AssignRole([FromQuery] string email, [FromQuery] string roleName)
+        //{
+        //    try
+        //    {
+        //        await authService.AssignRole(email, roleName);
+        //        response.Result = null;
+        //        response.Success = true;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        response.Success = false;
+        //        response.Message = $"{ex.Message}";
+        //    }
+        //    return response;
+        //}
 
         [HttpPost]
         [Authorize]
-        [Route("Logout")]
+        [Route("logout")]
         public async Task<ResponseDto> Logout()
         {
             try

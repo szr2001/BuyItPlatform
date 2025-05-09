@@ -12,15 +12,13 @@ namespace BuyItPlatform.AuthApi.Service
 {
     public class AuthService : IAuthService
     {
-        public readonly IMapper mapper;
-        public readonly IJwtTokenHandler jwtTokenHandler;
-        public readonly AppDbContext appContext;
-        public readonly UserManager<BuyItUser> userManager;
-        public readonly RoleManager<BuyItRole> roleManager;
-        public AuthService(AppDbContext appContext, IMapper mapper, UserManager<BuyItUser> userManager, RoleManager<BuyItRole> roleManager, IJwtTokenHandler jwtTokenGenerator)
+        private readonly IMapper mapper;
+        private readonly IJwtTokenHandler jwtTokenHandler;
+        private readonly UserManager<BuyItUser> userManager;
+        private readonly RoleManager<BuyItRole> roleManager;
+        public AuthService(IMapper mapper, UserManager<BuyItUser> userManager, RoleManager<BuyItRole> roleManager, IJwtTokenHandler jwtTokenGenerator)
         {
             this.mapper = mapper;
-            this.appContext = appContext;
             this.userManager = userManager;
             this.roleManager = roleManager;
             this.jwtTokenHandler = jwtTokenGenerator;

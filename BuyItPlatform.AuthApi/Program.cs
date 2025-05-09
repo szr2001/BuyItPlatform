@@ -32,10 +32,11 @@ namespace BuyItPlatform.AuthApi
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddDefaultTokenProviders();
 
-            builder.Services.AddScoped<ITokensProvider, TokensProvider>();
+            builder.Services.AddScoped<ITokenCookiesProvider, TokensProvider>();
             builder.Services.AddScoped<IAuthService, AuthService>();
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IJwtTokenHandler, JwtTokenHandler>();
+            builder.Services.AddScoped<IImageUploader, ImageUploaderMockService>();
             builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection("ApiSettings:JwtOptions"));
 
             builder.Services.AddHttpContextAccessor();

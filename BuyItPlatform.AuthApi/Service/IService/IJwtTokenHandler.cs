@@ -8,5 +8,6 @@ namespace BuyItPlatform.AuthApi.Service.IService
     {
         string GenerateRefreshToken();
         string GenerateToken(BuyItUser user, IEnumerable<string> roles);
+        ICollection<Claim> ExtractTokenData(string token);
     }
 }

@@ -12,8 +12,8 @@ namespace BuyItPlatform.GatewayApi.Controllers
     public class AuthController : Controller
     {
         private readonly IAuthService authService;
-        private readonly ITokensProvider tokenProvider;
-        public AuthController(IAuthService authService, ITokensProvider tokenProvider)
+        private readonly ITokenCookiesProvider tokenProvider;
+        public AuthController(IAuthService authService, ITokenCookiesProvider tokenProvider)
         {
             this.authService = authService;
             this.tokenProvider = tokenProvider;
@@ -49,7 +49,7 @@ namespace BuyItPlatform.GatewayApi.Controllers
         }
 
         [HttpGet]
-        [Route("RefreshToken")]
+        [Route("refreshToken")]
         public async Task<ResponseDto<object>> RefreshToken()
         {
             ResponseDto<object> result = new();
@@ -70,17 +70,23 @@ namespace BuyItPlatform.GatewayApi.Controllers
         }
 
         [HttpGet]
-        [Route("GetUserProfile/{userId}")]
+        [Route("getUserProfile/{userId}")]
         public async Task<ResponseDto<UserProfileDto>> GetUserProfile(string userId)
         {
             return await authService.GetUserProfile<UserProfileDto>(userId);
         }
 
         [HttpPost]
-        [Route("Logout")]
+        [Route("logout")]
         public async Task<ResponseDto<object>> Logout()
         {
-            return await authService.Logout<object>();
+            var result = await authService.Logout<object>();
+            if(result.Success)
+            {
+                tokenProvider.ClearTokens();
+            }
+
+            return result;
         }
     }
 }

@@ -7,7 +7,7 @@ namespace BuyItPlatform.GatewayApi.Controllers
     public class GatewayController : Controller
     {
         [HttpGet]
-        [Route("Ping")]
+        [Route("ping")]
         public IActionResult Ping()
         {
             return Ok();

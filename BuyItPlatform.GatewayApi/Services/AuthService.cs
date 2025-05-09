@@ -31,7 +31,7 @@ namespace BuyItPlatform.GatewayApi.Services
             return await apiCallsService.SendAsync<T>(new RequestDto()
             {
                 ApiType = Enums.ApiType.GET,
-                Url = $"{microservicesUrl.AuthApiUrl}/auth/GetUserProfile/{userId}"
+                Url = $"{microservicesUrl.AuthApiUrl}/auth/getUserProfile/{userId}"
             });
         }
 
@@ -50,7 +50,7 @@ namespace BuyItPlatform.GatewayApi.Services
             return await apiCallsService.SendAsync<T>(new RequestDto()
             {
                 ApiType = Enums.ApiType.POST,
-                Url = $"{microservicesUrl.AuthApiUrl}/auth/Logout"
+                Url = $"{microservicesUrl.AuthApiUrl}/auth/logout"
             });
         }
 
@@ -59,7 +59,7 @@ namespace BuyItPlatform.GatewayApi.Services
             return await apiCallsService.SendAsync<T>(new RequestDto()
             {
                 ApiType = Enums.ApiType.GET,
-                Url = $"{microservicesUrl.AuthApiUrl}/auth/RefreshToken"
+                Url = $"{microservicesUrl.AuthApiUrl}/auth/refreshToken"
             });
         }
 

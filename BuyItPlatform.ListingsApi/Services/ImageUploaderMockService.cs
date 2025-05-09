@@ -5,24 +5,24 @@ namespace BuyItPlatform.ListingsApi.Services
     //fakes uploading images to platforms like AWS blob storage or S3 and returing the link
     //then save the link in the database alongside the Listing data.
     //when we delete the listings, we use the links to also delete the images from the aws storage
-    public class ListingImagesTestService : IImageUploader
+    public class ImageUploaderMockService : IImageUploader
     {
         private string testPath = @"";
         //move to appsettings
         private readonly string[] _allowedExtensions = { ".jpg", ".jpeg", ".png" };
         private readonly string[] _allowedMimeTypes = { "image/jpeg", "image/png" };
-        public ListingImagesTestService()
+        public ImageUploaderMockService()
         {
             testPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         }
 
-        public async Task DeleteImagesAsync(int listingId)
+        public async Task DeleteImagesAsync(int id)
         {
             List<string> imagesToDelete = new();
             foreach (var filePath in Directory.GetFiles(testPath))
             {
                 string[] path = filePath.Split('_');
-                if (path[0] == $"{testPath}\\{listingId}")
+                if (path[0] == $"{testPath}\\{id}")
                 {
                     imagesToDelete.Add(filePath);
                 }
@@ -34,7 +34,7 @@ namespace BuyItPlatform.ListingsApi.Services
             }
         }
 
-        public async Task<string[]> UploadImagesAsync(int listingId, ICollection<IFormFile> files)
+        public async Task<string[]> UploadImagesAsync(int id, ICollection<IFormFile> files)
         {
             List<string> paths = new();
 
@@ -61,7 +61,7 @@ namespace BuyItPlatform.ListingsApi.Services
                 string fileExtension = Path.GetExtension(file.FileName).ToLower();
                 string mimeType = file.ContentType.ToLower();
 
-                string fileName = $"{listingId}_{Guid.NewGuid()}{fileExtension}";
+                string fileName = $"{id}_{Guid.NewGuid()}{fileExtension}";
                 string filePath = Path.Combine(testPath, fileName);
                 using (var stream = new FileStream(filePath, FileMode.Create))
                 {

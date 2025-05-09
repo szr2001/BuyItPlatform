@@ -23,7 +23,7 @@ namespace BuyItPlatform.ListingsApi.Controllers
         }
 
         [HttpPost]
-        [Route("UploadListing")]    
+        [Route("uploadListing")]    
         public async Task<ResponseDto> UploadListing([FromForm] ListingDto listingDto)
         {
             try
@@ -42,7 +42,7 @@ namespace BuyItPlatform.ListingsApi.Controllers
         }
 
         [HttpGet]
-        [Route("GetListingWithId/{listingId:int}")]
+        [Route("getListingWithId/{listingId:int}")]
         public async Task<ResponseDto> GetListingWithId(int listingId)
         {
             try
@@ -62,7 +62,7 @@ namespace BuyItPlatform.ListingsApi.Controllers
         }
 
         [HttpPost]
-        [Route("GetListings")]
+        [Route("getListings")]
         public async Task<ResponseDto> GetListings([FromBody] ListingFIlterDto listFilter, [FromQuery] int count, [FromQuery] int offset)
         {
             try
@@ -82,7 +82,7 @@ namespace BuyItPlatform.ListingsApi.Controllers
         }
 
         [HttpGet]
-        [Route("DeleteListing/{listingId:int}")]
+        [Route("deleteListing/{listingId:int}")]
         public async Task<ResponseDto> DeleteListing(int listingId)
         {
             try
@@ -101,7 +101,7 @@ namespace BuyItPlatform.ListingsApi.Controllers
         }
 
         [HttpGet]
-        [Route("DeleteUserListings/{userid:int}")]
+        [Route("deleteUserListings/{userid:int}")]
         public async Task<ResponseDto> DeleteUserListings(int userid)
         {
             try

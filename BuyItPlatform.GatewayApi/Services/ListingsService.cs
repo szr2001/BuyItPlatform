@@ -18,7 +18,7 @@ namespace BuyItPlatform.GatewayApi.Services
         {
             return await apiCallsService.SendAsync<T>(new RequestDto() 
             {
-                Url = $"{microservicesUrl.ListingsApiUrl}/DeleteListing/{listingId}"
+                Url = $"{microservicesUrl.ListingsApiUrl}/deleteListing/{listingId}"
             });
         }
 
@@ -26,7 +26,7 @@ namespace BuyItPlatform.GatewayApi.Services
         {
             return await apiCallsService.SendAsync<T>(new RequestDto()
             {
-                Url = $"{microservicesUrl.ListingsApiUrl}/DeleteUserListings/{userId}"
+                Url = $"{microservicesUrl.ListingsApiUrl}/deleteUserListings/{userId}"
             });
         }
 
@@ -35,7 +35,7 @@ namespace BuyItPlatform.GatewayApi.Services
             return await apiCallsService.SendAsync<T>(new RequestDto()
             {
                 ApiType = Enums.ApiType.POST,
-                Url = $"{microservicesUrl.ListingsApiUrl}/GetListings?count={count}&offset={offset}",
+                Url = $"{microservicesUrl.ListingsApiUrl}/getListings?count={count}&offset={offset}",
                 Data = listFilter
             });
         }
@@ -44,7 +44,7 @@ namespace BuyItPlatform.GatewayApi.Services
         {
             return await apiCallsService.SendAsync<T>(new RequestDto()
             {
-                Url = $"{microservicesUrl.ListingsApiUrl}/GetListingWithId/{id}"
+                Url = $"{microservicesUrl.ListingsApiUrl}/getListingWithId/{id}"
             });
         }
 
@@ -53,7 +53,7 @@ namespace BuyItPlatform.GatewayApi.Services
             return await apiCallsService.SendAsync<T>(new RequestDto()
             {
                 ApiType = Enums.ApiType.POST,
-                Url = $"{microservicesUrl.ListingsApiUrl}/UploadListing",
+                Url = $"{microservicesUrl.ListingsApiUrl}/uploadListing",
                 Data = listingDto
             });
         }

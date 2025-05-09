@@ -1,6 +1,6 @@
-﻿using BuyItPlatform.ListingsApi.Models.Dto;
+﻿using BuyItPlatform.AuthApi.Models.Dto;
 
-namespace BuyItPlatform.ListingsApi.Services.IServices
+namespace BuyItPlatform.AuthApi.Services.IServices
 {
     public interface IImageUploader
     {

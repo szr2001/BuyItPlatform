@@ -11,8 +11,8 @@ namespace BuyItPlatform.GatewayApi.Services
     public class ApiCallsService : IApiCallsService
     {
         private readonly IHttpClientFactory httpClientFactory;
-        private readonly ITokensProvider tokensProvider;
-        public ApiCallsService(IHttpClientFactory httpClientFactory, ITokensProvider tokensProvider)
+        private readonly ITokenCookiesProvider tokensProvider;
+        public ApiCallsService(IHttpClientFactory httpClientFactory, ITokenCookiesProvider tokensProvider)
         {
             this.httpClientFactory = httpClientFactory;
             this.tokensProvider = tokensProvider;
@@ -34,7 +34,11 @@ namespace BuyItPlatform.GatewayApi.Services
                     message.Headers.Add("Authorization", $"Bearer {token}");
                     if (refreshToken != null) 
                     {
-                        message.Headers.Add("Cookie", $"{ITokensProvider.RefreshTokenKey}={refreshToken}");
+                        message.Headers.Add("Cookie", $"{ITokenCookiesProvider.RefreshTokenKey}={refreshToken}");
+                    }
+                    if(token != null)
+                    {
+                        message.Headers.Add("Cookie", $"{ITokenCookiesProvider.TokenKey}={token}");
                     }
                 }
 

@@ -1,33 +1,35 @@
-﻿using BuyItPlatform.AuthApi.Services.IServices;
+﻿using BuyItPlatform.GatewayApi.Services.IServices;
+using Newtonsoft.Json.Linq;
+using System.Reflection.Metadata.Ecma335;
 
-namespace BuyItPlatform.AuthApi.Services
+namespace BuyItPlatform.GatewayApi.Services
 {
-    public class TokensProvider : ITokensProvider
+    public class TokenCookiesProvider : ITokenCookiesProvider
     {
         private IHttpContextAccessor contextAccessor;
 
-        public TokensProvider(IHttpContextAccessor contextAccessor)
+        public TokenCookiesProvider(IHttpContextAccessor contextAccessor)
         {
             this.contextAccessor = contextAccessor;
         }
 
         public void ClearTokens()
         {
-            contextAccessor.HttpContext?.Response.Cookies.Delete(ITokensProvider.TokenKey);
-            contextAccessor.HttpContext?.Response.Cookies.Delete(ITokensProvider.RefreshTokenKey);
+            contextAccessor.HttpContext?.Response.Cookies.Delete(ITokenCookiesProvider.TokenKey);
+            contextAccessor.HttpContext?.Response.Cookies.Delete(ITokenCookiesProvider.RefreshTokenKey);
         }
 
         public string? GetToken()
         {
             string? token = null;
-            bool? hasToken = contextAccessor.HttpContext?.Request.Cookies.TryGetValue(ITokensProvider.TokenKey, out token);
+            bool? hasToken = contextAccessor.HttpContext?.Request.Cookies.TryGetValue(ITokenCookiesProvider.TokenKey, out token);
             return hasToken is true ? token : null;
         }
 
         public string? GetRefreshToken()
         {
             string? refreshToken = null;
-            bool? hasToken = contextAccessor.HttpContext?.Request.Cookies.TryGetValue(ITokensProvider.RefreshTokenKey, out refreshToken);
+            bool? hasToken = contextAccessor.HttpContext?.Request.Cookies.TryGetValue(ITokenCookiesProvider.RefreshTokenKey, out refreshToken);
             return hasToken is true ? refreshToken : null;
         }
 
@@ -40,7 +42,7 @@ namespace BuyItPlatform.AuthApi.Services
                 SameSite = SameSiteMode.None,
                 Expires = DateTime.UtcNow.AddMinutes(1)
             };
-            contextAccessor.HttpContext?.Response.Cookies.Append(ITokensProvider.TokenKey, token, tokenOptions);
+            contextAccessor.HttpContext?.Response.Cookies.Append(ITokenCookiesProvider.TokenKey, token, tokenOptions);
         }
 
         public void SetRefreshToken(string refreshToken)
@@ -52,7 +54,7 @@ namespace BuyItPlatform.AuthApi.Services
                 SameSite = SameSiteMode.None,
                 Expires = DateTime.UtcNow.AddDays(7)
             };
-            contextAccessor.HttpContext?.Response.Cookies.Append(ITokensProvider.RefreshTokenKey, refreshToken, tokenOptions);
+            contextAccessor.HttpContext?.Response.Cookies.Append(ITokenCookiesProvider.RefreshTokenKey, refreshToken, tokenOptions);
         }
     }
 }

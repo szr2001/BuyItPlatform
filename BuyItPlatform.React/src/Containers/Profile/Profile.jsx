@@ -21,7 +21,7 @@ function Profile() {
 
         const initAuth = async () => {
             try {
-                const response = await Api.get(`authApi/user/GetUserProfile/${userId}`);
+                const response = await Api.get(`authApi/user/getUserProfile/${userId}`);
 
                 if (!response.data.success) {
                     toast.error(response.data.message, {

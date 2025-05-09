@@ -19,12 +19,48 @@ namespace BuyItPlatform.GatewayApi.Service
             this.microservicesUrl = microservicesUrl;
         }
 
-        public async Task<ResponseDto<T>> GetUserProfile<T>(string userId)
+        public async Task<ResponseDto<T>> GetUserProfileAsync<T>(string userId)
         {
             return await apiCallsService.SendAsync<T>(new RequestDto()
             {
                 ApiType = Enums.ApiType.GET,
-                Url = $"{microservicesUrl.AuthApiUrl}/user/GetUserProfile/{userId}"
+                Url = $"{microservicesUrl.AuthApiUrl}/user/getUserProfile/{userId}"
+            });
+        }
+        public async Task<ResponseDto<T>> UpdateUserDescAsync<T>(string desc)
+        {
+            return await apiCallsService.SendAsync<T>(new RequestDto()
+            {
+                ApiType = Enums.ApiType.POST    ,
+                Url = $"{microservicesUrl.AuthApiUrl}/user/updateUserDesc/{desc}"
+            });
+        }
+
+        public async Task<ResponseDto<T>> UpdateUserNameAsync<T>(string name)
+        {
+            return await apiCallsService.SendAsync<T>(new RequestDto()
+            {
+                ApiType = Enums.ApiType.POST,
+                Url = $"{microservicesUrl.AuthApiUrl}/user/updateUserName/{name}"
+            });
+        }
+
+        public async Task<ResponseDto<T>> UpdateUserPhoneNumberAsync<T>(string phoneNumber)
+        {
+            return await apiCallsService.SendAsync<T>(new RequestDto()
+            {
+                ApiType = Enums.ApiType.POST,
+                Url = $"{microservicesUrl.AuthApiUrl}/user/updateUserPhoneNumber/{phoneNumber}"
+            });
+        }
+
+        public async Task<ResponseDto<T>> UpdateUserProfilePicsAsync<T>(IFormFile profilePic)
+        {
+            return await apiCallsService.SendAsync<T>(new RequestDto()
+            {
+                ApiType = Enums.ApiType.POST,
+                Data = profilePic,
+                Url = $"{microservicesUrl.AuthApiUrl}/user/UpdateUserProfilePic"
             });
         }
     }

@@ -13,10 +13,25 @@ namespace BuyItPlatform.AuthApi.Service
     public class JwtTokenHandler : IJwtTokenHandler
     {
         private readonly JwtOptions jwtOptions;
-
+        private readonly JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
+        private readonly ICollection<Claim> claims = new List<Claim>();
+        private readonly byte[] secretKey;
         public JwtTokenHandler(IOptions<JwtOptions> jwtOptions)
         {
             this.jwtOptions = jwtOptions.Value;
+
+            //read the secret code and encode it
+            secretKey = Encoding.ASCII.GetBytes(jwtOptions.Value.Secret);
+        }
+
+        public ICollection<Claim> ExtractTokenData(string token)
+        {
+            //extract the claims inside the token, without validaing it because it was
+            //already validated in the authorization layer
+            //we can't get to the point of calling this if the token is not valid
+            var principal = tokenHandler.ReadJwtToken(token);
+
+            return principal.Claims.ToList();
         }
 
         public string GenerateRefreshToken()
@@ -33,11 +48,6 @@ namespace BuyItPlatform.AuthApi.Service
 
         public string GenerateToken(BuyItUser user, IEnumerable<string> roles)
         {
-            var tokenHandler = new JwtSecurityTokenHandler();
-            
-            //encode the key
-            var key = Encoding.ASCII.GetBytes(jwtOptions.Secret);
-
             //create the cookies data, add more based on the requirements
             var claims = new List<Claim> 
             {
@@ -55,12 +65,11 @@ namespace BuyItPlatform.AuthApi.Service
                 Issuer = jwtOptions.Issuer,
                 Subject = new ClaimsIdentity(claims),
                 Expires = DateTime.UtcNow.AddMinutes(2),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(secretKey), SecurityAlgorithms.HmacSha256Signature)
             };
 
             //create token
             var token = tokenHandler.CreateToken(tokenDescriptor);
-
             //return the encrypted token as string
             return tokenHandler.WriteToken(token);
         }

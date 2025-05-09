@@ -1,6 +1,6 @@
 ﻿namespace BuyItPlatform.AuthApi.Services.IServices
 {
-    public interface ITokensProvider
+    public interface ITokenCookiesProvider
     {
         public const string TokenKey = "token";
         public const string RefreshTokenKey = "refreshToken";
