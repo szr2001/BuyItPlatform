@@ -1,4 +1,6 @@
 
+using BuyItPlatform.GatewayApi.Service;
+using BuyItPlatform.GatewayApi.Service.IService;
 using BuyItPlatform.GatewayApi.Services;
 using BuyItPlatform.GatewayApi.Services.IServices;
 using BuyItPlatform.GatewayApi.Utility;
@@ -27,11 +29,13 @@ namespace BuyItPlatform.GatewayApi
             builder.Services.AddHttpClient();
             builder.Services.AddHttpClient<IListingsService, ListingsService>();
             builder.Services.AddHttpClient<IAuthService, AuthService>();
+            builder.Services.AddHttpClient<IUserService, UserService>();
 
             builder.Services.AddSingleton<MicroservicesUrls>();
             builder.Services.AddScoped<ITokensProvider, TokensProvider>();
             builder.Services.AddScoped<IApiCallsService, ApiCallsService>();
             builder.Services.AddScoped<IListingsService, ListingsService>();
+            builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IAuthService, AuthService>();
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

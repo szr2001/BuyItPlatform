@@ -1,5 +1,5 @@
 ﻿import './Register.css'
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
@@ -32,7 +32,7 @@ function Register() {
         setIsLoading(true);
 
         try {
-            const response = await Api.post('authApi/register', registerData);
+            const response = await Api.post('authApi/auth/register', registerData);
 
             if (!response.data.success) {
                 toast.error(response.data.message, {
@@ -88,11 +88,6 @@ function Register() {
                     </div>
                 )
             }
-            <ToastContainer
-                toastClassName="custom-toast"
-                bodyClassName="custom-toast-body"
-                progressClassName="custom-progress"
-            />
       </main>
   );
 }

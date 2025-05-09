@@ -34,6 +34,7 @@ namespace BuyItPlatform.AuthApi
 
             builder.Services.AddScoped<ITokensProvider, TokensProvider>();
             builder.Services.AddScoped<IAuthService, AuthService>();
+            builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IJwtTokenHandler, JwtTokenHandler>();
             builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection("ApiSettings:JwtOptions"));
 

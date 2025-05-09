@@ -1,5 +1,5 @@
 ﻿import './Profile.css'
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useParams } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
@@ -21,7 +21,7 @@ function Profile() {
 
         const initAuth = async () => {
             try {
-                const response = await Api.get(`authApi/GetUserProfile/${userId}`);
+                const response = await Api.get(`authApi/user/GetUserProfile/${userId}`);
 
                 if (!response.data.success) {
                     toast.error(response.data.message, {
@@ -72,11 +72,6 @@ function Profile() {
                         )
                 )
             }
-            <ToastContainer
-                toastClassName="custom-toast"
-                bodyClassName="custom-toast-body"
-                progressClassName="custom-progress"
-            />
       </main>
   );
 }

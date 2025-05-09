@@ -1,6 +1,6 @@
 import './Listing.css'
 import Api from '../../Api/Api';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useContext } from 'react';
 import { AuthContext } from '../../Components/Auth/Auth'
@@ -44,11 +44,6 @@ function Listing() {
         <div className="holder">
             <button className="login-button" onClick={ test }> Get
             </button>
-            <ToastContainer
-                toastClassName="custom-toast"
-                bodyClassName="custom-toast-body"
-                progressClassName="custom-progress"
-            />
         </div>
   );
 }

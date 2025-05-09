@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BuyItPlatform.AuthApi.Controllers
 {
-    [Route("authApi")]
+    [Route("authApi/auth")]
     [ApiController]
     public class AuthController : Controller
     {
@@ -82,24 +82,6 @@ namespace BuyItPlatform.AuthApi.Controllers
             {
                 await authService.AssignRole(email,roleName);
                 response.Result = null;
-                response.Success = true;
-            }
-            catch (Exception ex)
-            {
-                response.Success = false;
-                response.Message = $"{ex.Message}";
-            }
-            return response;
-        }
-
-        [HttpGet]
-        [Authorize]
-        [Route("GetUserProfile/{userId}")]
-        public async Task<ResponseDto> GetUserProfile(string userId)
-        {
-            try
-            {
-                response.Result = await authService.GetUserProfile(userId);
                 response.Success = true;
             }
             catch (Exception ex)

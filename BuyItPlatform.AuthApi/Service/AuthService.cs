@@ -128,19 +128,6 @@ namespace BuyItPlatform.AuthApi.Service
             await userManager.AddToRoleAsync(user, rolename);
         }
 
-        public async Task<UserProfileDto> GetUserProfile(string userId)
-        {
-            var user = await userManager.FindByIdAsync(userId);
-            if(user == null)
-            {
-                throw new Exception("user could not be found");
-            }
-
-            UserProfileDto userProfile = mapper.Map<UserProfileDto>(user);
-
-            return userProfile;
-        }
-
         public async Task Logout(string? refreshToken)
         {
             if (string.IsNullOrEmpty(refreshToken))

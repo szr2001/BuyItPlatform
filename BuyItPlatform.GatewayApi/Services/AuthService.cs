@@ -22,7 +22,7 @@ namespace BuyItPlatform.GatewayApi.Services
             return await apiCallsService.SendAsync<T>(new RequestDto()
             {
                 ApiType = Enums.ApiType.POST,
-                Url = $"{microservicesUrl.AuthApiUrl}/assignRole?email={email}&roleName={rolename}"
+                Url = $"{microservicesUrl.AuthApiUrl}/auth/assignRole?email={email}&roleName={rolename}"
             });
         }
 
@@ -31,7 +31,7 @@ namespace BuyItPlatform.GatewayApi.Services
             return await apiCallsService.SendAsync<T>(new RequestDto()
             {
                 ApiType = Enums.ApiType.GET,
-                Url = $"{microservicesUrl.AuthApiUrl}/GetUserProfile/{userId}"
+                Url = $"{microservicesUrl.AuthApiUrl}/auth/GetUserProfile/{userId}"
             });
         }
 
@@ -41,7 +41,7 @@ namespace BuyItPlatform.GatewayApi.Services
             {
                 ApiType = Enums.ApiType.POST,
                 Data = loginData,
-                Url = $"{microservicesUrl.AuthApiUrl}/login"
+                Url = $"{microservicesUrl.AuthApiUrl}/auth/login"
             },false);
         }
 
@@ -50,7 +50,7 @@ namespace BuyItPlatform.GatewayApi.Services
             return await apiCallsService.SendAsync<T>(new RequestDto()
             {
                 ApiType = Enums.ApiType.POST,
-                Url = $"{microservicesUrl.AuthApiUrl}/Logout"
+                Url = $"{microservicesUrl.AuthApiUrl}/auth/Logout"
             });
         }
 
@@ -59,7 +59,7 @@ namespace BuyItPlatform.GatewayApi.Services
             return await apiCallsService.SendAsync<T>(new RequestDto()
             {
                 ApiType = Enums.ApiType.GET,
-                Url = $"{microservicesUrl.AuthApiUrl}/RefreshToken"
+                Url = $"{microservicesUrl.AuthApiUrl}/auth/RefreshToken"
             });
         }
 
@@ -69,7 +69,7 @@ namespace BuyItPlatform.GatewayApi.Services
             {
                 ApiType = Enums.ApiType.POST,
                 Data = registerData,
-                Url = $"{microservicesUrl.AuthApiUrl}/register"
+                Url = $"{microservicesUrl.AuthApiUrl}/auth/register"
             }, false);
         }
     }

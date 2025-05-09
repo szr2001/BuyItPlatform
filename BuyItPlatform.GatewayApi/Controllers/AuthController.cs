@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Server.HttpSys;
 
 namespace BuyItPlatform.GatewayApi.Controllers
 {
-    [Route("gateway/authApi")]
+    [Route("gateway/authApi/auth")]
     [ApiController]
     public class AuthController : Controller
     {
