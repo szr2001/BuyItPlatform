@@ -7,12 +7,11 @@ import { AuthContext } from '../../Components/Auth/Auth'
 import { useRef } from 'react';
 import Api from '../../Api/Api';
 import { useNavigate } from "react-router-dom";
-import { Loading } from '../../Components'
+import { UserDesc, UserName, UserPic, UserPhone, UserRating } from '../../Components'
 
 function Profile() {
-    const { userId } = useParams();
+    const {userId } = useParams();
     const [authState, dispatch] = useContext(AuthContext);
-    const [loading, setLoading] = useState(true);
     const [userProfile, setUser] = useState(null);
     const isFirstRender = useRef(true); // because useEffect runs twitce due to StrictMode component
     const navigate = useNavigate();
@@ -46,7 +45,6 @@ function Profile() {
                 console.log(error.message);
             }
             finally {
-                setLoading(false);
             }
         };
 
@@ -59,20 +57,20 @@ function Profile() {
 
     return (
         <main>
-            {loading ? <Loading /> :
-                (
-                    userProfile === null ? (<label>User Not Found</label>) : 
-                        (
-                            <div>
-                                <label>{userProfile.id} | </label>
-                                <label>{userProfile.userName} | </label>
-                                <label>{userProfile.description} | </label>
-                                <label>{userProfile.rating} | </label>
-                            </div>
-                        )
-                )
-            }
-      </main>
+            <div className="holder">
+                <div className="profile">
+                    <div className="profile-left">
+                        <UserPic editable={true} picLink="https://i.imgur.com/sqNAHAw.png"/>
+                        <UserName editable = {true}/>
+                        <UserRating editable = {true}/>
+                        <UserPhone editable = {true}/>
+                    </div>
+                    <div className="profile-right">
+                        <UserDesc editable = {true}/>
+                    </div>
+                </div>
+            </div>
+        </main>
   );
 }
 

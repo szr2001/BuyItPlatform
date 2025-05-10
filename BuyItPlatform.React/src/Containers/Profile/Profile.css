@@ -1,0 +1,12 @@
+.profile{
+    display:flex;
+    width:100%;
+}
+.profile-left{
+}
+.profile-right {
+    flex: 1;
+}
+.profile-user{
+
+}

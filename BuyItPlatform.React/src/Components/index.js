@@ -6,6 +6,11 @@ export { default as ListingsDisplay } from './ListingsDisplay/ListingsDisplay';
 export { default as Loading } from './Loading/Loading';
 export { default as Listing } from './Listing/Listing';
 export { default as Auth } from './Auth/Auth';
+export { default as UserDesc } from './User/UserDesc/UserDesc';
+export { default as UserPic} from './User/UserPic/UserPic';
+export { default as UserName } from './User/UserName/UserName';
+export { default as UserPhone } from './User/UserPhone/UserPhone';
+export { default as UserRating } from './User/UserRating/UserRating';
 
 //export components directly from this index file, and then we can import
 //components directly from the folder with one line

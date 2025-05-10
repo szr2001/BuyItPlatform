@@ -1,0 +1,11 @@
+.user-description {
+    border-width: 2px;
+    display: flex;
+    flex: 1;
+    border-style: solid;
+    margin: 10px;
+    padding: 5px;
+    border-color: var(--primary-color);
+    border-width: 2px;
+    border-radius: 15px;
+}
