@@ -1,0 +1,30 @@
+.userphone-holder {
+    height: 50px;
+    justify-content: center;
+    transition: all 0.1s;
+    display: flex;
+    flex: 1;
+}
+
+.userphone-text {
+    color: var(--text-color);
+    font-family: var(--primary-font);
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.1s;
+    align-self: center;
+    cursor: copy;
+    font-size: 20px;
+}
+.userphone-holder:hover .userphone-text {
+    transform: scale(1.05);
+    color: var(--highlight-color);
+}
+.userphone-holder:hover .userphone-icon {
+    transform: rotate(-10deg);
+}
+.userphone-icon {
+    width: 30px;
+    transition: all 0.1s;
+    margin: 5px;
+}

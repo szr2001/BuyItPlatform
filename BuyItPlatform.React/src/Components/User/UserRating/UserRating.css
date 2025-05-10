@@ -1,0 +1,32 @@
+.userrate-holder {
+    height: 50px;
+    justify-content: center;
+    display: flex;
+    flex: 1;
+    margin:10px;
+    background-color:var(--primary-color);
+    border-radius:25px;
+}
+.userrate-loading-holder {
+    height: 50px;
+    justify-content: center;
+    display: flex;
+    flex: 1;
+    margin: 10px;
+    background-color: transparent;
+    border-radius: 25px;
+}
+
+.userrate-text {
+    color: var(--text-color);
+    font-family: var(--primary-font);
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 35px;
+}
+
+.userrate-icon {
+    color: var(--secondary-color);
+    width: 30px;
+    margin: 5px;
+}

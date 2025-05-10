@@ -1,0 +1,23 @@
+.username-holder {
+    height: 50px;
+    padding: 5px;
+    justify-content: center;
+    display: flex;
+    flex: 1;
+    margin: -10px;
+}
+.username-text {
+    color: var(--text-color);
+    font-family: var(--primary-font);
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 35px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 250px;
+}
+.username-icon{
+    width:30px;
+    margin:5px;
+}

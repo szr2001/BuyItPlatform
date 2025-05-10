@@ -60,13 +60,13 @@ function Profile() {
             <div className="holder">
                 <div className="profile">
                     <div className="profile-left">
-                        <UserPic editable={true} picLink="https://i.imgur.com/sqNAHAw.png"/>
-                        <UserName editable = {true}/>
-                        <UserRating editable = {true}/>
-                        <UserPhone editable = {true}/>
+                        <UserPic editable={true} picLink={"https://i.imgur.com/sqNAHAw.png"}/>
+                        <UserName editable={true} name={ "CocaineMaster"} />
+                        <UserRating editable={true} rating={9} />
+                        <UserPhone editable={true} phone={"07719827345"} />
                     </div>
                     <div className="profile-right">
-                        <UserDesc editable = {true}/>
+                        <UserDesc editable={true} desc={"I am here to sell cocaine, please, $40/g, I will not negotiate, this cocaine stuff is very expensive and please"}/>
                     </div>
                 </div>
             </div>

@@ -3,9 +3,15 @@
     display: flex;
     flex: 1;
     border-style: solid;
+    min-height: 150px;
     margin: 10px;
     padding: 5px;
     border-color: var(--primary-color);
     border-width: 2px;
     border-radius: 15px;
+    color: var(--text-color);
+    font-family: var(--primary-font);
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 20px;
 }
