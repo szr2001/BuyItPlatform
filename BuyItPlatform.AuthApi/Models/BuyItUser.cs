@@ -10,7 +10,7 @@ namespace BuyItPlatform.AuthApi.Models
         [Range(0, 10)]
         public int Rating { get; set; } = 8;
         [MaxLength(150)]
-        public string? ProfileImgLink { get; set; }
+        public string? ProfileImgLink { get; set; } = " ";
         [MaxLength(150)]
         public string RefreshToken { get; set; } = "";
         public DateTime? RefreshTokenExpiryTime { get; set; }

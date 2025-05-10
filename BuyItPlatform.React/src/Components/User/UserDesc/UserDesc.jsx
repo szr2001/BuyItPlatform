@@ -4,7 +4,7 @@ import { Loading } from '../../../Components';
 function UserDesc({editable, desc}) {
     return desc ?
     (
-        <div className="user-description">
+        <div className="user-description fade-in">
             { desc }
         </div>
     ):(

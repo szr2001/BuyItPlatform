@@ -12,7 +12,14 @@ import { UserDesc, UserName, UserPic, UserPhone, UserRating } from '../../Compon
 function Profile() {
     const {userId } = useParams();
     const [authState, dispatch] = useContext(AuthContext);
-    const [userProfile, setUser] = useState(null);
+    const [userProfile, setUser] = useState(
+        {
+            profileImgLink: null,
+            userName: null,
+            rating: null,
+            phoneNumber: null,
+            description: null,
+        });
     const isFirstRender = useRef(true); // because useEffect runs twitce due to StrictMode component
     const navigate = useNavigate();
 
@@ -60,13 +67,13 @@ function Profile() {
             <div className="holder">
                 <div className="profile">
                     <div className="profile-left">
-                        <UserPic editable={true} picLink={"https://i.imgur.com/sqNAHAw.png"}/>
-                        <UserName editable={true} name={ "CocaineMaster"} />
-                        <UserRating editable={true} rating={9} />
-                        <UserPhone editable={true} phone={"07719827345"} />
+                        <UserPic editable={true} picLink={userProfile.profileImgLink}/>
+                        <UserName editable={true} name={userProfile.userName} />
+                        <UserRating editable={true} rating={userProfile.rating} />
+                        <UserPhone editable={true} phone={userProfile.phoneNumber} />
                     </div>
                     <div className="profile-right">
-                        <UserDesc editable={true} desc={"I am here to sell cocaine, please, $40/g, I will not negotiate, this cocaine stuff is very expensive and please"}/>
+                        <UserDesc editable={true} desc={userProfile.description}/>
                     </div>
                 </div>
             </div>
