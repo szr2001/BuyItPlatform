@@ -26,7 +26,7 @@ BuyIt is a full-stack online marketplace where users can post both **Sell Listin
 
 ### Frontend
 - **React** for a modern and dynamic user interface.
-- **Bootstrap** for styling.
+- **Css** for styling.
 
 ### Backend
 - **ASP.NET 8** RESTful API Gateway handling authentication and request routing.
@@ -36,7 +36,6 @@ BuyIt is a full-stack online marketplace where users can post both **Sell Listin
   - **BuyItPlatform.CommentsApi**: Manages listing comments and discussions.
   - **BuyItPlatform.ListingReportingApi**: Manages reports on listings.
   - **BuyItPlatform.ListingsApi**: Handles buy/sell listings.
-  - **BuyItPlatform.UserRatingApi**: Manages user ratings.
   - **BuyItPlatform.UserReportingApi**: Handles reports on users.
 
 ### Database
