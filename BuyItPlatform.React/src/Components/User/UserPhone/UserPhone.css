@@ -21,10 +21,31 @@
     color: var(--highlight-color);
 }
 .userphone-holder:hover .userphone-icon {
-    transform: rotate(-10deg);
+    transform: rotate(-45deg);
+}
+.userphone-holder:hover .userphone-edit-icon {
+    width: 30px;
 }
 .userphone-icon {
     width: 30px;
     transition: all 0.1s;
-    margin: 5px;
+    margin: 0px;
+}
+.userphone-edit-icon {
+    width: 0px;
+    transition: all 0.1s;
+    margin: 10px;
+}
+.userphone-icon-hover:hover {
+    transform: scale(1.1);
+}
+.userphone-input-holder {
+    height: 50px;
+    justify-content: center;
+    transition: all 0.1s;
+    display: flex;
+    flex: 1;
+}
+.username-input{
+
 }

@@ -7,19 +7,12 @@ import { AuthContext } from '../../Components/Auth/Auth'
 import { useRef } from 'react';
 import Api from '../../Api/Api';
 import { useNavigate } from "react-router-dom";
-import { UserDesc, UserName, UserPic, UserPhone, UserRating } from '../../Components'
+import { UserDesc, UserName, UserPic, UserPhone, UserRating, Loading } from '../../Components'
 
 function Profile() {
     const {userId } = useParams();
     const [authState, dispatch] = useContext(AuthContext);
-    const [userProfile, setUser] = useState(
-        {
-            profileImgLink: null,
-            userName: null,
-            rating: null,
-            phoneNumber: null,
-            description: null,
-        });
+    const [userProfile, setUser] = useState(null);
     const isFirstRender = useRef(true); // because useEffect runs twitce due to StrictMode component
     const navigate = useNavigate();
 
@@ -65,17 +58,24 @@ function Profile() {
     return (
         <main>
             <div className="holder">
-                <div className="profile">
-                    <div className="profile-left">
-                        <UserPic editable={true} picLink={userProfile.profileImgLink}/>
-                        <UserName editable={true} name={userProfile.userName} />
-                        <UserRating editable={true} rating={userProfile.rating} />
-                        <UserPhone editable={true} phone={userProfile.phoneNumber} />
-                    </div>
-                    <div className="profile-right">
-                        <UserDesc editable={true} desc={userProfile.description}/>
-                    </div>
-                </div>
+                {
+                    userProfile ?
+                        <div className="profile">
+                            <div className="profile-left">
+                                <UserPic editable={true} picLink={userProfile.profileImgLink}/>
+                                <UserName editable={true} name={userProfile.userName} />
+                                <UserRating editable={true} rating={userProfile.rating} />
+                                <UserPhone editable={true} phone={userProfile.phoneNumber} />
+                            </div>
+                            <div className="profile-right">
+                                <UserDesc editable={true} desc={userProfile.description}/>
+                            </div>
+                        </div>
+                        :
+                        <div className="profile">
+                            <Loading/>
+                        </div>
+                }
             </div>
         </main>
   );
