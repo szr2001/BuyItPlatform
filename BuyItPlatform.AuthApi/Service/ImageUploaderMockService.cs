@@ -16,7 +16,7 @@ namespace BuyItPlatform.AuthApi.Services
             testPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         }
 
-        public async Task DeleteImagesAsync(int id)
+        public async Task DeleteImagesAsync(string id)
         {
             List<string> imagesToDelete = new();
             foreach (var filePath in Directory.GetFiles(testPath))
@@ -34,7 +34,7 @@ namespace BuyItPlatform.AuthApi.Services
             }
         }
 
-        public async Task<string[]> UploadImagesAsync(int id, ICollection<IFormFile> files)
+        public async Task<string[]> UploadImagesAsync(string id, ICollection<IFormFile> files)
         {
             List<string> paths = new();
 

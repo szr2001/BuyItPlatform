@@ -93,14 +93,14 @@ namespace BuyItPlatform.ListingsApi.Services
 
             if (listingDto.ImageFiles.Count > 0)
             {
-                newListing.ImagePaths = await imageUploader.UploadImagesAsync(newListing.Id, listingDto.ImageFiles);
+                newListing.ImagePaths = await imageUploader.UploadImagesAsync(newListing.Id.ToString(), listingDto.ImageFiles);
                 await dbContext.SaveChangesAsync();
             }
         }
 
         public async Task DeleteListingAsync(int listingId)
         {
-            await imageUploader.DeleteImagesAsync(listingId);
+            await imageUploader.DeleteImagesAsync(listingId.ToString());
             Listing listing = await dbContext.Listings.Where(i => i.Id == listingId).FirstAsync();
             dbContext.Listings.Remove(listing);
             await dbContext.SaveChangesAsync();

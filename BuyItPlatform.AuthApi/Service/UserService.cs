@@ -5,6 +5,7 @@ using BuyItPlatform.AuthApi.Models.Dto;
 using BuyItPlatform.AuthApi.Service.IService;
 using BuyItPlatform.AuthApi.Services.IServices;
 using Microsoft.AspNetCore.Identity;
+using System.Xml.Linq;
 
 namespace BuyItPlatform.AuthApi.Service
 {
@@ -58,17 +59,73 @@ namespace BuyItPlatform.AuthApi.Service
 
         public async Task UpdateUserName(string userId, string name)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrEmpty(userId))
+            {
+                throw new Exception("Refresh token is missing or expired");
+            }
+            if (string.IsNullOrEmpty(name))
+            {
+                throw new Exception("Name is empty");
+            }
+
+            var user = await userManager.FindByIdAsync(userId);
+
+            //if the user doesn't exist, or the refresh token is not the same as the one in the db 
+            //or if the refreshToken expired, return, user needs to re-authentificate using pass and email
+            if (user == null || user.RefreshTokenExpiryTime <= DateTime.UtcNow)
+            {
+                throw new Exception("Refresh token is missing or expired");
+            }
+
+            user.UserName = name;
+            user.NormalizedUserName = name.ToUpper();
+            await userManager.UpdateAsync(user);
         }
 
         public async Task UpdateUserPhoneNumber(string userId, string phoneNumber)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrEmpty(userId))
+            {
+                throw new Exception("Refresh token is missing or expired");
+            }
+            if (string.IsNullOrEmpty(phoneNumber) && phoneNumber.Length > 15 && phoneNumber.Length < 8)
+            {
+                throw new Exception("Phone number must be between 8-15 numbers");
+            }
+
+            var user = await userManager.FindByIdAsync(userId);
+
+            //if the user doesn't exist, or the refresh token is not the same as the one in the db 
+            //or if the refreshToken expired, return, user needs to re-authentificate using pass and email
+            if (user == null || user.RefreshTokenExpiryTime <= DateTime.UtcNow)
+            {
+                throw new Exception("Refresh token is missing or expired");
+            }
+
+            user.PhoneNumber = phoneNumber;
+            await userManager.UpdateAsync(user);
         }
 
         public async Task UpdateUserProfilePic(string userId, IFormFile profilePic)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrEmpty(userId))
+            {
+                throw new Exception("Refresh token is missing or expired");
+            }
+
+            var user = await userManager.FindByIdAsync(userId);
+
+            //if the user doesn't exist, or the refresh token is not the same as the one in the db 
+            //or if the refreshToken expired, return, user needs to re-authentificate using pass and email
+            if (user == null || user.RefreshTokenExpiryTime <= DateTime.UtcNow)
+            {
+                throw new Exception("Refresh token is missing or expired");
+            }
+
+            var imageUpload = await imageUploader.UploadImagesAsync(userId, [profilePic]);
+
+            user.ProfileImgLink = imageUpload[0];
+            await userManager.UpdateAsync(user);
         }
     }
 }

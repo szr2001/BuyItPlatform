@@ -46,6 +46,15 @@
     display: flex;
     flex: 1;
 }
-.username-input{
+.username-input {
+    background-color: var(--secondary-color) !important;
+    border-radius: 10px;
+    padding: 5px;
+    outline: none;
+    max-width: 150px;
+}
 
+.username-input:focus {
+    border-color: var(--highlight-color);
+    border-style: solid;
 }

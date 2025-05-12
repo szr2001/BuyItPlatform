@@ -1,11 +1,7 @@
 ﻿using BuyItPlatform.GatewayApi.Models;
 using BuyItPlatform.GatewayApi.Models.Dto;
-using BuyItPlatform.GatewayApi.Service;
 using BuyItPlatform.GatewayApi.Service.IService;
-using BuyItPlatform.GatewayApi.Services.IServices;
-using BuyItPlatform.GatewayApi.Utility;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 
 namespace BuyItPlatform.GatewayApi.Controllers
 {
@@ -38,21 +34,21 @@ namespace BuyItPlatform.GatewayApi.Controllers
         [Route("updateUserName/{name}")]
         public async Task<ResponseDto<object>> UpdateUserName(string name)
         {
-            throw new NotImplementedException();
+            return await userService.UpdateUserNameAsync<object>(name);
         }
 
         [HttpPost]
         [Route("updateUserPhoneNumber/{phoneNumber}")]
         public async Task<ResponseDto<object>> UpdateUserPhoneNumber(string phoneNumber)
         {
-            throw new NotImplementedException();
+            return await userService.UpdateUserPhoneNumberAsync<object>(phoneNumber);
         }
 
         [HttpPost]
         [Route("updateUserProfilePic")]
         public async Task<ResponseDto<object>> UpdateUserProfilePic([FromBody] IFormFile profilePic)
         {
-            throw new NotImplementedException();
+            return await userService.UpdateUserProfilePicsAsync<object>(profilePic);
         }
     }
 }

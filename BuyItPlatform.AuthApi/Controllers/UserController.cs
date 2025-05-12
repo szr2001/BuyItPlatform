@@ -66,21 +66,63 @@ namespace BuyItPlatform.AuthApi.Controllers
         [Route("updateUserName/{name}")]
         public async Task<ResponseDto> UpdateUserName(string name)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var Token = tokenProvider.GetToken();
+                var tokenData = jwtTokenHandler.ExtractTokenData(Token);
+                var Id = tokenData.Where(i => i.Type == "nameid").First().Value;
+                await userService.UpdateUserName(Id, name);
+                response.Result = null;
+                response.Success = true;
+            }
+            catch (Exception ex)
+            {
+                response.Success = false;
+                response.Message = $"{ex.Message}";
+            }
+            return response;
         }
 
         [HttpPost]
         [Route("updateUserPhoneNumber/{phoneNumber}")]
         public async Task<ResponseDto> UpdateUserPhoneNumber(string phoneNumber)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var Token = tokenProvider.GetToken();
+                var tokenData = jwtTokenHandler.ExtractTokenData(Token);
+                var Id = tokenData.Where(i => i.Type == "nameid").First().Value;
+                await userService.UpdateUserPhoneNumber(Id, phoneNumber);
+                response.Result = null;
+                response.Success = true;
+            }
+            catch (Exception ex)
+            {
+                response.Success = false;
+                response.Message = $"{ex.Message}";
+            }
+            return response;
         }
 
         [HttpPost]
         [Route("updateUserProfilePic")]
         public async Task<ResponseDto> UpdateUserProfilePic([FromBody]IFormFile profilePic)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var Token = tokenProvider.GetToken();
+                var tokenData = jwtTokenHandler.ExtractTokenData(Token);
+                var Id = tokenData.Where(i => i.Type == "nameid").First().Value;
+                await userService.UpdateUserProfilePic(Id, profilePic);
+                response.Result = null;
+                response.Success = true;
+            }
+            catch (Exception ex)
+            {
+                response.Success = false;
+                response.Message = $"{ex.Message}";
+            }
+            return response;
         }
     }
 }

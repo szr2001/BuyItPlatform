@@ -25,7 +25,7 @@ function Login() {
                     autoClose: 2000 + response.data.message.length * 50,
                 });
                 console.log(response.data);
-                if (response.data.message === 'Refresh token is missing in the request') {
+                if (response.data.message === 'Refresh token is missing or expired') {
                     window.localStorage.setItem('user', null);
                     dispatch({ type: "SET_AUTH", payload: { isAuthenticated: false } });
                     dispatch({ type: "SET_USER", payload: { user: null } });
