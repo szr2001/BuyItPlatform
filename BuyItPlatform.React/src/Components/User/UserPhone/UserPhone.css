@@ -46,15 +46,17 @@
     display: flex;
     flex: 1;
 }
-.username-input {
-    background-color: var(--secondary-color) !important;
-    border-radius: 10px;
+.userphone-input {
+    background-color: transparent;
     padding: 5px;
     outline: none;
+    border-style:none;
+    border-bottom-style:solid;
+    margin:5px;
     max-width: 150px;
+    outline-width:2px;
 }
 
-.username-input:focus {
+.userphone-input:focus {
     border-color: var(--highlight-color);
-    border-style: solid;
 }

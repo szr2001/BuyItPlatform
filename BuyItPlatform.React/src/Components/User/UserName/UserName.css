@@ -4,20 +4,45 @@
     justify-content: center;
     display: flex;
     flex: 1;
-    margin: -10px;
 }
 .username-text {
     color: var(--text-color);
     font-family: var(--primary-font);
     text-decoration: none;
     font-weight: bold;
-    font-size: 35px;
+    font-size: 25px;
+    align-self: center;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
-    max-width: 250px;
+    max-width: 160px;
 }
 .username-icon{
     width:30px;
     margin:5px;
+}
+.username-input {
+    background-color: transparent;
+    padding: 5px;
+    outline: none;
+    border-style: none;
+    border-bottom-style: solid;
+    margin: 5px;
+    max-width: 150px;
+    outline-width: 2px;
+}
+
+.username-input:focus {
+    border-color: var(--highlight-color);
+}
+.username-holder:hover .username-edit-icon {
+    width: 30px;
+}
+.username-icon-hover:hover {
+    transform: scale(1.1);
+}
+.username-edit-icon {
+    width: 0px;
+    transition: all 0.1s;
+    margin: 10px;
 }
