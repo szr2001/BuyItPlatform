@@ -1,5 +1,5 @@
-.user-description {
-    border-width: 2px;
+.userdesc-holder {
+    justify-content: center;
     display: flex;
     flex: 1;
     border-style: solid;
@@ -14,4 +14,55 @@
     text-decoration: none;
     font-weight: bold;
     font-size: 20px;
+    position: relative;
+}
+
+.userdesc-text {
+    color: var(--text-color);
+    font-family: var(--primary-font);
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 20px;
+    overflow-wrap:anywhere;
+}
+
+.userdesc-icon {
+    width: 30px;
+    margin: 5px;
+}
+
+.userdesc-input {
+    background-color: transparent;
+    padding: 5px;
+    outline: none;
+    display: flex;
+    flex: 1;
+    resize: none;
+    margin: 10px;
+    min-height: 130px;
+    overflow: hidden;
+    border-style: none;
+    border-bottom-style: solid;
+    outline-width: 2px;
+}
+
+.userdesc-input:focus {
+    border-color: var(--highlight-color);
+}
+
+.userdesc-holder:hover .userdesc-edit-icon {
+    width: 30px;
+}
+
+.userdesc-icon-hover:hover {
+    transform: scale(1.1);
+}
+
+.userdesc-edit-icon {
+    width: 0px;
+    transition: all 0.1s;
+    margin: 10px;
+    position:absolute;
+    top:110px;
+    right:0px;
 }
