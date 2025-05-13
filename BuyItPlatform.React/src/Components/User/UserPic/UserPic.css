@@ -1,4 +1,4 @@
-.user-pic {
+.userpic {
     flex: 1;
     width: 250px;
     height: 250px;
@@ -8,7 +8,7 @@
     padding: 0px;
     display: flex;
 }
-.user-notfound-pic {
+.userpic-notfound {
     justify-content: center;
     display: flex;
     flex: 1;
@@ -16,11 +16,72 @@
     border-radius: 15px;
     background-color: var(--secondary-color);
 }
-.user-background {
+.userpic-background {
     width: 250px;
     height: 250px;
     border-radius: 15px;
     background-color: var(--secondary-color);
     padding: 8px;
     display: flex;
+    flex-direction:column;
+    position:relative;
+}
+
+.userpic-holder {
+    height: 50px;
+    padding: 5px;
+    justify-content: center;
+    display: flex;
+    flex: 1;
+}
+
+.userpic-text {
+    color: var(--text-color);
+    font-family: var(--primary-font);
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 25px;
+    align-self: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 160px;
+}
+
+.userpic-icon {
+    width: 30px;
+    margin: 5px;
+}
+
+.userpic-input {
+    background-color: transparent;
+    padding: 5px;
+    outline: none;
+    border-style: solid;
+    margin: 5px;
+    outline-width: 2px;
+}
+
+.userpic-input:focus {
+    border-color: var(--highlight-color);
+}
+
+.userpic-background:hover .userpic-edit-icon {
+    width: 30px;
+}
+
+.userpic-icon-hover:hover {
+    transform: scale(1.1);
+}
+
+/*if you mark something with absolute and have it's parent as relative
+    then you can specify the exact location without flex affecting it 
+*/
+.userpic-edit-icon {
+    width: 0px;
+    transition: all 0.1s;
+    position: absolute; 
+    bottom:0px;
+    right:0px;  
+    margin: 10px;
 }
