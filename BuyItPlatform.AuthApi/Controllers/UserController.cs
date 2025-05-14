@@ -113,8 +113,8 @@ namespace BuyItPlatform.AuthApi.Controllers
                 var Token = tokenProvider.GetToken();
                 var tokenData = jwtTokenHandler.ExtractTokenData(Token);
                 var Id = tokenData.Where(i => i.Type == "nameid").First().Value;
-                await userService.UpdateUserProfilePic(Id, profilePic);
-                response.Result = null;
+
+                response.Result = await userService.UpdateUserProfilePic(Id, profilePic);
                 response.Success = true;
             }
             catch (Exception ex)

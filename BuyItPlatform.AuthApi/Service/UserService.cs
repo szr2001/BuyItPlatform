@@ -106,7 +106,7 @@ namespace BuyItPlatform.AuthApi.Service
             await userManager.UpdateAsync(user);
         }
 
-        public async Task UpdateUserProfilePic(string userId, IFormFile profilePic)
+        public async Task<string> UpdateUserProfilePic(string userId, IFormFile profilePic)
         {
             if (string.IsNullOrEmpty(userId))
             {
@@ -126,6 +126,7 @@ namespace BuyItPlatform.AuthApi.Service
 
             user.ProfileImgLink = imageUpload[0];
             await userManager.UpdateAsync(user);
+            return user.ProfileImgLink;
         }
     }
 }

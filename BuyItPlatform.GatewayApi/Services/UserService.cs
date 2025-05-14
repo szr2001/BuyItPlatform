@@ -60,7 +60,7 @@ namespace BuyItPlatform.GatewayApi.Service
             {
                 ApiType = Enums.ApiType.POST,
                 Data = profilePic,
-                Url = $"{microservicesUrl.AuthApiUrl}/user/UpdateUserProfilePic"
+                Url = $"{microservicesUrl.AuthApiUrl}/user/updateUserProfilePic"
             });
         }
     }
