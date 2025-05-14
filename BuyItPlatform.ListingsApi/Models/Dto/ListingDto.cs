@@ -6,6 +6,7 @@ namespace BuyItPlatform.ListingsApi.Models.Dto
 {
     public class ListingDto
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public ICollection<string> ImagePaths { get; set; } = new List<string>();

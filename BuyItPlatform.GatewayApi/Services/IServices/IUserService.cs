@@ -9,6 +9,6 @@ namespace BuyItPlatform.GatewayApi.Service.IService
         Task<ResponseDto<T>> UpdateUserDescAsync<T>(string desc);
         Task<ResponseDto<T>> UpdateUserNameAsync<T>(string name);
         Task<ResponseDto<T>> UpdateUserPhoneNumberAsync<T>(string phoneNumber);
-        Task<ResponseDto<T>> UpdateUserProfilePicsAsync<T>(IFormFile profilePic);
+        Task<ResponseDto<T>> UpdateUserProfilePicsAsync<T>(ImageDto profilePic);
     }
 }

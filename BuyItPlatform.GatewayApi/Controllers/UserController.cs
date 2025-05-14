@@ -46,7 +46,7 @@ namespace BuyItPlatform.GatewayApi.Controllers
 
         [HttpPost]
         [Route("updateUserProfilePic")]
-        public async Task<ResponseDto<string>> UpdateUserProfilePic([FromBody] IFormFile profilePic)
+        public async Task<ResponseDto<string>> UpdateUserProfilePic([FromForm] ImageDto profilePic)
         {
             return await userService.UpdateUserProfilePicsAsync<string>(profilePic);
         }

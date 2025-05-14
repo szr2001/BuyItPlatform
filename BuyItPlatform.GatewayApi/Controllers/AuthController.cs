@@ -41,12 +41,12 @@ namespace BuyItPlatform.GatewayApi.Controllers
             return new ResponseDto<UserDto> {Success = result.Success, Result = result.Result!.User };
         }
 
-        [HttpPost]
-        [Route("assignRole")]
-        public async Task<ResponseDto<object>> AssignRole([FromQuery] string email, [FromQuery] string roleName)
-        {
-            return await authService.AssignRole<object>(email, roleName);
-        }
+        //[HttpPost]
+        //[Route("assignRole")]
+        //public async Task<ResponseDto<object>> AssignRole([FromQuery] string email, [FromQuery] string roleName)
+        //{
+        //    return await authService.AssignRole<object>(email, roleName);
+        //}
 
         [HttpGet]
         [Route("refreshToken")]
@@ -67,13 +67,6 @@ namespace BuyItPlatform.GatewayApi.Controllers
             }
 
             return result;
-        }
-
-        [HttpGet]
-        [Route("getUserProfile/{userId}")]
-        public async Task<ResponseDto<UserProfileDto>> GetUserProfile(string userId)
-        {
-            return await authService.GetUserProfile<UserProfileDto>(userId);
         }
 
         [HttpPost]

@@ -106,7 +106,7 @@ namespace BuyItPlatform.AuthApi.Service
             await userManager.UpdateAsync(user);
         }
 
-        public async Task<string> UpdateUserProfilePic(string userId, IFormFile profilePic)
+        public async Task<string> UpdateUserProfilePic(string userId, ImageDto profilePic)
         {
             if (string.IsNullOrEmpty(userId))
             {
@@ -122,7 +122,7 @@ namespace BuyItPlatform.AuthApi.Service
                 throw new Exception("Refresh token is missing or expired");
             }
 
-            var imageUpload = await imageUploader.UploadImagesAsync(userId, [profilePic]);
+            var imageUpload = await imageUploader.UploadImagesAsync(userId, [profilePic.ImgFile]);
 
             user.ProfileImgLink = imageUpload[0];
             await userManager.UpdateAsync(user);

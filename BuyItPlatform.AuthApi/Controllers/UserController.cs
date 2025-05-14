@@ -106,7 +106,7 @@ namespace BuyItPlatform.AuthApi.Controllers
 
         [HttpPost]
         [Route("updateUserProfilePic")]
-        public async Task<ResponseDto> UpdateUserProfilePic([FromBody]IFormFile profilePic)
+        public async Task<ResponseDto> UpdateUserProfilePic([FromForm] ImageDto profilePic)
         {
             try
             {

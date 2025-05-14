@@ -27,9 +27,9 @@ namespace BuyItPlatform.GatewayApi.Controllers
             return await listingsService.GetListingWithIdAsync<ListingDto>(listingId);
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("getListings")]
-        public async Task<ResponseDto<List<ListingDto>>> GetListings([FromQuery] ListingFIlterDto listFilter, [FromQuery] int count, [FromQuery] int offset)
+        public async Task<ResponseDto<List<ListingDto>>> GetListings([FromBody] ListingFIlterDto listFilter, [FromQuery] int count, [FromQuery] int offset)
         {
             return await listingsService.GetListingsAsync<List<ListingDto>>(listFilter, count, offset);
         }

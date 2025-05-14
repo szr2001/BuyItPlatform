@@ -54,7 +54,7 @@ namespace BuyItPlatform.GatewayApi.Service
             });
         }
 
-        public async Task<ResponseDto<T>> UpdateUserProfilePicsAsync<T>(IFormFile profilePic)
+        public async Task<ResponseDto<T>> UpdateUserProfilePicsAsync<T>(ImageDto profilePic)
         {
             return await apiCallsService.SendAsync<T>(new RequestDto()
             {

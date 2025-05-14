@@ -9,7 +9,7 @@ namespace BuyItPlatform.ListingsApi.Controllers
 {
     [ApiController]
     [Route("listingsApi")]
-    [Authorize]
+    //[Authorize]
     public class ListingsController : Controller
     {
         private readonly IMapper mapper;
