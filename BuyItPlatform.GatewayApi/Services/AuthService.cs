@@ -40,7 +40,7 @@ namespace BuyItPlatform.GatewayApi.Services
             return await apiCallsService.SendAsync<T>(new RequestDto()
             {
                 ApiType = Enums.ApiType.POST,
-                Data = loginData,
+                BodyData = loginData,
                 Url = $"{microservicesUrl.AuthApiUrl}/auth/login"
             },false);
         }
@@ -68,7 +68,7 @@ namespace BuyItPlatform.GatewayApi.Services
             return await apiCallsService.SendAsync<T>(new RequestDto()
             {
                 ApiType = Enums.ApiType.POST,
-                Data = registerData,
+                BodyData = registerData,
                 Url = $"{microservicesUrl.AuthApiUrl}/auth/register"
             }, false);
         }

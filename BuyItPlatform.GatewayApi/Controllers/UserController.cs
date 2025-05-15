@@ -45,7 +45,7 @@ namespace BuyItPlatform.GatewayApi.Controllers
         }
 
         [HttpPost]
-        [Route("updateUserProfilePic")]
+        [Route("updateUserProfilePic")] // FromForm because we expect an image in Binary format
         public async Task<ResponseDto<string>> UpdateUserProfilePic([FromForm] ImageDto profilePic)
         {
             return await userService.UpdateUserProfilePicsAsync<string>(profilePic);

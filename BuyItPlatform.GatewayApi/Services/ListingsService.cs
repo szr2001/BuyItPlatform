@@ -36,7 +36,7 @@ namespace BuyItPlatform.GatewayApi.Services
             {
                 ApiType = Enums.ApiType.POST,
                 Url = $"{microservicesUrl.ListingsApiUrl}/getListings?count={count}&offset={offset}",
-                Data = listFilter
+                BodyData = listFilter
             });
         }
 
@@ -54,7 +54,7 @@ namespace BuyItPlatform.GatewayApi.Services
             {
                 ApiType = Enums.ApiType.POST,
                 Url = $"{microservicesUrl.ListingsApiUrl}/uploadListing",
-                Data = listingDto
+                FormData = listingDto
             });
         }
     }

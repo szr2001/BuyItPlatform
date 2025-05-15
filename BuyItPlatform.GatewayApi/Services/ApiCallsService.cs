@@ -2,6 +2,7 @@
 using BuyItPlatform.GatewayApi.Services.IServices;
 using Newtonsoft.Json;
 using System.Net;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json.Serialization;
 
@@ -42,10 +43,54 @@ namespace BuyItPlatform.GatewayApi.Services
                     }
                 }
 
+                //check if the data is BodyData meaning Json
                 message.RequestUri = new Uri(request.Url);
-                if (request.Data != null)
+                if (request.BodyData != null)
                 {
-                    message.Content = new StringContent(JsonConvert.SerializeObject(request.Data), Encoding.UTF8, "application/json");
+                    message.Content = new StringContent(JsonConvert.SerializeObject(request.BodyData), Encoding.UTF8, "application/json");
+                }
+                //or FormData meaning binary
+                //and serialize it correctly
+                else if (request.FormData != null)
+                {
+                    var form = new MultipartFormDataContent();
+                    //this might not serialize all the other properties except IformFiles and not ints or strings, do some tests
+                    foreach (var prop in request.FormData.GetType().GetProperties())
+                    {
+                        var value = prop.GetValue(request.FormData);
+                        var name = prop.Name;
+
+                        if (value == null) continue;
+
+                        //use a switch
+                        if (value is IFormFile file)
+                        {
+                            var fileContent = new StreamContent(file.OpenReadStream());
+                            fileContent.Headers.ContentType = new MediaTypeHeaderValue(file.ContentType);
+                            form.Add(fileContent, name, file.FileName);
+                        }
+                        else if (value is IEnumerable<IFormFile> fileList)
+                        {
+                            foreach (var f in fileList)
+                            {
+                                var fileContent = new StreamContent(f.OpenReadStream());
+                                fileContent.Headers.ContentType = new MediaTypeHeaderValue(f.ContentType);
+                                form.Add(fileContent, name, f.FileName);
+                            }
+                        }
+                        else if (value is IEnumerable<string> list)
+                        {
+                            foreach (var item in list)
+                            {
+                                form.Add(new StringContent(item), name);
+                            }
+                        }
+                        else
+                        {
+                            form.Add(new StringContent(value.ToString()), name);
+                        }
+                    }
+                    message.Content = form;
                 }
 
                 HttpResponseMessage? apiResponse = null;

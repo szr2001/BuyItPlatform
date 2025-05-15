@@ -6,7 +6,10 @@ namespace BuyItPlatform.GatewayApi.Models
     {
         public ApiType ApiType { get; set; } = ApiType.GET;
         public string Url { get; set; }
-        public object Data { get; set; }
+        //used for FromBody requests for json
+        public object BodyData { get; set; }
+        //used for FromForm requests for binary
+        public object FormData { get; set; }
         public string AccessToken { get; set; }
     }
 }

@@ -10,23 +10,32 @@ import { useNavigate } from "react-router-dom";
 function UserPic({ editable, picLink }) {
     const [authState, dispatch] = useContext(AuthContext);
     const [picState, setPic] = useState(picLink);
-    const [newPic, setNewPic] = useState("");
+    const [newPic, setNewPic] = useState(null);
     const [editing, setEditing] = useState(false);
     const navigate = useNavigate();
 
     const updatePic = async () => {
 
         try {
-            if (newName === "") {
-                toast.error("Name is empty", {
+            if (newPic === null) {
+                toast.error("Pic is empty", {
                     autoClose: 2000,
                 });
                 return;
             }
 
-            setEditing(false);
-            setName(null);
-            const response = await Api.post(`authApi/user/updateUserName/${newName}`);
+            //send data as a Form means it's binary
+            const formData = new FormData();
+            formData.append("ImgFile", newPic); 
+            const response = await Api.post(
+                "authApi/user/updateUserProfilePic",
+                formData,
+                {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    },
+                }
+            );
 
             if (!response.data.success) {
                 toast.error(response.data.message, {
@@ -41,12 +50,9 @@ function UserPic({ editable, picLink }) {
                 }
                 return;
             }
-            let newUser = authState.user;
-            newUser.userName = newName;
-            dispatch({ type: "SET_USER", payload: { user: newUser } });
-            window.localStorage.setItem('user', JSON.stringify(newUser));
-
-            setName(newName);
+            setPic(response.data.result);
+            setEditing(false);
+            console.log(picState);
         }
         catch (error) {
             toast.error(error.message, {
@@ -55,7 +61,6 @@ function UserPic({ editable, picLink }) {
             console.log(error.message);
         }
         finally {
-            setNewName("");
         }
     }
 
@@ -71,17 +76,13 @@ function UserPic({ editable, picLink }) {
                             onChange={(e) => {
                                 const file = e.target.files[0];
                                 if (file) {
-                                    const reader = new FileReader();
-                                    reader.onloadend = () => {
-                                        setNewPic(reader.result);
-                                    };
-                                    reader.readAsDataURL(file);
+                                    setNewPic(file);
                                 }
                             }}
                         />
                         <div className="userpic">
                             <svg className="userpic-icon userpic-icon-hover" onClick={updatePic} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M12 22C7.28595 22 4.92893 22 3.46447 20.5355C2 19.0711 2 16.714 2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2C16.714 2 19.0711 2 20.5355 3.46447C22 4.92893 22 7.28595 22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22ZM16.0303 8.96967C16.3232 9.26256 16.3232 9.73744 16.0303 10.0303L11.0303 15.0303C10.7374 15.3232 10.2626 15.3232 9.96967 15.0303L7.96967 13.0303C7.67678 12.7374 7.67678 12.2626 7.96967 11.9697C8.26256 11.6768 8.73744 11.6768 9.03033 11.9697L10.5 13.4393L14.9697 8.96967C15.2626 8.67678 15.7374 8.67678 16.0303 8.96967Z" fill="currentColor"></path> </g></svg>
-                            <svg className="userpic-icon userpic-icon-hover" onClick={() => { setEditing(false); setNewPic(""); }} fill="currentColor" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>cancel</title> <path d="M16 29c-7.18 0-13-5.82-13-13s5.82-13 13-13 13 5.82 13 13-5.82 13-13 13zM21.961 12.209c0.244-0.244 0.244-0.641 0-0.885l-1.328-1.327c-0.244-0.244-0.641-0.244-0.885 0l-3.761 3.761-3.761-3.761c-0.244-0.244-0.641-0.244-0.885 0l-1.328 1.327c-0.244 0.244-0.244 0.641 0 0.885l3.762 3.762-3.762 3.76c-0.244 0.244-0.244 0.641 0 0.885l1.328 1.328c0.244 0.244 0.641 0.244 0.885 0l3.761-3.762 3.761 3.762c0.244 0.244 0.641 0.244 0.885 0l1.328-1.328c0.244-0.244 0.244-0.641 0-0.885l-3.762-3.76 3.762-3.762z"></path> </g></svg>
+                            <svg className="userpic-icon userpic-icon-hover" onClick={() => { setEditing(false); setNewPic(null); }} fill="currentColor" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>cancel</title> <path d="M16 29c-7.18 0-13-5.82-13-13s5.82-13 13-13 13 5.82 13 13-5.82 13-13 13zM21.961 12.209c0.244-0.244 0.244-0.641 0-0.885l-1.328-1.327c-0.244-0.244-0.641-0.244-0.885 0l-3.761 3.761-3.761-3.761c-0.244-0.244-0.641-0.244-0.885 0l-1.328 1.327c-0.244 0.244-0.244 0.641 0 0.885l3.762 3.762-3.762 3.76c-0.244 0.244-0.244 0.641 0 0.885l1.328 1.328c0.244 0.244 0.641 0.244 0.885 0l3.761-3.762 3.761 3.762c0.244 0.244 0.641 0.244 0.885 0l1.328-1.328c0.244-0.244 0.244-0.641 0-0.885l-3.762-3.76 3.762-3.762z"></path> </g></svg>
                         </div>
                     </div>
                     :

@@ -59,7 +59,7 @@ namespace BuyItPlatform.GatewayApi.Service
             return await apiCallsService.SendAsync<T>(new RequestDto()
             {
                 ApiType = Enums.ApiType.POST,
-                Data = profilePic,
+                FormData = profilePic,
                 Url = $"{microservicesUrl.AuthApiUrl}/user/updateUserProfilePic"
             });
         }
