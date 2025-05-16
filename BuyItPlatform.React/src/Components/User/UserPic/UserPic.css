@@ -5,6 +5,7 @@
     border-radius: 15px;
     background-color: var(--secondary-color);
     margin: 0px;
+    object-fit: cover;
     padding: 0px;
     display: flex;
 }
@@ -16,6 +17,34 @@
     border-radius: 15px;
     background-color: var(--secondary-color);
 }
+.userpic-img-input{
+    justify-content:center;
+}
+.userpic-preview {
+    background-color: var(--primary-color);
+    transition: all 0.1s;
+    height: 160px;
+    padding: 5px;
+    margin: 5px;
+    width: 160px;
+    align-self: center;
+    border-radius: 20px;
+}
+.userpic-upload-text {
+    color: var(--background-color);
+    transition: all 0.1s;
+    border-radius: 15px;
+    margin: 15px;
+    padding: 8px;
+    overflow: clip;
+    width: 150px;
+    align-self: center;
+    word-wrap: anywhere;
+    background-color: var(--primary-color);
+    font-family: var(--primary-font);
+    font-weight: bold;
+    font-size: 25px;
+}
 .userpic-background {
     width: 250px;
     height: 250px;
@@ -23,8 +52,8 @@
     background-color: var(--secondary-color);
     padding: 8px;
     display: flex;
-    flex-direction:column;
-    position:relative;
+    flex-direction: column;
+    position: relative;
 }
 
 .userpic-holder {
@@ -35,31 +64,13 @@
     flex: 1;
 }
 
-.userpic-text {
-    color: var(--text-color);
-    font-family: var(--primary-font);
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 25px;
-    align-self: center;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-    max-width: 160px;
-}
-
 .userpic-icon {
     width: 30px;
     margin: 5px;
 }
 
 .userpic-input {
-    background-color: transparent;
-    padding: 5px;
-    outline: none;
-    border-style: solid;
-    margin: 5px;
-    outline-width: 2px;
+    display: none;
 }
 
 .userpic-input:focus {
@@ -67,21 +78,29 @@
 }
 
 .userpic-background:hover .userpic-edit-icon {
+    padding: 5px;
     width: 30px;
 }
 
 .userpic-icon-hover:hover {
     transform: scale(1.1);
 }
-
+.userpic-overview-hover:hover {
+    transform: scale(1.04);
+}
+.userpic-icon-backgroound{
+    background-color:var(--secondary-color);
+    border-radius:15px;
+}
 /*if you mark something with absolute and have it's parent as relative
     then you can specify the exact location without flex affecting it 
 */
 .userpic-edit-icon {
     width: 0px;
+    padding: 0px;
     transition: all 0.1s;
-    position: absolute; 
-    bottom:0px;
-    right:0px;  
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
     margin: 10px;
 }

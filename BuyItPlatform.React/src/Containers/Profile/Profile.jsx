@@ -11,7 +11,7 @@ import { UserDesc, UserName, UserPic, UserPhone, UserRating, Loading } from '../
 
 function Profile() {
     const {userId } = useParams();
-    const [authState, dispatch] = useContext(AuthContext);
+    //const [authState, dispatch] = useContext(AuthContext);
     const [userProfile, setUser] = useState(null);
     const isFirstRender = useRef(true); // because useEffect runs twitce due to StrictMode component
     const navigate = useNavigate();
