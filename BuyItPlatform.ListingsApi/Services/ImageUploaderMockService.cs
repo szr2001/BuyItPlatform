@@ -13,7 +13,11 @@ namespace BuyItPlatform.ListingsApi.Services
         private readonly string[] _allowedMimeTypes = { "image/jpeg", "image/png" };
         public ImageUploaderMockService()
         {
-            testPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            //set the api path for mocking
+            //serving the images from the microservices
+            //in production we replace this implementation
+            //to something like AWS blob storage
+            testPath = @"https://localhost:7002/ListingPicsMock/";
         }
 
         public async Task DeleteImagesAsync(string id)

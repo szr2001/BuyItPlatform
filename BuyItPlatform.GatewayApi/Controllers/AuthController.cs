@@ -30,15 +30,20 @@ namespace BuyItPlatform.GatewayApi.Controllers
         [Route("login")]
         public async Task<ResponseDto<UserDto>> Login([FromBody] LoginRequestDto loginData)
         {
+            ResponseDto<UserDto> returnResponse = new();
             var result =  await authService.LoginUser<LoginResponseDto>(loginData);
             if (result.Success)
             { 
                 //if the request was a success, get the tokens and save them in the cookies for the frontend
-                tokenProvider.SetToken(result.Result?.Token!);
+                tokenProvider.SetToken(result.Result!.Token!);
                 tokenProvider.SetRefreshToken(result.Result?.RefreshToken!);
+                returnResponse.Result = result.Result!.User;
             }
-            //and now return the userDto, without the tokens for security.
-            return new ResponseDto<UserDto> {Success = result.Success, Result = result.Result!.User };
+            
+            returnResponse.Success = result.Success;
+            returnResponse.Message = result.Message;
+
+            return returnResponse;
         }
 
         //[HttpPost]

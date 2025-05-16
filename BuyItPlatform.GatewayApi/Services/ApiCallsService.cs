@@ -54,7 +54,6 @@ namespace BuyItPlatform.GatewayApi.Services
                 else if (request.FormData != null)
                 {
                     var form = new MultipartFormDataContent();
-                    //this might not serialize all the other properties except IformFiles and not ints or strings, do some tests
                     foreach (var prop in request.FormData.GetType().GetProperties())
                     {
                         var value = prop.GetValue(request.FormData);

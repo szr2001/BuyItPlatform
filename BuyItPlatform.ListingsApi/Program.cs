@@ -5,6 +5,7 @@ using BuyItPlatform.ListingsApi.Services;
 using BuyItPlatform.ListingsApi.Services.IServices;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.OpenApi.Models;
 
 namespace BuyItPlatform.ListingsApi
@@ -69,6 +70,17 @@ namespace BuyItPlatform.ListingsApi
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
+
+                //test for mocking listing images
+                //in production we will use something like AWS blob storage
+                //but until the we save them in the ListingPicsMock
+                //save the url in the user db, and display the img from the frontend
+                app.UseStaticFiles(new StaticFileOptions
+                {
+                    FileProvider = new PhysicalFileProvider(
+                    Path.Combine(builder.Environment.ContentRootPath, "ListingPicsMock")),
+                    RequestPath = "/ListingPicsMock"
+                });
             }
 
             app.UseHttpsRedirection();

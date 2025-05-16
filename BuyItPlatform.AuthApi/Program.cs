@@ -9,6 +9,7 @@ using BuyItPlatform.AuthApi.Services.IServices;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.OpenApi.Models;
 
 namespace BuyItPlatform.AuthApi
@@ -82,6 +83,17 @@ namespace BuyItPlatform.AuthApi
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
+
+                //test for mocking user profile images
+                //in production we will use something like AWS blob storage
+                //but until the we save them in the UserPicsMock
+                //save the url in the user db, and display the img from the frontend
+                app.UseStaticFiles(new StaticFileOptions
+                {
+                    FileProvider = new PhysicalFileProvider(
+                    Path.Combine(builder.Environment.ContentRootPath, "UserPicsMock")),
+                    RequestPath = "/UserPicsMock"
+                });
             }
             app.UseHttpsRedirection();
 

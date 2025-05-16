@@ -122,6 +122,11 @@ namespace BuyItPlatform.AuthApi.Service
                 throw new Exception("Refresh token is missing or expired");
             }
 
+            if(user.ProfileImgLink != " ")
+            {
+                await imageUploader.DeleteImagesAsync(user.Id);
+            }
+
             var imageUpload = await imageUploader.UploadImagesAsync(userId, [profilePic.ImgFile]);
 
             user.ProfileImgLink = imageUpload[0];

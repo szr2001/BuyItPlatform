@@ -34,7 +34,8 @@ namespace BuyItPlatform.AuthApi.Service
             BuyItUser newUser = new()
             {
                 UserName = registerData.Name,
-                Email = registerData.Email
+                Email = registerData.Email,
+                PhoneNumber = " "
             };
             var result = await userManager.CreateAsync(newUser, registerData.Password);
             if (!result.Succeeded)

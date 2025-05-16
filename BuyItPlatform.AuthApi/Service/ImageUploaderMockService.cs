@@ -8,12 +8,21 @@ namespace BuyItPlatform.AuthApi.Services
     public class ImageUploaderMockService : IImageUploader
     {
         private string testPath = @"";
+        private string testAdress = @"";
         //move to appsettings
         private readonly string[] _allowedExtensions = { ".jpg", ".jpeg", ".png" };
         private readonly string[] _allowedMimeTypes = { "image/jpeg", "image/png" };
-        public ImageUploaderMockService()
+        private readonly IWebHostEnvironment environment;
+
+        public ImageUploaderMockService(IWebHostEnvironment env)
         {
-            testPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            environment = env;
+            //set the api path for mocking
+            //serving the images from the microservices
+            //in production we replace this implementation
+            //to something like AWS blob storage
+            testPath = $@"{environment.ContentRootPath}\UserPicsMock\";
+            testAdress = @"https://localhost:7001/UserPicsMock/";
         }
 
         public async Task DeleteImagesAsync(string id)
@@ -61,13 +70,16 @@ namespace BuyItPlatform.AuthApi.Services
                 string fileExtension = Path.GetExtension(file.FileName).ToLower();
                 string mimeType = file.ContentType.ToLower();
 
+                //set the file to the path project
+                //set the localhost in the database
                 string fileName = $"{id}_{Guid.NewGuid()}{fileExtension}";
                 string filePath = Path.Combine(testPath, fileName);
+                string adresspath = Path.Combine(testAdress, fileName);
                 using (var stream = new FileStream(filePath, FileMode.Create))
                 {
                     await file.CopyToAsync(stream);
                 }
-                paths.Add(filePath);
+                paths.Add(adresspath);
             }
 
             return paths.ToArray();
