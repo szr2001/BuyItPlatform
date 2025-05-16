@@ -8,16 +8,21 @@ namespace BuyItPlatform.ListingsApi.Services
     public class ImageUploaderMockService : IImageUploader
     {
         private string testPath = @"";
+        private string testAdress = @"";
         //move to appsettings
         private readonly string[] _allowedExtensions = { ".jpg", ".jpeg", ".png" };
         private readonly string[] _allowedMimeTypes = { "image/jpeg", "image/png" };
-        public ImageUploaderMockService()
+        private readonly IWebHostEnvironment environment;
+
+        public ImageUploaderMockService(IWebHostEnvironment env)
         {
+            environment = env;
             //set the api path for mocking
             //serving the images from the microservices
             //in production we replace this implementation
             //to something like AWS blob storage
-            testPath = @"https://localhost:7002/ListingPicsMock/";
+            testPath = $@"{environment.ContentRootPath}\ListingPicsMock\";
+            testAdress = @"https://localhost:7002/ListingPicsMock/";
         }
 
         public async Task DeleteImagesAsync(string id)
@@ -25,8 +30,7 @@ namespace BuyItPlatform.ListingsApi.Services
             List<string> imagesToDelete = new();
             foreach (var filePath in Directory.GetFiles(testPath))
             {
-                string[] path = filePath.Split('_');
-                if (path[0] == $"{testPath}\\{id}")
+                if (filePath.Contains($"{id}"))
                 {
                     imagesToDelete.Add(filePath);
                 }
@@ -65,13 +69,16 @@ namespace BuyItPlatform.ListingsApi.Services
                 string fileExtension = Path.GetExtension(file.FileName).ToLower();
                 string mimeType = file.ContentType.ToLower();
 
+                //set the file to the path project
+                //set the localhost in the database
                 string fileName = $"{id}_{Guid.NewGuid()}{fileExtension}";
                 string filePath = Path.Combine(testPath, fileName);
+                string adresspath = Path.Combine(testAdress, fileName);
                 using (var stream = new FileStream(filePath, FileMode.Create))
                 {
                     await file.CopyToAsync(stream);
                 }
-                paths.Add(filePath);
+                paths.Add(adresspath);
             }
 
             return paths.ToArray();

@@ -30,8 +30,7 @@ namespace BuyItPlatform.AuthApi.Services
             List<string> imagesToDelete = new();
             foreach (var filePath in Directory.GetFiles(testPath))
             {
-                string[] path = filePath.Split('_');
-                if (path[0] == $"{testPath}\\{id}")
+                if (filePath.Contains($"{id}"))
                 {
                     imagesToDelete.Add(filePath);
                 }
