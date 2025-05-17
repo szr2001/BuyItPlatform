@@ -3,9 +3,10 @@
     justify-content: center;
     display: flex;
     flex: 1;
-    margin:10px;
-    background-color:var(--primary-color);
-    border-radius:25px;
+    margin: 10px;
+    position: relative;
+    background-color: var(--primary-color);
+    border-radius: 25px;
 }
 .userrate-loading-holder {
     height: 50px;
@@ -29,4 +30,41 @@
     color: var(--secondary-color);
     width: 30px;
     margin: 5px;
+}
+
+.userrate-input {
+    background-color: transparent;
+    padding: 5px;
+    outline: none;
+    border-style: none;
+    border-bottom-style: solid;
+    margin: 5px;
+    max-width: 150px;
+    outline-width: 2px;
+}
+
+.userrate-input:focus {
+    border-color: var(--highlight-color);
+}
+
+.userrate-holder:hover .userrate-edit-icon {
+    padding: 5px;
+    width: 25px;
+}
+
+.userrate-icon-hover:hover {
+    transform: scale(1.1);
+}
+.userrate-icon-backgroound {
+    background-color: var(--highlight-color);
+    border-radius: 15px;
+}
+.userrate-edit-icon {
+    color: var(--secondary-color);
+    width: 0px;
+    padding: 0px;
+    transition: all 0.1s;
+    position: absolute;
+    bottom: 7px;
+    right: 10px;
 }

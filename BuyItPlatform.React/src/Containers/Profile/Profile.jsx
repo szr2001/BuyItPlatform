@@ -64,7 +64,7 @@ function Profile() {
                             <div className="profile-left">
                                 <UserPic editable={true} picLink={userProfile.profileImgLink}/>
                                 <UserName editable={true} name={userProfile.userName} />
-                                <UserRating editable={true} rating={userProfile.rating} />
+                                <UserRating ratable={true} rating={10} />
                                 <UserPhone editable={true} phone={userProfile.phoneNumber} />
                             </div>
                             <div className="profile-right">
