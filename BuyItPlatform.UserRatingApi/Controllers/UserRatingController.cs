@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using BuyItPlatform.UserRatingApi.Services.IServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BuyItPlatform.UserRatingApi.Controllers
@@ -8,9 +9,11 @@ namespace BuyItPlatform.UserRatingApi.Controllers
     [ApiController]
     public class UserRatingController : Controller
     {
-        public IActionResult Index()
+        private readonly IUserRatingService userRatingService;
+
+        public UserRatingController(IUserRatingService userRatingService)
         {
-            return View();
+            this.userRatingService = userRatingService;
         }
     }
 }

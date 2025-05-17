@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuyItPlatform.CommentsApi",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuyItPlatform.ListingsApi", "BuyItPlatform.ListingsApi\BuyItPlatform.ListingsApi.csproj", "{CC42F89C-3061-4595-A74C-7E1DC1AD3419}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuyItPlatform.UserRatingApi", "BuyItPlatform.UserRatingApi\BuyItPlatform.UserRatingApi.csproj", "{5202E473-C081-49FE-B2E3-E15528AD2D84}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +63,10 @@ Global
 		{CC42F89C-3061-4595-A74C-7E1DC1AD3419}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CC42F89C-3061-4595-A74C-7E1DC1AD3419}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CC42F89C-3061-4595-A74C-7E1DC1AD3419}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5202E473-C081-49FE-B2E3-E15528AD2D84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5202E473-C081-49FE-B2E3-E15528AD2D84}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5202E473-C081-49FE-B2E3-E15528AD2D84}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5202E473-C081-49FE-B2E3-E15528AD2D84}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -73,6 +79,7 @@ Global
 		{3E01830C-D559-4BEE-A745-50AA6249B61B} = {FE4E5488-3FD0-4823-BD17-BBB6575417F6}
 		{B3B4AEEA-7E92-4474-AE3F-0D84FC4266B8} = {FE4E5488-3FD0-4823-BD17-BBB6575417F6}
 		{CC42F89C-3061-4595-A74C-7E1DC1AD3419} = {FE4E5488-3FD0-4823-BD17-BBB6575417F6}
+		{5202E473-C081-49FE-B2E3-E15528AD2D84} = {FE4E5488-3FD0-4823-BD17-BBB6575417F6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B1A89ECB-7C34-4EAF-A95D-AC80687AFFE2}
