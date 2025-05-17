@@ -11,12 +11,6 @@ namespace BuyItPlatform.UserRatingApi
 {
     public class Program
     {
-        //add the JWT cookie authentication, implement the
-        //UseRating model that has RatedUserID representing the user that has been rated
-        //UserID representing the user who rated him
-        //and a int from 1-10 representing the rating
-        //remove the UserRate property from AuthApi User model from the db
-        //and call this api to calculate the grade based on all ratings on that user
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
@@ -71,8 +65,8 @@ namespace BuyItPlatform.UserRatingApi
 
             app.UseHttpsRedirection();
 
+            app.UseAuthentication();
             app.UseAuthorization();
-
 
             app.MapControllers();
 

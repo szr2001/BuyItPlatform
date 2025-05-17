@@ -1,12 +1,12 @@
 import axios from 'axios';
 
 const Api = axios.create({
-    baseURL: 'https://localhost:7054/gateway/',
+    baseURL: 'https://localhost:7000/gateway/',
     withCredentials: true
 });
 
 const privateApi = axios.create({
-    baseURL: 'https://localhost:7054/gateway/',
+    baseURL: 'https://localhost:7000/gateway/',
     withCredentials: true
 });
 

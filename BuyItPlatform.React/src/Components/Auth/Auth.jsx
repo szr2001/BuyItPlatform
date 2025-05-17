@@ -39,7 +39,7 @@ function Auth({ children }) {
             dispatch({ type: "SET_AUTH", payload: { isAuthenticated: userFromStorage !== null } });
 
             try {
-                const response = await axios.get('https://localhost:7054/gateway/ping');
+                const response = await axios.get('https://localhost:7000/gateway/ping');
                 console.log(response);
             }
             catch (ex) {

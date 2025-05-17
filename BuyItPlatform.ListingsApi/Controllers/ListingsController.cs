@@ -14,7 +14,7 @@ namespace BuyItPlatform.ListingsApi.Controllers
     {
         private readonly IMapper mapper;
         private readonly IListingsService listingService;
-        private ResponseDto response;
+        private ResponseDto response = new();
         public ListingsController(IMapper mapper, IListingsService listingService)
         {
             response = new();
