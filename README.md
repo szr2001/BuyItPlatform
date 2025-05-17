@@ -37,6 +37,7 @@ BuyIt is a full-stack online marketplace where users can post both **Sell Listin
   - **BuyItPlatform.ListingReportingApi**: Manages reports on listings.
   - **BuyItPlatform.ListingsApi**: Handles buy/sell listings.
   - **BuyItPlatform.UserReportingApi**: Handles reports on users.
+  - **BuyItPlatform.UserRatingApi`Api**: Handles user ratings.
 
 ### Database
 - Each microservice uses its own **PostgreSQL** database for data persistence.
@@ -47,7 +48,6 @@ BuyIt is a full-stack online marketplace where users can post both **Sell Listin
   - `BuyItPlatform.React`
 - **Gateway**
   - `BuyItPlatform.GatewayApi`
-- **Integration** (potential integrations for third-party services)
 - **Services**
   - `BuyItPlatform.AuthApi`
   - `BuyItPlatform.CommentsApi`
