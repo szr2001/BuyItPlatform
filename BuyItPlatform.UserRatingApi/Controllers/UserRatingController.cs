@@ -38,7 +38,7 @@ namespace BuyItPlatform.UserRatingApi.Controllers
         }
 
         [HttpGet]
-        [Route("GetUserRating/{targetUserId}")]
+        [Route("getUserRating/{targetUserId}")]
         public async Task<ResponseDto> GetUserRating(string targetUserId)
         {
             try

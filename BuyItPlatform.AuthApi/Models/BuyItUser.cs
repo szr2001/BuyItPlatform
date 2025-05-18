@@ -9,8 +9,6 @@ namespace BuyItPlatform.AuthApi.Models
         [MaxLength(350)]
         [NotNull]
         public string Description { get; set; } = " ";
-        [Range(0, 10)]
-        public int Rating { get; set; } = 8;
         [MaxLength(150)]
         [NotNull]
         public string ProfileImgLink { get; set; } = " ";

@@ -31,7 +31,7 @@ namespace BuyItPlatform.GatewayApi.Service
         {
             return await apiCallsService.SendAsync<T>(new RequestDto()
             {
-                ApiType = Enums.ApiType.POST    ,
+                ApiType = Enums.ApiType.POST,
                 Url = $"{microservicesUrl.AuthApiUrl}/user/updateUserDesc/{desc}"
             });
         }
