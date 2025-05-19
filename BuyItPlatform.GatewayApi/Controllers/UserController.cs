@@ -1,11 +1,13 @@
 ﻿using BuyItPlatform.GatewayApi.Models;
 using BuyItPlatform.GatewayApi.Models.Dto;
 using BuyItPlatform.GatewayApi.Service.IService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BuyItPlatform.GatewayApi.Controllers
 {
     [Route("gateway/authApi/user")]
+    [Authorize]
     [ApiController]
     public class UserController : Controller
     {

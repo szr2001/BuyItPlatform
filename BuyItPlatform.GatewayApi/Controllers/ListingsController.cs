@@ -1,10 +1,12 @@
 ﻿using BuyItPlatform.GatewayApi.Models;
 using BuyItPlatform.GatewayApi.Services.IServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BuyItPlatform.GatewayApi.Controllers
 {
     [Route("gateway/listingsApi")]
+    [Authorize]
     [ApiController]
     public class ListingsController : Controller
     {

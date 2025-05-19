@@ -24,13 +24,7 @@ function Login() {
                 toast.error(response.data.message, {
                     autoClose: 2000 + response.data.message.length * 50,
                 });
-                console.log(response.data);
-                if (response.data.message === 'Refresh token is missing or expired') {
-                    window.localStorage.setItem('user', null);
-                    dispatch({ type: "SET_AUTH", payload: { isAuthenticated: false } });
-                    dispatch({ type: "SET_USER", payload: { user: null } });
-                }
-                return;
+                console.error(response.data);
             }
 
             navigate('/');
@@ -40,7 +34,7 @@ function Login() {
             toast.error(error.message, {
                 autoClose: 2000 + error.message.length * 50,
             });
-            console.log(error.message);
+            console.error(error);
         }
         finally {
             setIsLoading(false);

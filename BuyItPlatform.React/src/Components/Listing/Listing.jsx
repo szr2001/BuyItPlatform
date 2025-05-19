@@ -18,23 +18,20 @@ function Listing() {
                 toast.error(response.data.message, {
                     autoClose: 2000 + response.data.message.length * 50,
                 });
-                console.error(response.data);
-                if (response.data.message === 'Refresh token is missing or expired') {
-                    window.localStorage.setItem('user', null);
-                    dispatch({ type: "SET_AUTH", payload: { isAuthenticated: false } });
-                    dispatch({ type: "SET_USER", payload: { user : null } });
-                    navigate('/Login/');
-                }
-                return;
+                console.error(response);
             }
-
-            console.log(response);
         }
         catch (error) {
             toast.error(error.message, {
                 autoClose: 2000 + error.message.length * 50,
             });
-            console.error(error.message);
+            if (error.status === 401) {
+                window.localStorage.setItem('user', null);
+                dispatch({ type: "SET_AUTH", payload: { isAuthenticated: false } });
+                dispatch({ type: "SET_USER", payload: { user: null } });
+                navigate('/Login/');
+            }
+            console.log(error.message);
         }
         finally {
         }

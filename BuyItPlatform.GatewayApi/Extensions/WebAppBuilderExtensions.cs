@@ -1,10 +1,9 @@
-﻿using BuyItPlatform.ListingsApi.Models;
+﻿using BuyItPlatform.GatewayApi.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using System.Runtime.CompilerServices;
 using System.Text;
 
-namespace BuyItPlatform.ListingsApi.Extensions
+namespace BuyItPlatform.GatewayApi.Extensions
 {
     //extension class to hold the method for adding the JWT authentication logic in the DI 
     //instead of writing it in the program.cs because it looks cleaner with a extension class
@@ -14,7 +13,7 @@ namespace BuyItPlatform.ListingsApi.Extensions
         {
             //get the JWt settings
             var jwtOptions = builder.Configuration.GetSection("ApiSettings:JwtOptions").Get<JwtOptions>();
-            if(jwtOptions == null)
+            if (jwtOptions == null)
             {
                 throw new ArgumentNullException();
             }

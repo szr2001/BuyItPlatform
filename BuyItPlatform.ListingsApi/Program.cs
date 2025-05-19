@@ -58,7 +58,8 @@ namespace BuyItPlatform.ListingsApi
                 });
             });
 
-            builder.AddAppAuthentication();
+            //adds the custom authentication using JWT
+            builder.AddJwtAuthentication();
 
             //adds the default authorization
             builder.Services.AddAuthorization();

@@ -32,14 +32,7 @@ function UserName({ editable, name }) {
                 toast.error(response.data.message, {
                     autoClose: 2000 + response.data.message.length * 50,
                 });
-                console.log(response.data);
-                if (response.data.message === 'Refresh token is missing or expired') {
-                    window.localStorage.setItem('user', null);
-                    dispatch({ type: "SET_AUTH", payload: { isAuthenticated: false } });
-                    dispatch({ type: "SET_USER", payload: { user: null } });
-                    navigate('/Login/');
-                }
-                return;
+                console.error(response.data);
             }
             let newUser = authState.user;
             newUser.userName = newName;
@@ -52,7 +45,13 @@ function UserName({ editable, name }) {
             toast.error(error.message, {
                 autoClose: 2000 + error.message.length * 50,
             });
-            console.log(error.message);
+            if (error.status === 401) {
+                window.localStorage.setItem('user', null);
+                dispatch({ type: "SET_AUTH", payload: { isAuthenticated: false } });
+                dispatch({ type: "SET_USER", payload: { user: null } });
+                navigate('/Login/');
+            }
+            console.log(error);
         }
         finally {
             setNewName("");

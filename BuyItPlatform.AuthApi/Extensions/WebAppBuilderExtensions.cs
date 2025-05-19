@@ -5,9 +5,11 @@ using System.Text;
 
 namespace BuyItPlatform.AuthApi.Extensions
 {
+    //extension class to hold the method for adding the JWT authentication logic in the DI 
+    //instead of writing it in the program.cs because it looks cleaner with a extension class
     public static class WebAppBuilderExtensions
     {
-        public static WebApplicationBuilder AddAppAuthentication(this WebApplicationBuilder builder)
+        public static WebApplicationBuilder AddJwtAuthentication(this WebApplicationBuilder builder)
         {
             //get the JWt settings
             var jwtOptions = builder.Configuration.GetSection("ApiSettings:JwtOptions").Get<JwtOptions>();

@@ -75,6 +75,7 @@ namespace BuyItPlatform.GatewayApi.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         [Route("logout")]
         public async Task<ResponseDto<object>> Logout()
         {

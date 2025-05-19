@@ -52,7 +52,11 @@ namespace BuyItPlatform.UserRatingApi
                 });
             });
 
-            builder.AddAppAuthentication();
+            //adds the custom authentication using JWT
+            builder.AddJwtAuthentication();
+
+            //adds the default authorization
+            builder.Services.AddAuthorization();
 
             var app = builder.Build();
 
@@ -65,6 +69,8 @@ namespace BuyItPlatform.UserRatingApi
 
             app.UseHttpsRedirection();
 
+            //specify the app should use the authentication and authorization we added
+            //in the dependency injection
             app.UseAuthentication();
             app.UseAuthorization();
 
