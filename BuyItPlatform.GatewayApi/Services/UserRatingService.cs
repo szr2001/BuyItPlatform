@@ -9,16 +9,6 @@ namespace BuyItPlatform.GatewayApi.Services
     {
         private readonly IApiCallsService apiCallsService;
         private readonly MicroservicesUrls microservicesUrl;
-
-        public async Task<ResponseDto<T>> GetUserProfileAsync<T>(string userId)
-        {
-            return await apiCallsService.SendAsync<T>(new RequestDto()
-            {
-                ApiType = Enums.ApiType.GET,
-                Url = $"{microservicesUrl.AuthApiUrl}/user/getUserProfile/{userId}"
-            });
-        }
-
         public UserRatingService(IApiCallsService serviceBase, MicroservicesUrls microservicesUrl)
         {
             this.apiCallsService = serviceBase;

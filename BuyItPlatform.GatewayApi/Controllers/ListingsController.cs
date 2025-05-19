@@ -13,6 +13,7 @@ namespace BuyItPlatform.GatewayApi.Controllers
         {
             this.listingsService = listingsService;
         }
+
         [HttpPost]
         [Route("uploadListing")]
         public async Task<ResponseDto<object>> UploadListing([FromForm] ListingDto listingDto)

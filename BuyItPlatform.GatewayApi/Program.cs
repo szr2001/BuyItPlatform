@@ -27,10 +27,6 @@ namespace BuyItPlatform.GatewayApi
             builder.Services.AddControllers();
             builder.Services.AddHttpContextAccessor();
             builder.Services.AddHttpClient();
-            builder.Services.AddHttpClient<IListingsService, ListingsService>();
-            builder.Services.AddHttpClient<IAuthService, AuthService>();
-            builder.Services.AddHttpClient<IUserService, UserService>();
-            builder.Services.AddHttpClient<IUserRatingService, UserRatingService>();
 
             builder.Services.AddSingleton<MicroservicesUrls>();
             builder.Services.AddScoped<ITokenCookiesProvider, TokenCookiesProvider>();
@@ -38,6 +34,7 @@ namespace BuyItPlatform.GatewayApi
             builder.Services.AddScoped<IListingsService, ListingsService>();
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IAuthService, AuthService>();
+            builder.Services.AddScoped<IUserRatingService, UserRatingService>();
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
