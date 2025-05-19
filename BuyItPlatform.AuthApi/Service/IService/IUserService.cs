@@ -9,5 +9,6 @@ namespace BuyItPlatform.AuthApi.Service.IService
         Task UpdateUserDesc(string userId, string desc);
         Task<string> UpdateUserProfilePic(string userId, ImageDto profilePic);
         Task UpdateUserPhoneNumber(string userId, string phoneNumber);
+        Task AreUserIdsPresent(string[] userIds);
     }
 }

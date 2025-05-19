@@ -124,5 +124,23 @@ namespace BuyItPlatform.AuthApi.Controllers
             }
             return response;
         }
+
+        [HttpPost]
+        [Route("areUserIdsPresent")]
+        public async Task<ResponseDto> AreUserIdsPresent([FromBody] string[] userIds)
+        {
+            try
+            {
+                await userService.AreUserIdsPresent(userIds);
+                response.Result = null;
+                response.Success = true;
+            }
+            catch (Exception ex)
+            {
+                response.Success = false;
+                response.Message = $"{ex.Message}";
+            }
+            return response;
+        }
     }
 }

@@ -133,5 +133,21 @@ namespace BuyItPlatform.AuthApi.Service
             await userManager.UpdateAsync(user);
             return user.ProfileImgLink;
         }
+
+        public async Task AreUserIdsPresent(string[] userIds)
+        {
+            if (userIds.Length == 0)
+            {
+                throw new Exception("userIds empty");
+            }
+
+            foreach(string userId in userIds)
+            {
+                if (string.IsNullOrEmpty(userId) || (await userManager.FindByIdAsync(userId)) == null)
+                {
+                    throw new Exception("UserIds are not correct or not valid");
+                }
+            }
+        }
     }
 }

@@ -26,6 +26,7 @@ namespace BuyItPlatform.GatewayApi.Services
 
         public async Task<ResponseDto<T>> GetUserRating<T>(string targetUserId)
         {
+            //check userId
             return await apiCallsService.SendAsync<T>(new RequestDto()
             {
                 ApiType = Enums.ApiType.GET,
@@ -35,6 +36,19 @@ namespace BuyItPlatform.GatewayApi.Services
 
         public async Task<ResponseDto<T>> RateUser<T>(UserRatingRequestDto ratingRequest)
         {
+
+            var userIds = await apiCallsService.SendAsync<T>(new RequestDto()
+            {
+                ApiType = Enums.ApiType.POST,
+                BodyData = new string[]{ ratingRequest.TargetUserId },
+                Url = $"{microservicesUrl.AuthApiUrl}/user/areUserIdsPresent"
+            });
+
+            if (!userIds.Success)
+            {
+                return userIds;
+            }
+
             return await apiCallsService.SendAsync<T>(new RequestDto()
             {
                 ApiType = Enums.ApiType.POST,
