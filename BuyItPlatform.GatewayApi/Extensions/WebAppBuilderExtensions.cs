@@ -29,6 +29,25 @@ namespace BuyItPlatform.GatewayApi.Extensions
                 x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             }).AddJwtBearer(x =>
             {
+                x.Events = new JwtBearerEvents
+                {
+                    OnMessageReceived = context =>
+                    {
+                        //Because the frontend sends the token in the http only cookie
+                        //and not in the Authorize header, we need to intercept
+                        //the request, extract the token from the cookies manually
+                        //and assign it as the recieved token for further verifications
+                        //then further in microservice calls we correctly assign it to the Authorization headers
+                        //so we only need to do this in the gateway because we can't assign the token
+                        //from the frontend because it's a http only cookie and not accesable with js
+                        var accessToken = context.Request.Cookies["token"];
+                        if (!string.IsNullOrEmpty(accessToken))
+                        {
+                            context.Token = accessToken;
+                        }
+                        return Task.CompletedTask;
+                    }
+                };
                 x.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,

@@ -93,6 +93,12 @@ namespace BuyItPlatform.GatewayApi
             app.UseAuthentication();
             app.UseAuthorization();
 
+            //You can add a custom one line middleware
+            //app.Use(async (context, next) =>
+            //{
+            //    Console.WriteLine("Authorization Header: " + context.Request.Headers["Authorization"]);
+            //    await next();
+            //});
             app.MapControllers();
 
             app.Run();
