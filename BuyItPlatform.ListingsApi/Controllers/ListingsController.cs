@@ -9,7 +9,7 @@ namespace BuyItPlatform.ListingsApi.Controllers
 {
     [ApiController]
     [Route("listingsApi")]
-    //[Authorize]
+    [Authorize]
     public class ListingsController : Controller
     {
         private readonly IMapper mapper;
@@ -24,7 +24,7 @@ namespace BuyItPlatform.ListingsApi.Controllers
 
         [HttpPost]
         [Route("uploadListing")]    
-        public async Task<ResponseDto> UploadListing([FromForm] ListingDto listingDto)
+        public async Task<IActionResult> UploadListing([FromForm] ListingDto listingDto)
         {
             try
             {
@@ -38,12 +38,12 @@ namespace BuyItPlatform.ListingsApi.Controllers
                 response.Message += ex.Message;
             }
 
-            return response;
+            return Ok(response);
         }
 
         [HttpGet]
         [Route("getListingWithId/{listingId:int}")]
-        public async Task<ResponseDto> GetListingWithId(int listingId)
+        public async Task<IActionResult> GetListingWithId(int listingId)
         {
             try
             {
@@ -58,12 +58,12 @@ namespace BuyItPlatform.ListingsApi.Controllers
                 response.Message = ex.Message;
             }
 
-            return response;
+            return Ok(response);
         }
 
         [HttpPost]
         [Route("getListings")]
-        public async Task<ResponseDto> GetListings([FromBody] ListingFIlterDto listFilter, [FromQuery] int count, [FromQuery] int offset)
+        public async Task<IActionResult> GetListings([FromBody] ListingFIlterDto listFilter, [FromQuery] int count, [FromQuery] int offset)
         {
             try
             {
@@ -78,12 +78,12 @@ namespace BuyItPlatform.ListingsApi.Controllers
                 response.Message = ex.Message;
             }
 
-            return response;
+            return Ok(response);
         }
 
         [HttpGet]
         [Route("deleteListing/{listingId:int}")]
-        public async Task<ResponseDto> DeleteListing(int listingId)
+        public async Task<IActionResult> DeleteListing(int listingId)
         {
             try
             {
@@ -97,12 +97,12 @@ namespace BuyItPlatform.ListingsApi.Controllers
                 response.Message = ex.Message;
             }
 
-            return response;
+            return Ok(response);
         }
 
         [HttpGet]
         [Route("deleteUserListings/{userid:int}")]
-        public async Task<ResponseDto> DeleteUserListings(int userid)
+        public async Task<IActionResult> DeleteUserListings(int userid)
         {
             try
             {
@@ -116,7 +116,7 @@ namespace BuyItPlatform.ListingsApi.Controllers
                 response.Message = ex.Message;
             }
 
-            return response;
+            return Ok(response);
         }
     }
 }

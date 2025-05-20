@@ -19,7 +19,7 @@ namespace BuyItPlatform.GatewayApi.Services
             this.tokensProvider = tokensProvider;
         }
 
-        public async Task<ResponseDto<T>> SendAsync<T>(RequestDto request, bool withTokens = true)
+        public async Task<MicroserviceResponseDto<T>> SendAsync<T>(RequestDto request, bool withTokens = true)
         {
             try
             {
@@ -124,9 +124,7 @@ namespace BuyItPlatform.GatewayApi.Services
                         return new() { Success = false, Message = "Internal Server Error" };
                     default:
                         var apiContent = await apiResponse.Content.ReadAsStringAsync();
-                        //use generics so it's able to deserialize the responseDto correctly, if we just use an object type,
-                        //then it would faill because it does't know in what to deserialize it.
-                        var apiResponseDto = JsonConvert.DeserializeObject<ResponseDto<T>>(apiContent);
+                        var apiResponseDto = JsonConvert.DeserializeObject<MicroserviceResponseDto<T>>(apiContent);
                         return apiResponseDto!;
                 }
             }

@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BuyItPlatform.UserRatingApi.Controllers
 {
     [Route("userRatingApi")]
-    //[Authorize]
+    [Authorize]
     [ApiController]
     public class UserRatingController : Controller
     {
@@ -20,7 +20,7 @@ namespace BuyItPlatform.UserRatingApi.Controllers
 
         [HttpPost]
         [Route("rateUser")]
-        public async Task<ResponseDto> RateUser([FromBody] UserRatingRequestDto userRating)
+        public async Task<IActionResult> RateUser([FromBody] UserRatingRequestDto userRating)
         {
             try
             {
@@ -34,12 +34,12 @@ namespace BuyItPlatform.UserRatingApi.Controllers
                 response.Message += ex.Message;
             }
 
-            return response;
+            return Ok(response);
         }
 
         [HttpGet]
         [Route("getUserRating/{targetUserId}")]
-        public async Task<ResponseDto> GetUserRating(string targetUserId)
+        public async Task<IActionResult> GetUserRating(string targetUserId)
         {
             try
             {
@@ -52,12 +52,12 @@ namespace BuyItPlatform.UserRatingApi.Controllers
                 response.Message += ex.Message;
             }
 
-            return response;
+            return Ok(response);
         }
 
         [HttpGet]
         [Route("deleteOfferedRatings/{targetUserId}")]
-        public async Task<ResponseDto> DeleteOfferedRatings(string targetUserId)
+        public async Task<IActionResult> DeleteOfferedRatings(string targetUserId)
         {
             try
             {
@@ -71,7 +71,7 @@ namespace BuyItPlatform.UserRatingApi.Controllers
                 response.Message += ex.Message;
             }
 
-            return response;
+            return Ok(response);
         }
     }
 }

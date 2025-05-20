@@ -14,7 +14,7 @@ namespace BuyItPlatform.GatewayApi.Services
             this.microservicesUrl = microservicesUrl;
         }
 
-        public async Task<ResponseDto<T>> DeleteListingAsync<T>(int listingId)
+        public async Task<MicroserviceResponseDto<T>> DeleteListingAsync<T>(int listingId)
         {
             return await apiCallsService.SendAsync<T>(new RequestDto() 
             {
@@ -22,7 +22,7 @@ namespace BuyItPlatform.GatewayApi.Services
             });
         }
 
-        public async Task<ResponseDto<T>> DeleteUserListingsAsync<T>(int userId)
+        public async Task<MicroserviceResponseDto<T>> DeleteUserListingsAsync<T>(int userId)
         {
             return await apiCallsService.SendAsync<T>(new RequestDto()
             {
@@ -30,7 +30,7 @@ namespace BuyItPlatform.GatewayApi.Services
             });
         }
 
-        public async Task<ResponseDto<T>> GetListingsAsync<T>(ListingFIlterDto listFilter, int count, int offset)
+        public async Task<MicroserviceResponseDto<T>> GetListingsAsync<T>(ListingFIlterDto listFilter, int count, int offset)
         {
             return await apiCallsService.SendAsync<T>(new RequestDto()
             {
@@ -40,7 +40,7 @@ namespace BuyItPlatform.GatewayApi.Services
             });
         }
 
-        public async Task<ResponseDto<T>> GetListingWithIdAsync<T>(int id)
+        public async Task<MicroserviceResponseDto<T>> GetListingWithIdAsync<T>(int id)
         {
             return await apiCallsService.SendAsync<T>(new RequestDto()
             {
@@ -48,7 +48,7 @@ namespace BuyItPlatform.GatewayApi.Services
             });
         }
 
-        public async Task<ResponseDto<T>> UploadListingAsync<T>(ListingDto listingDto)
+        public async Task<MicroserviceResponseDto<T>> UploadListingAsync<T>(ListingDto listingDto)
         {
             return await apiCallsService.SendAsync<T>(new RequestDto()
             {

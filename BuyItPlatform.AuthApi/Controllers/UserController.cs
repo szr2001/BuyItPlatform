@@ -26,7 +26,7 @@ namespace BuyItPlatform.AuthApi.Controllers
 
         [HttpGet]
         [Route("getUserProfile/{userId}")]
-        public async Task<ResponseDto> GetUserProfile(string userId)
+        public async Task<IActionResult> GetUserProfile(string userId)
         {
             try
             {
@@ -38,12 +38,12 @@ namespace BuyItPlatform.AuthApi.Controllers
                 response.Success = false;
                 response.Message = $"{ex.Message}";
             }
-            return response;
+            return Ok(response);
         }
 
         [HttpPost]
         [Route("updateUserDesc/{desc}")]
-        public async Task<ResponseDto> UpdateUserDesc(string desc)
+        public async Task<IActionResult> UpdateUserDesc(string desc)
         {
             try
             {
@@ -59,12 +59,12 @@ namespace BuyItPlatform.AuthApi.Controllers
                 response.Success = false;
                 response.Message = $"{ex.Message}";
             }
-            return response;
+            return Ok(response);
         }
 
         [HttpPost]
         [Route("updateUserName/{name}")]
-        public async Task<ResponseDto> UpdateUserName(string name)
+        public async Task<IActionResult> UpdateUserName(string name)
         {
             try
             {
@@ -80,12 +80,12 @@ namespace BuyItPlatform.AuthApi.Controllers
                 response.Success = false;
                 response.Message = $"{ex.Message}";
             }
-            return response;
+            return Ok(response);
         }
 
         [HttpPost]
         [Route("updateUserPhoneNumber/{phoneNumber}")]
-        public async Task<ResponseDto> UpdateUserPhoneNumber(string phoneNumber)
+        public async Task<IActionResult> UpdateUserPhoneNumber(string phoneNumber)
         {
             try
             {
@@ -101,12 +101,12 @@ namespace BuyItPlatform.AuthApi.Controllers
                 response.Success = false;
                 response.Message = $"{ex.Message}";
             }
-            return response;
+            return Ok(response);
         }
 
         [HttpPost]
         [Route("updateUserProfilePic")]
-        public async Task<ResponseDto> UpdateUserProfilePic([FromForm] ImageDto profilePic)
+        public async Task<IActionResult> UpdateUserProfilePic([FromForm] ImageDto profilePic)
         {
             try
             {
@@ -122,12 +122,12 @@ namespace BuyItPlatform.AuthApi.Controllers
                 response.Success = false;
                 response.Message = $"{ex.Message}";
             }
-            return response;
+            return Ok(response);
         }
 
         [HttpPost]
         [Route("areUserIdsPresent")]
-        public async Task<ResponseDto> AreUserIdsPresent([FromBody] string[] userIds)
+        public async Task<IActionResult> AreUserIdsPresent([FromBody] string[] userIds)
         {
             try
             {
@@ -140,7 +140,7 @@ namespace BuyItPlatform.AuthApi.Controllers
                 response.Success = false;
                 response.Message = $"{ex.Message}";
             }
-            return response;
+            return Ok(response);
         }
     }
 }

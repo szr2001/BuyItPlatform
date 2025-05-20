@@ -17,7 +17,7 @@ namespace BuyItPlatform.GatewayApi.Services
             this.microservicesUrl = microservicesUrl;
         }
 
-        public async Task<ResponseDto<T>> AssignRole<T>(string email, string rolename)
+        public async Task<MicroserviceResponseDto<T>> AssignRole<T>(string email, string rolename)
         {
             return await apiCallsService.SendAsync<T>(new RequestDto()
             {
@@ -26,7 +26,7 @@ namespace BuyItPlatform.GatewayApi.Services
             });
         }
 
-        public async Task<ResponseDto<T>> GetUserProfile<T>(string userId)
+        public async Task<MicroserviceResponseDto<T>> GetUserProfile<T>(string userId)
         {
             return await apiCallsService.SendAsync<T>(new RequestDto()
             {
@@ -35,7 +35,7 @@ namespace BuyItPlatform.GatewayApi.Services
             });
         }
 
-        public async Task<ResponseDto<T>> LoginUser<T>(LoginRequestDto loginData)
+        public async Task<MicroserviceResponseDto<T>> LoginUser<T>(LoginRequestDto loginData)
         {
             return await apiCallsService.SendAsync<T>(new RequestDto()
             {
@@ -45,7 +45,7 @@ namespace BuyItPlatform.GatewayApi.Services
             },false);
         }
 
-        public async Task<ResponseDto<T>> Logout<T>()
+        public async Task<MicroserviceResponseDto<T>> Logout<T>()
         {
             return await apiCallsService.SendAsync<T>(new RequestDto()
             {
@@ -54,7 +54,7 @@ namespace BuyItPlatform.GatewayApi.Services
             });
         }
 
-        public async Task<ResponseDto<T>> RefreshToken<T>()
+        public async Task<MicroserviceResponseDto<T>> RefreshToken<T>()
         {
             return await apiCallsService.SendAsync<T>(new RequestDto()
             {
@@ -63,7 +63,7 @@ namespace BuyItPlatform.GatewayApi.Services
             });
         }
 
-        public async Task<ResponseDto<T>> RegisterUser<T>(RegisterRequestDto registerData)
+        public async Task<MicroserviceResponseDto<T>> RegisterUser<T>(RegisterRequestDto registerData)
         {
             return await apiCallsService.SendAsync<T>(new RequestDto()
             {

@@ -22,7 +22,7 @@ namespace BuyItPlatform.AuthApi.Controllers
 
         [HttpPost]
         [Route("register")]
-        public async Task<ResponseDto> Register([FromBody] RegisterRequestDto registerData)
+        public async Task<IActionResult> Register([FromBody] RegisterRequestDto registerData)
         {
             try
             {
@@ -35,12 +35,12 @@ namespace BuyItPlatform.AuthApi.Controllers
                 response.Success = false;
                 response.Message = $"{ex.Message}";
             }
-            return response;
+            return Ok(response);
         }
 
         [HttpPost]
         [Route("login")]
-        public async Task<ResponseDto> Login([FromBody] LoginRequestDto loginData)
+        public async Task<IActionResult> Login([FromBody] LoginRequestDto loginData)
         {
             try
             {
@@ -52,12 +52,12 @@ namespace BuyItPlatform.AuthApi.Controllers
                 response.Success = false;
                 response.Message = $"{ex.Message}";
             }
-            return response;
+            return Ok(response);
         }
 
         [HttpGet]
         [Route("refreshToken")]
-        public async Task<ResponseDto> RefreshToken()
+        public async Task<IActionResult> RefreshToken()
         {
             try
             {
@@ -71,13 +71,13 @@ namespace BuyItPlatform.AuthApi.Controllers
                 response.Success = false;
                 response.Message = $"{ex.Message}";
             }
-            return response;
+            return Ok(response);
         }
 
         //[HttpPost]
         //[Authorize]
         //[Route("assignRole")]
-        //public async Task<ResponseDto> AssignRole([FromQuery] string email, [FromQuery] string roleName)
+        //public async Task<IActionResult> AssignRole([FromQuery] string email, [FromQuery] string roleName)
         //{
         //    try
         //    {
@@ -90,13 +90,13 @@ namespace BuyItPlatform.AuthApi.Controllers
         //        response.Success = false;
         //        response.Message = $"{ex.Message}";
         //    }
-        //    return response;
+        //    return Ok(response);
         //}
 
         [HttpPost]
         [Authorize]
         [Route("logout")]
-        public async Task<ResponseDto> Logout()
+        public async Task<IActionResult> Logout()
         {
             try
             {
@@ -111,7 +111,7 @@ namespace BuyItPlatform.AuthApi.Controllers
                 response.Success = false;
                 response.Message = $"{ex.Message}";
             }
-            return response;
+            return Ok(response);
         }
     }
 }

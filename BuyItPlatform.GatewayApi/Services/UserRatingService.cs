@@ -15,7 +15,7 @@ namespace BuyItPlatform.GatewayApi.Services
             this.microservicesUrl = microservicesUrl;
         }
 
-        public async Task<ResponseDto<T>> DeleteOfferedRatings<T>(string userId)
+        public async Task<MicroserviceResponseDto<T>> DeleteOfferedRatings<T>(string userId)
         {
             return await apiCallsService.SendAsync<T>(new RequestDto()
             {
@@ -24,7 +24,7 @@ namespace BuyItPlatform.GatewayApi.Services
             });
         }
 
-        public async Task<ResponseDto<T>> GetUserRating<T>(string targetUserId)
+        public async Task<MicroserviceResponseDto<T>> GetUserRating<T>(string targetUserId)
         {
             //check userId
             return await apiCallsService.SendAsync<T>(new RequestDto()
@@ -34,7 +34,7 @@ namespace BuyItPlatform.GatewayApi.Services
             });
         }
 
-        public async Task<ResponseDto<T>> RateUser<T>(UserRatingRequestDto ratingRequest)
+        public async Task<MicroserviceResponseDto<T>> RateUser<T>(UserRatingRequestDto ratingRequest)
         {
 
             var userIds = await apiCallsService.SendAsync<T>(new RequestDto()

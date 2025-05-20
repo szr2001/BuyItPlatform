@@ -18,37 +18,37 @@ namespace BuyItPlatform.GatewayApi.Controllers
 
         [HttpPost]
         [Route("uploadListing")]
-        public async Task<ResponseDto<object>> UploadListing([FromForm] ListingDto listingDto)
+        public async Task<IActionResult> UploadListing([FromForm] ListingDto listingDto)
         {
-            return await listingsService.UploadListingAsync<object>(listingDto);
+            return Ok(await listingsService.UploadListingAsync<object>(listingDto));
         }
 
         [HttpGet]
         [Route("getListingWithId/{listingId:int}")]
-        public async Task<ResponseDto<ListingDto>> GetListingWithId(int listingId)
+        public async Task<IActionResult> GetListingWithId(int listingId)
         {
-            return await listingsService.GetListingWithIdAsync<ListingDto>(listingId);
+            return Ok(await listingsService.GetListingWithIdAsync<ListingDto>(listingId));
         }
 
         [HttpPost]
         [Route("getListings")]
-        public async Task<ResponseDto<List<ListingDto>>> GetListings([FromBody] ListingFIlterDto listFilter, [FromQuery] int count, [FromQuery] int offset)
+        public async Task<IActionResult> GetListings([FromBody] ListingFIlterDto listFilter, [FromQuery] int count, [FromQuery] int offset)
         {
-            return await listingsService.GetListingsAsync<List<ListingDto>>(listFilter, count, offset);
+            return Ok(await listingsService.GetListingsAsync<List<ListingDto>>(listFilter, count, offset));
         }
 
         [HttpGet]
         [Route("deleteListing/{listingId:int}")]
-        public async Task<ResponseDto<object>> DeleteListing(int listingId)
+        public async Task<IActionResult> DeleteListing(int listingId)
         {
-            return await listingsService.DeleteListingAsync<object>(listingId);
+            return Ok(await listingsService.DeleteListingAsync<object>(listingId));
         }
 
         [HttpGet]
         [Route("deleteUserListings/{userid:int}")]
-        public async Task<ResponseDto<object>> DeleteUserListings(int userid)
+        public async Task<IActionResult> DeleteUserListings(int userid)
         {
-            return await listingsService.DeleteUserListingsAsync<object>(userid);
+            return Ok(await listingsService.DeleteUserListingsAsync<object>(userid));
         }
     }
 }
