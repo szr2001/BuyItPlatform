@@ -32,10 +32,11 @@ namespace BuyItPlatform.ListingsApi.Controllers
                 response.Result = null;
                 response.Success = true;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 response.Success = false;
                 response.Message += ex.Message;
+                return BadRequest(response);
             }
 
             return Ok(response);
@@ -56,6 +57,7 @@ namespace BuyItPlatform.ListingsApi.Controllers
             {
                 response.Success = false;
                 response.Message = ex.Message;
+                return BadRequest(response);
             }
 
             return Ok(response);
@@ -76,6 +78,7 @@ namespace BuyItPlatform.ListingsApi.Controllers
             {
                 response.Success = false;
                 response.Message = ex.Message;
+                return BadRequest(response);
             }
 
             return Ok(response);
@@ -95,6 +98,7 @@ namespace BuyItPlatform.ListingsApi.Controllers
             {
                 response.Success = false;
                 response.Message = ex.Message;
+                return BadRequest(response);
             }
 
             return Ok(response);
@@ -114,6 +118,7 @@ namespace BuyItPlatform.ListingsApi.Controllers
             {
                 response.Success = false;
                 response.Message = ex.Message;
+                return BadRequest(response);
             }
 
             return Ok(response);

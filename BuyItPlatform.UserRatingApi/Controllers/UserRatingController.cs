@@ -32,6 +32,7 @@ namespace BuyItPlatform.UserRatingApi.Controllers
             {
                 response.Success = false;
                 response.Message += ex.Message;
+                return BadRequest(response);
             }
 
             return Ok(response);
@@ -50,6 +51,7 @@ namespace BuyItPlatform.UserRatingApi.Controllers
             {
                 response.Success = false;
                 response.Message += ex.Message;
+                return BadRequest(response);
             }
 
             return Ok(response);
@@ -69,6 +71,7 @@ namespace BuyItPlatform.UserRatingApi.Controllers
             {
                 response.Success = false;
                 response.Message += ex.Message;
+                return BadRequest(response);
             }
 
             return Ok(response);

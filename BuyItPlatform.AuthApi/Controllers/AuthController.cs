@@ -34,6 +34,7 @@ namespace BuyItPlatform.AuthApi.Controllers
             {
                 response.Success = false;
                 response.Message = $"{ex.Message}";
+                return BadRequest(response);
             }
             return Ok(response);
         }
@@ -51,6 +52,7 @@ namespace BuyItPlatform.AuthApi.Controllers
             {
                 response.Success = false;
                 response.Message = $"{ex.Message}";
+                return BadRequest(response);
             }
             return Ok(response);
         }
@@ -66,10 +68,17 @@ namespace BuyItPlatform.AuthApi.Controllers
                 response.Result = await authService.RefreshToken(refreshToken!);
                 response.Success = true;
             }
+            catch (UnauthorizedAccessException ex)
+            {
+                response.Success = false;
+                response.Message = $"{ex.Message}";
+                return Unauthorized(response);
+            }
             catch (Exception ex)
             {
                 response.Success = false;
                 response.Message = $"{ex.Message}";
+                return BadRequest(response);
             }
             return Ok(response);
         }
@@ -89,6 +98,7 @@ namespace BuyItPlatform.AuthApi.Controllers
         //    {
         //        response.Success = false;
         //        response.Message = $"{ex.Message}";
+        //        return BadRequest(response);
         //    }
         //    return Ok(response);
         //}
@@ -106,10 +116,17 @@ namespace BuyItPlatform.AuthApi.Controllers
                 response.Result = null;
                 response.Success = true;
             }
+            catch (UnauthorizedAccessException ex)
+            {
+                response.Success = false;
+                response.Message = $"{ex.Message}";
+                return Unauthorized(response);
+            }
             catch (Exception ex)
             {
                 response.Success = false;
                 response.Message = $"{ex.Message}";
+                return BadRequest(response);
             }
             return Ok(response);
         }

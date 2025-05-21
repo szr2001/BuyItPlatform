@@ -83,7 +83,7 @@ namespace BuyItPlatform.ListingsApi.Services
         {
             if (listingDto.ImageFiles.Count > 3)
             {
-                throw new Exception("Each listing can have a maximum of 3 images.");
+                throw new ArgumentOutOfRangeException("Each listing can have a maximum of 3 images.");
             }
 
             Listing newListing = mapper.Map<Listing>(listingDto);

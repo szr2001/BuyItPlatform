@@ -28,7 +28,7 @@ namespace BuyItPlatform.AuthApi.Service
         {
             if(registerData.Password != registerData.RepeatPassword)
             {
-                throw new Exception("Passwords doesn't match.");
+                throw new ArgumentException("Passwords doesn't match.");
             }
 
             BuyItUser newUser = new()
@@ -40,7 +40,7 @@ namespace BuyItPlatform.AuthApi.Service
             var result = await userManager.CreateAsync(newUser, registerData.Password);
             if (!result.Succeeded)
             {
-                throw new Exception(string.Join(",", result.Errors.Select(i=> i.Description)));
+                throw new ArgumentException(string.Join(",", result.Errors.Select(i=> i.Description)));
             }
 
             await AssignRole(newUser.Email, RolesDefaults.User);
@@ -51,13 +51,13 @@ namespace BuyItPlatform.AuthApi.Service
             BuyItUser user = await userManager.FindByEmailAsync(registerData.Email);
             if(user == null)
             {
-                throw new Exception("Wrong Email or password!");
+                throw new ArgumentException("Wrong Email or password!");
             }
             var isValid = await userManager.CheckPasswordAsync(user,registerData.Password);
 
             if (!isValid)
             {
-                throw new Exception("Wrong Email or password!");
+                throw new ArgumentException("Wrong Email or password!");
             }
             var roles = await userManager.GetRolesAsync(user);
             string token = jwtTokenHandler.GenerateToken(user, roles);
@@ -82,7 +82,7 @@ namespace BuyItPlatform.AuthApi.Service
         {
             if (string.IsNullOrEmpty(refreshToken)) 
             { 
-                throw new Exception("Refresh token is missing or expired"); 
+                throw new UnauthorizedAccessException("Refresh token is missing or expired"); 
             }
 
             var user = await userManager.Users.FirstOrDefaultAsync(u => u.RefreshToken == refreshToken);
@@ -91,7 +91,7 @@ namespace BuyItPlatform.AuthApi.Service
             //or if the refreshToken expired, return, user needs to re-authentificate using pass and email
             if (user == null || user.RefreshTokenExpiryTime <= DateTime.UtcNow)
             {
-                throw new Exception("Refresh token is missing or expired");
+                throw new UnauthorizedAccessException("Refresh token is missing or expired");
             }
 
             var roles = await userManager.GetRolesAsync(user);
@@ -117,7 +117,7 @@ namespace BuyItPlatform.AuthApi.Service
             BuyItUser user = await userManager.FindByEmailAsync(email);
             if(user == null )
             {
-                throw new Exception("AsignRole failed");
+                throw new ArgumentException("AsignRole failed");
             }
 
             if(!await roleManager.RoleExistsAsync(rolename))
@@ -131,14 +131,14 @@ namespace BuyItPlatform.AuthApi.Service
         {
             if (string.IsNullOrEmpty(refreshToken))
             {
-                throw new Exception("Refresh token is missing or expired");
+                throw new UnauthorizedAccessException("Refresh token is missing or expired");
             }
 
             var user = await userManager.Users.FirstOrDefaultAsync(u => u.RefreshToken == refreshToken);
 
             if (user == null || user.RefreshTokenExpiryTime <= DateTime.UtcNow)
             {
-                throw new Exception("Refresh token is missing or expired");
+                throw new UnauthorizedAccessException("Refresh token is missing or expired");
             }
 
             user.RefreshTokenExpiryTime = DateTime.UtcNow;

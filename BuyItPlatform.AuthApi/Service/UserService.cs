@@ -4,6 +4,7 @@ using BuyItPlatform.AuthApi.Models;
 using BuyItPlatform.AuthApi.Models.Dto;
 using BuyItPlatform.AuthApi.Service.IService;
 using BuyItPlatform.AuthApi.Services.IServices;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using System.Xml.Linq;
 
@@ -29,7 +30,7 @@ namespace BuyItPlatform.AuthApi.Service
             var user = await userManager.FindByIdAsync(userId);
             if (user == null)
             {
-                throw new Exception("user could not be found");
+                throw new KeyNotFoundException("user could not be found");
             }
 
             UserProfileDto userProfile = mapper.Map<UserProfileDto>(user);
@@ -41,7 +42,7 @@ namespace BuyItPlatform.AuthApi.Service
         {
             if (string.IsNullOrEmpty(userId))
             {
-                throw new Exception("Refresh token is missing or expired");
+                throw new KeyNotFoundException("user could not be found");
             }
 
             var user = await userManager.FindByIdAsync(userId);
@@ -50,7 +51,7 @@ namespace BuyItPlatform.AuthApi.Service
             //or if the refreshToken expired, return, user needs to re-authentificate using pass and email
             if (user == null || user.RefreshTokenExpiryTime <= DateTime.UtcNow)
             {
-                throw new Exception("Refresh token is missing or expired");
+                throw new UnauthorizedAccessException("Refresh token is missing or expired");
             }
 
             user.Description = desc;
@@ -61,11 +62,11 @@ namespace BuyItPlatform.AuthApi.Service
         {
             if (string.IsNullOrEmpty(userId))
             {
-                throw new Exception("Refresh token is missing or expired");
+                throw new KeyNotFoundException("User could not be found");
             }
             if (string.IsNullOrEmpty(name))
             {
-                throw new Exception("Name is empty");
+                throw new KeyNotFoundException("Name is empty");
             }
 
             var user = await userManager.FindByIdAsync(userId);
@@ -74,7 +75,7 @@ namespace BuyItPlatform.AuthApi.Service
             //or if the refreshToken expired, return, user needs to re-authentificate using pass and email
             if (user == null || user.RefreshTokenExpiryTime <= DateTime.UtcNow)
             {
-                throw new Exception("Refresh token is missing or expired");
+                throw new UnauthorizedAccessException("Refresh token is missing or expired");
             }
 
             user.UserName = name;
@@ -86,11 +87,11 @@ namespace BuyItPlatform.AuthApi.Service
         {
             if (string.IsNullOrEmpty(userId))
             {
-                throw new Exception("Refresh token is missing or expired");
+                throw new KeyNotFoundException("User could not be found");
             }
             if (string.IsNullOrEmpty(phoneNumber) && phoneNumber.Length > 15 && phoneNumber.Length < 8)
             {
-                throw new Exception("Phone number must be between 8-15 numbers");
+                throw new KeyNotFoundException("Phone number must be between 8-15 numbers");
             }
 
             var user = await userManager.FindByIdAsync(userId);
@@ -99,7 +100,7 @@ namespace BuyItPlatform.AuthApi.Service
             //or if the refreshToken expired, return, user needs to re-authentificate using pass and email
             if (user == null || user.RefreshTokenExpiryTime <= DateTime.UtcNow)
             {
-                throw new Exception("Refresh token is missing or expired");
+                throw new UnauthorizedAccessException("Refresh token is missing or expired");
             }
 
             user.PhoneNumber = phoneNumber;
@@ -110,7 +111,7 @@ namespace BuyItPlatform.AuthApi.Service
         {
             if (string.IsNullOrEmpty(userId))
             {
-                throw new Exception("Refresh token is missing or expired");
+                throw new KeyNotFoundException("User could not be found");
             }
 
             var user = await userManager.FindByIdAsync(userId);
@@ -119,7 +120,7 @@ namespace BuyItPlatform.AuthApi.Service
             //or if the refreshToken expired, return, user needs to re-authentificate using pass and email
             if (user == null || user.RefreshTokenExpiryTime <= DateTime.UtcNow)
             {
-                throw new Exception("Refresh token is missing or expired");
+                throw new UnauthorizedAccessException("Refresh token is missing or expired");
             }
 
             if(user.ProfileImgLink != " ")
@@ -138,14 +139,14 @@ namespace BuyItPlatform.AuthApi.Service
         {
             if (userIds.Length == 0)
             {
-                throw new Exception("userIds empty");
+                throw new IndexOutOfRangeException("userIds empty");
             }
 
             foreach(string userId in userIds)
             {
                 if (string.IsNullOrEmpty(userId) || (await userManager.FindByIdAsync(userId)) == null)
                 {
-                    throw new Exception("UserIds are not correct or not valid");
+                    throw new KeyNotFoundException("UserIds are not correct or not valid");
                 }
             }
         }
