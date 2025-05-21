@@ -63,8 +63,8 @@ function Login() {
             console.log(response);
         }
         catch (error) {
-            toast.error(error.message, {
-                autoClose: 2000 + error.message.length * 50,
+            toast.error(error.response.data.message, {
+                autoClose: 2000 + error.response.data.message.length * 50,
             });
             console.log(error.message);
         }

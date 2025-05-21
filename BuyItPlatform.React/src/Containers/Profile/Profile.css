@@ -2,11 +2,14 @@
     display:flex;
     width:100%;
 }
+
 .profile-left{
 }
+
 .profile-right {
     flex: 1;
 }
+
 .profile-user{
 
 }
@@ -15,5 +18,11 @@
     .profile {
         flex-direction:column !important;
         align-items:center;
+        width:100%;
+    }
+
+    .profile-right {
+        width: 100%;
+        flex: 1;
     }
 }

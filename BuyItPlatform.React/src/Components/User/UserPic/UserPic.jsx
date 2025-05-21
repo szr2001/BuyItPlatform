@@ -81,8 +81,8 @@ function UserPic({ editable, picLink }) {
             console.log(picState);
         }
         catch (error) {
-            toast.error(error.message, {
-                autoClose: 2000 + error.message.length * 50,
+            toast.error(error.response.data.message, {
+                autoClose: 2000 + error.response.data.message.length * 50,
             });
             if (error.status === 401) {
                 window.localStorage.setItem('user', null);

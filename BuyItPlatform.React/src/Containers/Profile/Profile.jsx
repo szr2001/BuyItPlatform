@@ -13,6 +13,7 @@ function Profile() {
     const {userId } = useParams();
     const [authState, dispatch] = useContext(AuthContext);
     const [userProfile, setUser] = useState(null);
+    const [isOwnProfile, setIsOwnProfile] = useState(false);
     const isFirstRender = useRef(true); // because useEffect runs twitce due to StrictMode component
     const navigate = useNavigate();
 
@@ -32,8 +33,8 @@ function Profile() {
                 setUser(response.data.result);
             }
             catch (error) {
-                toast.error(error.message, {
-                    autoClose: 2000 + error.message.length * 50,
+                toast.error(error.response.data.message, {
+                    autoClose: 2000 + error.response.data.message.length * 50,
                 });
                 if (error.status === 401) {
                     window.localStorage.setItem('user', null);
@@ -44,6 +45,7 @@ function Profile() {
                 console.log(error);
             }
             finally {
+                setIsOwnProfile(userId === authState.user.id);
             }
         };
 
@@ -61,13 +63,16 @@ function Profile() {
                     userProfile ?
                         <div className="profile">
                             <div className="profile-left">
-                                <UserPic editable={true} picLink={userProfile.profileImgLink}/>
-                                <UserName editable={true} name={userProfile.userName} />
-                                <UserRating ratable={true} rating={10} />
-                                <UserPhone editable={true} phone={userProfile.phoneNumber} />
+                                <UserPic editable={isOwnProfile} picLink={userProfile.profileImgLink}/>
+                                <UserName editable={isOwnProfile} name={userProfile.userName} />
+                                <UserRating ratable={!isOwnProfile} rating={10} />
+                                <UserPhone editable={isOwnProfile} phone={userProfile.phoneNumber} />
+                                {
+                                    isOwnProfile === true ? (<label>Rawr</label>) : null
+                                }
                             </div>
                             <div className="profile-right">
-                                <UserDesc editable={true} desc={userProfile.description}/>
+                                <UserDesc editable={isOwnProfile} desc={userProfile.description}/>
                             </div>
                         </div>
                         :
