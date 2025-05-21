@@ -12,6 +12,6 @@ namespace BuyItPlatform.GatewayApi.Models
         public T? Result { get; set; }
         public bool Success { get; set; } = false;
         public string? Message { get; set; }
-        public HttpStatusCode StatusCode { get; set; }
+        public int StatusCode { get; set; }
     }
 }

@@ -24,7 +24,7 @@ namespace BuyItPlatform.GatewayApi.Controllers
         public async Task<IActionResult> GetUserProfile(string userId)
         {
             var apiResult = await userService.GetUserProfileAsync<UserProfileDto>(userId);
-            return StatusCode((int)apiResult.StatusCode, apiResult);
+            return StatusCode(apiResult.StatusCode, apiResult);
         }
 
         [HttpPost]
@@ -32,7 +32,7 @@ namespace BuyItPlatform.GatewayApi.Controllers
         public async Task<IActionResult> UpdateUserDesc(string desc)
         {
             var apiResult = await userService.UpdateUserDescAsync<object>(desc);
-            return StatusCode((int)apiResult.StatusCode, apiResult);
+            return StatusCode(apiResult.StatusCode, apiResult);
         }
 
         [HttpPost]
@@ -40,7 +40,7 @@ namespace BuyItPlatform.GatewayApi.Controllers
         public async Task<IActionResult> UpdateUserName(string name)
         {
             var apiResult = await userService.UpdateUserNameAsync<object>(name);
-            return StatusCode((int)apiResult.StatusCode, apiResult);
+            return StatusCode(apiResult.StatusCode, apiResult);
         }
 
         [HttpPost]
@@ -48,7 +48,7 @@ namespace BuyItPlatform.GatewayApi.Controllers
         public async Task<IActionResult> UpdateUserPhoneNumber(string phoneNumber)
         {
             var apiResult = await userService.UpdateUserPhoneNumberAsync<object>(phoneNumber);
-            return StatusCode((int)apiResult.StatusCode, apiResult);
+            return StatusCode(apiResult.StatusCode, apiResult);
         }
 
         [HttpPost]
@@ -56,7 +56,7 @@ namespace BuyItPlatform.GatewayApi.Controllers
         public async Task<IActionResult> UpdateUserProfilePic([FromForm] ImageDto profilePic)
         {
             var apiResult = await userService.UpdateUserProfilePicsAsync<string>(profilePic);
-            return StatusCode((int)apiResult.StatusCode, apiResult);
+            return StatusCode(apiResult.StatusCode, apiResult);
         }
     }
 }

@@ -1,9 +1,7 @@
 ﻿using BuyItPlatform.GatewayApi.Models;
-using BuyItPlatform.GatewayApi.Models.Dto;
 using BuyItPlatform.GatewayApi.Services.IServices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Server.HttpSys;
 
 namespace BuyItPlatform.GatewayApi.Controllers
 {
@@ -24,7 +22,7 @@ namespace BuyItPlatform.GatewayApi.Controllers
         public async Task<IActionResult> Register([FromBody] RegisterRequestDto registerData)
         {
             var apiResult = await authService.RegisterUser<object>(registerData);
-            return StatusCode((int)apiResult.StatusCode, apiResult);
+            return StatusCode(apiResult.StatusCode, apiResult);
         }
 
         [HttpPost]
@@ -32,19 +30,20 @@ namespace BuyItPlatform.GatewayApi.Controllers
         public async Task<IActionResult> Login([FromBody] LoginRequestDto loginData)
         {
             MicroserviceResponseDto<UserDto> apiResult = new();
-            var result =  await authService.LoginUser<LoginResponseDto>(loginData);
-            if (result.Success)
+            var loginResult =  await authService.LoginUser<LoginResponseDto>(loginData);
+            if (loginResult.Success)
             { 
                 //if the request was a success, get the tokens and save them in the cookies for the frontend
-                tokenProvider.SetToken(result.Result!.Token!);
-                tokenProvider.SetRefreshToken(result.Result?.RefreshToken!);
-                apiResult.Result = result.Result!.User;
+                tokenProvider.SetToken(loginResult.Result!.Token!);
+                tokenProvider.SetRefreshToken(loginResult.Result?.RefreshToken!);
+                apiResult.Result = loginResult.Result!.User;
             }
             
-            apiResult.Success = result.Success;
-            apiResult.Message = result.Message;
+            apiResult.Success = loginResult.Success;
+            apiResult.Message = loginResult.Message;
+            apiResult.StatusCode = loginResult.StatusCode;
 
-            return StatusCode((int)apiResult.StatusCode, apiResult);
+            return StatusCode(apiResult.StatusCode, apiResult);
         }
 
         //[HttpPost]
@@ -64,6 +63,7 @@ namespace BuyItPlatform.GatewayApi.Controllers
 
             apiResult.Success = tokenResult.Success;
             apiResult.Message = tokenResult.Message;
+            apiResult.StatusCode = tokenResult.StatusCode;
             
             if (tokenResult.Success)
             {
@@ -72,7 +72,7 @@ namespace BuyItPlatform.GatewayApi.Controllers
                 tokenProvider.SetRefreshToken(tokenResult.Result?.RefreshToken!);
             }
 
-            return StatusCode((int)apiResult.StatusCode, apiResult);
+            return StatusCode(apiResult.StatusCode, apiResult);
         }
 
         [HttpPost]
@@ -85,7 +85,7 @@ namespace BuyItPlatform.GatewayApi.Controllers
             {
                 tokenProvider.ClearTokens();
             }
-            return StatusCode((int)apiResult.StatusCode, apiResult);
+            return StatusCode(apiResult.StatusCode, apiResult);
         }
     }
 }

@@ -120,11 +120,11 @@ namespace BuyItPlatform.GatewayApi.Services
                     return new()
                     {
                         Success = false,
-                        StatusCode = apiResponse.StatusCode,
+                        StatusCode = (int)apiResponse.StatusCode,
                         Message = apiResponse.StatusCode.ToString()
                     };
                 }
-                apiResponseDto.StatusCode = apiResponse.StatusCode;
+                apiResponseDto.StatusCode = (int)apiResponse.StatusCode;
 
                 return apiResponseDto;
             }

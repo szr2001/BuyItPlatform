@@ -22,7 +22,7 @@ namespace BuyItPlatform.GatewayApi.Controllers
         public async Task<IActionResult> UploadListing([FromForm] ListingDto listingDto)
         {
             var apiResult = await listingsService.UploadListingAsync<object>(listingDto);
-            return StatusCode((int)apiResult.StatusCode, apiResult);
+            return StatusCode(apiResult.StatusCode, apiResult);
         }
 
         [HttpGet]
@@ -30,7 +30,7 @@ namespace BuyItPlatform.GatewayApi.Controllers
         public async Task<IActionResult> GetListingWithId(int listingId)
         {
             var apiResult = await listingsService.GetListingWithIdAsync<ListingDto>(listingId);
-            return StatusCode((int)apiResult.StatusCode, apiResult);
+            return StatusCode(apiResult.StatusCode, apiResult);
         }
 
         [HttpPost]
@@ -38,7 +38,7 @@ namespace BuyItPlatform.GatewayApi.Controllers
         public async Task<IActionResult> GetListings([FromBody] ListingFIlterDto listFilter, [FromQuery] int count, [FromQuery] int offset)
         {
             var apiResult = await listingsService.GetListingsAsync<List<ListingDto>>(listFilter, count, offset);
-            return StatusCode((int)apiResult.StatusCode, apiResult);
+            return StatusCode(apiResult.StatusCode, apiResult);
         }
 
         [HttpGet]
@@ -46,7 +46,7 @@ namespace BuyItPlatform.GatewayApi.Controllers
         public async Task<IActionResult> DeleteListing(int listingId)
         {
             var apiResult = await listingsService.DeleteListingAsync<object>(listingId);
-            return StatusCode((int)apiResult.StatusCode, apiResult);
+            return StatusCode(apiResult.StatusCode, apiResult);
         }
 
         [HttpGet]
@@ -54,7 +54,7 @@ namespace BuyItPlatform.GatewayApi.Controllers
         public async Task<IActionResult> DeleteUserListings(int userid)
         {
             var apiResult = await listingsService.DeleteUserListingsAsync<object>(userid);
-            return StatusCode((int)apiResult.StatusCode, apiResult);
+            return StatusCode(apiResult.StatusCode, apiResult);
         }
     }
 }
