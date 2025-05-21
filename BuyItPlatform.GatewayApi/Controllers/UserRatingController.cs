@@ -22,21 +22,24 @@ namespace BuyItPlatform.GatewayApi.Controllers
         [Route("getUserRating/{targetUserId}")]
         public async Task<IActionResult> GetUserRating(string targetUserId)
         {
-            return Ok(await userRatingService.GetUserRating<UserRatingResponseDto>(targetUserId));
+            var apiResult = await userRatingService.GetUserRating<UserRatingResponseDto>(targetUserId);
+            return StatusCode((int)apiResult.StatusCode, apiResult);
         }
 
         [HttpGet]
         [Route("deleteOfferedRatings/{targetUserId}")]
         public async Task<IActionResult> DeleteOfferedRatings(string targetUserId)
         {
-            return Ok(await userRatingService.DeleteOfferedRatings<object>(targetUserId));
+            var apiResult = await userRatingService.DeleteOfferedRatings<object>(targetUserId);
+            return StatusCode((int)apiResult.StatusCode, apiResult);
         }
 
         [HttpPost]
         [Route("rateUser")]
         public async Task<IActionResult> RateUser([FromBody] UserRatingRequestDto ratingRequest)
         {
-            return Ok(await userRatingService.RateUser<object>(ratingRequest));
+            var apiResult = await userRatingService.RateUser<object>(ratingRequest);
+            return StatusCode((int)apiResult.StatusCode, apiResult);
         }
     }
 }

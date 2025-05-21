@@ -23,27 +23,28 @@ namespace BuyItPlatform.GatewayApi.Controllers
         [Route("register")]
         public async Task<IActionResult> Register([FromBody] RegisterRequestDto registerData)
         {
-            return Ok(await authService.RegisterUser<object>(registerData));
+            var apiResult = await authService.RegisterUser<object>(registerData);
+            return StatusCode((int)apiResult.StatusCode, apiResult);
         }
 
         [HttpPost]
         [Route("login")]
         public async Task<IActionResult> Login([FromBody] LoginRequestDto loginData)
         {
-            MicroserviceResponseDto<UserDto> returnResponse = new();
+            MicroserviceResponseDto<UserDto> apiResult = new();
             var result =  await authService.LoginUser<LoginResponseDto>(loginData);
             if (result.Success)
             { 
                 //if the request was a success, get the tokens and save them in the cookies for the frontend
                 tokenProvider.SetToken(result.Result!.Token!);
                 tokenProvider.SetRefreshToken(result.Result?.RefreshToken!);
-                returnResponse.Result = result.Result!.User;
+                apiResult.Result = result.Result!.User;
             }
             
-            returnResponse.Success = result.Success;
-            returnResponse.Message = result.Message;
+            apiResult.Success = result.Success;
+            apiResult.Message = result.Message;
 
-            return Ok(returnResponse);
+            return StatusCode((int)apiResult.StatusCode, apiResult);
         }
 
         //[HttpPost]
@@ -57,12 +58,12 @@ namespace BuyItPlatform.GatewayApi.Controllers
         [Route("refreshToken")]
         public async Task<IActionResult> RefreshToken()
         {
-            MicroserviceResponseDto<object> result = new();
+            MicroserviceResponseDto<object> apiResult = new();
 
             var tokenResult = await authService.RefreshToken<LoginResponseDto>();
 
-            result.Success = tokenResult.Success;
-            result.Message = tokenResult.Message;
+            apiResult.Success = tokenResult.Success;
+            apiResult.Message = tokenResult.Message;
             
             if (tokenResult.Success)
             {
@@ -71,7 +72,7 @@ namespace BuyItPlatform.GatewayApi.Controllers
                 tokenProvider.SetRefreshToken(tokenResult.Result?.RefreshToken!);
             }
 
-            return Ok(result);
+            return StatusCode((int)apiResult.StatusCode, apiResult);
         }
 
         [HttpPost]
@@ -79,13 +80,12 @@ namespace BuyItPlatform.GatewayApi.Controllers
         [Route("logout")]
         public async Task<IActionResult> Logout()
         {
-            var result = await authService.Logout<object>();
-            if(result.Success)
+            var apiResult = await authService.Logout<object>();
+            if(apiResult.Success)
             {
                 tokenProvider.ClearTokens();
             }
-
-            return Ok(result);
+            return StatusCode((int)apiResult.StatusCode, apiResult);
         }
     }
 }

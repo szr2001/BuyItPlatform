@@ -112,21 +112,21 @@ namespace BuyItPlatform.GatewayApi.Services
 
                 apiResponse = await client.SendAsync(message);
 
-                switch (apiResponse.StatusCode)
+                var apiContent = await apiResponse.Content.ReadAsStringAsync();
+                var apiResponseDto = JsonConvert.DeserializeObject<MicroserviceResponseDto<T>>(apiContent);
+
+                if (apiResponseDto == null)
                 {
-                    case HttpStatusCode.NotFound:
-                        return new() { Success = false, Message = "Not Found" };
-                    case HttpStatusCode.Forbidden:
-                        return new() { Success = false, Message = "Access Denied" };
-                    case HttpStatusCode.Unauthorized:
-                        return new() { Success = false, Message = "Unauthorized" };
-                    case HttpStatusCode.InternalServerError:
-                        return new() { Success = false, Message = "Internal Server Error" };
-                    default:
-                        var apiContent = await apiResponse.Content.ReadAsStringAsync();
-                        var apiResponseDto = JsonConvert.DeserializeObject<MicroserviceResponseDto<T>>(apiContent);
-                        return apiResponseDto!;
+                    return new()
+                    {
+                        Success = false,
+                        StatusCode = apiResponse.StatusCode,
+                        Message = apiResponse.StatusCode.ToString()
+                    };
                 }
+                apiResponseDto.StatusCode = apiResponse.StatusCode;
+
+                return apiResponseDto;
             }
             catch (Exception ex)
             {
