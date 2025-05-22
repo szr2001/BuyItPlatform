@@ -103,7 +103,7 @@ namespace BuyItPlatform.AuthApi.Controllers
         //    return Ok(response);
         //}
 
-        [HttpPost]
+        [HttpGet]
         [Authorize]
         [Route("logout")]
         public async Task<IActionResult> Logout()

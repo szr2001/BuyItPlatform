@@ -2,8 +2,37 @@
     display:flex;
     width:100%;
 }
+.profile-icon {
+    width: 0px;;
+    transform: scale(0);
+    height: 25px;
+    margin-right: 5px;
+    transition: all 0.2s;
+    color: var(--secondary-color);
+}
+.profile-logout {
+    transition: all 0.1s;
+    font-weight:bold;
+    display:flex;
+    justify-self:center;
+    align-items:center;
+    border-radius: 15px;
+    background-color: var(--primary-color);
+    color: var(--background-color);
+    font-family: var(--primary-font);
+    padding: 10px;
+    font-size: 15px;
+    border: none;
+}
+.profile-logout:hover {
+    transform: scale(1.1);
+}
+.profile-logout:hover .profile-icon {
+    width: 25px;
+    transform: scale(1);
+}
 
-.profile-left{
+.profile-left {
 }
 
 .profile-right {

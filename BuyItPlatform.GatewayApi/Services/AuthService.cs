@@ -49,7 +49,7 @@ namespace BuyItPlatform.GatewayApi.Services
         {
             return await apiCallsService.SendAsync<T>(new RequestDto()
             {
-                ApiType = Enums.ApiType.POST,
+                ApiType = Enums.ApiType.GET,
                 Url = $"{microservicesUrl.AuthApiUrl}/auth/logout"
             });
         }

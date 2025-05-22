@@ -75,7 +75,7 @@ namespace BuyItPlatform.GatewayApi.Controllers
             return StatusCode(apiResult.StatusCode, apiResult);
         }
 
-        [HttpPost]
+        [HttpGet]
         [Authorize]
         [Route("logout")]
         public async Task<IActionResult> Logout()
