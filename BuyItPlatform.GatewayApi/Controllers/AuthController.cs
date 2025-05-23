@@ -35,8 +35,8 @@ namespace BuyItPlatform.GatewayApi.Controllers
             { 
                 //if the request was a success, get the tokens and save them in the cookies for the frontend
                 tokenProvider.SetToken(loginResult.Result!.Token!);
-                tokenProvider.SetRefreshToken(loginResult.Result?.RefreshToken!);
-                apiResult.Result = loginResult.Result!.User;
+                tokenProvider.SetRefreshToken(loginResult.Result.RefreshToken!);
+                apiResult.Result = loginResult.Result.User;
             }
             
             apiResult.Success = loginResult.Success;
@@ -60,10 +60,6 @@ namespace BuyItPlatform.GatewayApi.Controllers
             MicroserviceResponseDto<object> apiResult = new();
 
             var tokenResult = await authService.RefreshToken<LoginResponseDto>();
-
-            apiResult.Success = tokenResult.Success;
-            apiResult.Message = tokenResult.Message;
-            apiResult.StatusCode = tokenResult.StatusCode;
             
             if (tokenResult.Success)
             {
@@ -71,6 +67,10 @@ namespace BuyItPlatform.GatewayApi.Controllers
                 tokenProvider.SetToken(tokenResult.Result?.Token!);
                 tokenProvider.SetRefreshToken(tokenResult.Result?.RefreshToken!);
             }
+
+            apiResult.Success = tokenResult.Success;
+            apiResult.Message = tokenResult.Message;
+            apiResult.StatusCode = tokenResult.StatusCode;
 
             return StatusCode(apiResult.StatusCode, apiResult);
         }

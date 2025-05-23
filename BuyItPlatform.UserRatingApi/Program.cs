@@ -1,6 +1,8 @@
 
 using BuyItPlatform.UserRatingApi.Data;
 using BuyItPlatform.UserRatingApi.Extensions;
+using BuyItPlatform.UserRatingApi.Service;
+using BuyItPlatform.UserRatingApi.Service.IService;
 using BuyItPlatform.UserRatingApi.Services;
 using BuyItPlatform.UserRatingApi.Services.IServices;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -22,6 +24,9 @@ namespace BuyItPlatform.UserRatingApi
             });
 
             builder.Services.AddScoped<IUserRatingService, UserRatingService>();
+            builder.Services.AddScoped<ITokenCookiesProvider, TokensProvider>();
+            builder.Services.AddScoped<IJwtTokenHandler, JwtTokenHandler>();
+            builder.Services.AddHttpContextAccessor();
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();

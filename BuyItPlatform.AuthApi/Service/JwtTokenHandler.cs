@@ -14,7 +14,6 @@ namespace BuyItPlatform.AuthApi.Service
     {
         private readonly JwtOptions jwtOptions;
         private readonly JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
-        private readonly ICollection<Claim> claims = new List<Claim>();
         private readonly byte[] secretKey;
         public JwtTokenHandler(IOptions<JwtOptions> jwtOptions)
         {

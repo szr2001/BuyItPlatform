@@ -1,6 +1,6 @@
-﻿using BuyItPlatform.AuthApi.Services.IServices;
+﻿using BuyItPlatform.UserRatingApi.Services.IServices;
 
-namespace BuyItPlatform.AuthApi.Services
+namespace BuyItPlatform.UserRatingApi.Services
 {
     public class TokensProvider : ITokenCookiesProvider
     {
@@ -10,6 +10,7 @@ namespace BuyItPlatform.AuthApi.Services
         {
             this.contextAccessor = contextAccessor;
         }
+
         public string? GetToken()
         {
             string? token = null;

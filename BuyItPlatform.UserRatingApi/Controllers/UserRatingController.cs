@@ -1,4 +1,5 @@
 ﻿using BuyItPlatform.UserRatingApi.Models.Dto;
+using BuyItPlatform.UserRatingApi.Service.IService;
 using BuyItPlatform.UserRatingApi.Services.IServices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -11,6 +12,8 @@ namespace BuyItPlatform.UserRatingApi.Controllers
     public class UserRatingController : Controller
     {
         private readonly IUserRatingService userRatingService;
+        private readonly ITokenCookiesProvider tokenProvider;
+        private readonly IJwtTokenHandler jwtTokenHandler;
         private ResponseDto response = new();
 
         public UserRatingController(IUserRatingService userRatingService)
@@ -24,6 +27,11 @@ namespace BuyItPlatform.UserRatingApi.Controllers
         {
             try
             {
+                var Token = tokenProvider.GetToken();
+                var tokenData = jwtTokenHandler.ExtractTokenData(Token);
+                var Id = tokenData.Where(i => i.Type == "nameid").First().Value;
+                userRating.UserId = Id;
+
                 await userRatingService.RateUser(userRating);
                 response.Result = null;
                 response.Success = true;

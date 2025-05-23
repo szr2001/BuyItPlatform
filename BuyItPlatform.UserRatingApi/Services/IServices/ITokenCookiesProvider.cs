@@ -1,4 +1,4 @@
-﻿namespace BuyItPlatform.AuthApi.Services.IServices
+﻿namespace BuyItPlatform.UserRatingApi.Services.IServices
 {
     public interface ITokenCookiesProvider
     {
