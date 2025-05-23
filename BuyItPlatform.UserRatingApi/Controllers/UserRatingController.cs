@@ -23,16 +23,16 @@ namespace BuyItPlatform.UserRatingApi.Controllers
 
         [HttpPost]
         [Route("rateUser")]
-        public async Task<IActionResult> RateUser([FromBody] UserRatingRequestDto userRating)
+        public async Task<IActionResult> RateUser([FromBody] UserRatingRequestDto ratingRequest)
         {
             try
             {
                 var Token = tokenProvider.GetToken();
                 var tokenData = jwtTokenHandler.ExtractTokenData(Token);
                 var Id = tokenData.Where(i => i.Type == "nameid").First().Value;
-                userRating.UserId = Id;
+                ratingRequest.UserId = Id;
 
-                await userRatingService.RateUser(userRating);
+                await userRatingService.RateUser(ratingRequest);
                 response.Result = null;
                 response.Success = true;
             }

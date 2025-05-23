@@ -1,6 +1,7 @@
 ﻿using BuyItPlatform.GatewayApi.Models;
 using BuyItPlatform.GatewayApi.Models.Dto;
 using BuyItPlatform.GatewayApi.Service.IService;
+using BuyItPlatform.GatewayApi.Services.IServices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Xml.Linq;
@@ -13,10 +14,11 @@ namespace BuyItPlatform.GatewayApi.Controllers
     public class UserController : Controller
     {
         private readonly IUserService userService;
-
-        public UserController(IUserService userService)
+        private readonly IUserRatingService userRatingService;
+        public UserController(IUserService userService, IUserRatingService userRatingService)
         {
             this.userService = userService;
+            this.userRatingService = userRatingService;
         }
 
         [HttpGet]
@@ -24,6 +26,15 @@ namespace BuyItPlatform.GatewayApi.Controllers
         public async Task<IActionResult> GetUserProfile(string userId)
         {
             var apiResult = await userService.GetUserProfileAsync<UserProfileDto>(userId);
+            if (apiResult.Success && apiResult.Result != null)
+            {
+                var ratingResult = await userRatingService.GetUserRating<UserRatingResponseDto>(apiResult.Result.Id);
+                if (ratingResult.Success && ratingResult.Result != null)
+                {
+                    apiResult.Result.AverageRating = ratingResult.Result.AverageRating;
+                    apiResult.Result.NumberOfRatings = ratingResult.Result.NumberOfRatings;
+                }
+            }
             return StatusCode(apiResult.StatusCode, apiResult);
         }
 

@@ -3,10 +3,15 @@
     justify-content: center;
     display: flex;
     flex: 1;
+    width:220px;
     margin: 10px;
+    justify-self:center;
     position: relative;
     background-color: var(--primary-color);
     border-radius: 25px;
+}
+.userrated-stars-input:hover{
+    transform:scale(1.05);
 }
 .userrate-loading-holder {
     height: 50px;
@@ -17,7 +22,13 @@
     background-color: transparent;
     border-radius: 25px;
 }
-
+.userrated-stars-input {
+    transition: all 0.1s;
+    display: flex !important;
+    text-align: justify-all !important;
+    justify-content: flex-start !important;
+    vertical-align: central;
+}
 .userrate-text {
     color: var(--text-color);
     font-family: var(--primary-font);
@@ -30,8 +41,24 @@
     color: var(--secondary-color);
     width: 30px;
     margin: 5px;
+    margin-left:8px;
 }
-
+.userrate-icon-options {
+    transition: all 0.1s;
+    color: var(--primary-color);
+    width: 30px;
+    margin: 5px;
+    margin-left: 8px;
+}
+.userrate-icon-editing {
+    color: var(--highlight-color);
+    width: 30px;
+    margin: 5px;
+    margin-left: 8px;
+}
+.userrate-icon-hover:hover {
+    transform: scale(1.1);
+}
 .userrate-input {
     background-color: transparent;
     padding: 5px;

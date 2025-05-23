@@ -91,7 +91,7 @@ function Profile() {
                             <div className="profile-left">
                                 <UserPic editable={isOwnProfile} picLink={userProfile.profileImgLink}/>
                                 <UserName editable={isOwnProfile} name={userProfile.userName} />
-                                <UserRating ratable={!isOwnProfile} rating={10} />
+                                <UserRating ratable={!isOwnProfile} targetUserId={userId} totalRating={userProfile.numberOfRatings} rating={userProfile.averageRating} />
                                 <UserPhone editable={isOwnProfile} phone={userProfile.phoneNumber} />
                                 {
                                     isOwnProfile === true ?
