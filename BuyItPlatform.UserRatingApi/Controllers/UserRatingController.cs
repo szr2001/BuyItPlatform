@@ -16,9 +16,11 @@ namespace BuyItPlatform.UserRatingApi.Controllers
         private readonly IJwtTokenHandler jwtTokenHandler;
         private ResponseDto response = new();
 
-        public UserRatingController(IUserRatingService userRatingService)
+        public UserRatingController(IUserRatingService userRatingService, ITokenCookiesProvider tokenProvider, IJwtTokenHandler jwtTokenHandler)
         {
             this.userRatingService = userRatingService;
+            this.tokenProvider = tokenProvider;
+            this.jwtTokenHandler = jwtTokenHandler;
         }
 
         [HttpPost]

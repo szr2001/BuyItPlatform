@@ -24,14 +24,18 @@ function UserRating({ ratable, targetUserId, rating, totalRaters }) {
                 });
                 return;
             }
-            const response = await Api.post(`userRatingApi/rateUser`);
+            const response = await Api.post(`userRatingApi/rateUser`, { TargetUserId: targetUserId, Rating: newRate});
 
             if (!response.data.success) {
                 toast.error(response.data.message, {
                     autoClose: 2000 + response.data.message.length * 50,
                 });
                 console.error(response.data);
+                return;
             }
+
+            setEditing(false);
+            setLeftRating(true);
         }
         catch (error) {
             toast.error(error.response.data.message, {
@@ -44,10 +48,6 @@ function UserRating({ ratable, targetUserId, rating, totalRaters }) {
                 navigate('/Login/');
             }
             console.log(error);
-        }
-        finally {
-            setEditing(false);
-            setLeftRating(true);
         }
     }
 

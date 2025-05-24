@@ -11,11 +11,11 @@ namespace BuyItPlatform.UserRatingApi.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        [MaxLength(25)]
+        [MaxLength(80)]
         [NotNull]
         public string TargetUserId { get; set; }
 
-        [MaxLength(25)]
+        [MaxLength(80)]
         [NotNull]
         public string UserId { get; set; }
 

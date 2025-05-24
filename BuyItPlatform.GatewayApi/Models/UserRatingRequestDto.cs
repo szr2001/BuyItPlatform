@@ -5,7 +5,7 @@ namespace BuyItPlatform.GatewayApi.Models.Dto
 {
     public class UserRatingRequestDto
     {
-        public string TargetUserId { get; set; }
+        public string TargetUserId { get; set; } = "";
         public int Rating { get; set; }
     }
 }
