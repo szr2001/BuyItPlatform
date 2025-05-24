@@ -1,0 +1,12 @@
+.ratingstars-icon {
+    color: var(--secondary-color);
+    width: 30px;
+    margin: 5px;
+    margin-left: 8px;
+}
+.ratingstars-icon-highlight {
+    color: var(--highlight-color);
+    width: 30px;
+    margin: 5px;
+    margin-left: 8px;
+}

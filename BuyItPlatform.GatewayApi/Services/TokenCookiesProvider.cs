@@ -15,8 +15,16 @@ namespace BuyItPlatform.GatewayApi.Services
 
         public void ClearTokens()
         {
-            contextAccessor.HttpContext?.Response.Cookies.Delete(ITokenCookiesProvider.TokenKey);
-            contextAccessor.HttpContext?.Response.Cookies.Delete(ITokenCookiesProvider.RefreshTokenKey);
+            var tokenOptions = new CookieOptions
+            {
+                HttpOnly = true,
+                Secure = true,
+                SameSite = SameSiteMode.None,
+                Expires = DateTime.UtcNow.AddDays(-1)
+            };
+
+            contextAccessor.HttpContext?.Response.Cookies.Append(ITokenCookiesProvider.TokenKey, "", tokenOptions);
+            contextAccessor.HttpContext?.Response.Cookies.Append(ITokenCookiesProvider.RefreshTokenKey, "", tokenOptions);
         }
 
         public string? GetToken()

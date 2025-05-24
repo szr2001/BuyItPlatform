@@ -40,6 +40,17 @@ namespace BuyItPlatform.UserRatingApi.Services
             return userRating;
         }
 
+        public async Task<string[]> GetUsersScoreboard(int count, int offset)
+        {
+            return await dbContext.Ratings
+                .GroupBy(r => r.TargetUserId)
+                .OrderByDescending(g => g.Count())  
+                .Skip(offset)
+                .Take(count)
+                .Select(g => g.Key)
+                .ToArrayAsync();
+        }
+
         public async Task RateUser(UserRatingRequestDto ratingRequest)
         {
             var existingRating = await dbContext.Ratings.FirstOrDefaultAsync(e => e.UserId == ratingRequest.UserId && e.TargetUserId == ratingRequest.TargetUserId);

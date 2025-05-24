@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BuyItPlatform.UserRatingApi.Controllers
 {
     [Route("userRatingApi")]
-    [Authorize]
+    //[Authorize]
     [ApiController]
     public class UserRatingController : Controller
     {
@@ -21,6 +21,25 @@ namespace BuyItPlatform.UserRatingApi.Controllers
             this.userRatingService = userRatingService;
             this.tokenProvider = tokenProvider;
             this.jwtTokenHandler = jwtTokenHandler;
+        }
+
+        [HttpGet]
+        [Route("getUsersScoreboard/{count:int}/{offset:int}")]
+        public async Task<IActionResult> GetUsersScoreboard(int count, int offset)
+        {
+            try
+            {
+                response.Result = await userRatingService.GetUsersScoreboard(count, offset);
+                response.Success = true;
+            }
+            catch (Exception ex)
+            {
+                response.Success = false;
+                response.Message += ex.Message;
+                return BadRequest(response);
+            }
+
+            return Ok(response);
         }
 
         [HttpPost]
