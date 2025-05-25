@@ -12,6 +12,7 @@ export { default as UserName } from './User/UserName/UserName';
 export { default as UserPhone } from './User/UserPhone/UserPhone';
 export { default as UserRating } from './User/UserRating/UserRating';
 export { default as RatingStars } from '../Components/RatingStars/RatingStars';
+export { default as UserOverview } from '../Components/User/UserOverview/UserOverview';
 
 //export components directly from this index file, and then we can import
 //components directly from the folder with one line
