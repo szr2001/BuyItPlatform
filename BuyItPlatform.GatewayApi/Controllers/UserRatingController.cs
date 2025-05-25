@@ -1,5 +1,4 @@
-﻿using BuyItPlatform.GatewayApi.Models;
-using BuyItPlatform.GatewayApi.Models.Dto;
+﻿using BuyItPlatform.GatewayApi.Models.Dto;
 using BuyItPlatform.GatewayApi.Services.IServices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -12,17 +11,16 @@ namespace BuyItPlatform.GatewayApi.Controllers
     public class UserRatingController : Controller
     {
         private readonly IUserRatingService userRatingService;
-
         public UserRatingController(IUserRatingService userRatingService)
         {
             this.userRatingService = userRatingService;
         }
 
         [HttpGet]
-        [Route("getUsersScoreboard/{count:int}/{offset:int}")]
+        [Route("getUsersScoreboard")]
         public async Task<IActionResult> GetUsersScoreboard()
         {
-            var apiResult = await userRatingService.GetUsersScoreboard<UserRatingResponseDto>(10,0);
+            var apiResult = await userRatingService.GetUsersScoreboard(20,0);
             return StatusCode(apiResult.StatusCode, apiResult);
         }
 

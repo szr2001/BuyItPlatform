@@ -7,6 +7,7 @@ using BuyItPlatform.AuthApi.Services.IServices;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using System.Xml.Linq;
 
 namespace BuyItPlatform.AuthApi.Service
@@ -41,7 +42,10 @@ namespace BuyItPlatform.AuthApi.Service
 
         public async Task<UserProfileDto[]> GetUsersProfiles(string[] userId)
         {
-            throw new KeyNotFoundException("user could not be found");
+            var userProfiles = await userManager.Users.Where(u => userId.Contains(u.Id)).ToArrayAsync();
+            var userProfilesDto = mapper.Map<UserProfileDto[]>(userProfiles);
+
+            return userProfilesDto;
         }
 
         public async Task UpdateUserDesc(string userId, string desc)

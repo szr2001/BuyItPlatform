@@ -15,13 +15,49 @@ namespace BuyItPlatform.GatewayApi.Services
             this.microservicesUrl = microservicesUrl;
         }
 
-        public async Task<MicroserviceResponseDto<T>> GetUsersScoreboard<T>(int count, int offset)
+        public async Task<MicroserviceResponseDto<UserProfileDto[]>> GetUsersScoreboard(int count, int offset)
         {
-            return await apiCallsService.SendAsync<T>(new RequestDto()
+            var scoreboardResult = await apiCallsService.SendAsync<UserRatingResponseDto[]>(new RequestDto()
             {
                 ApiType = Enums.ApiType.GET,
                 Url = $"{microservicesUrl.UserRatingApiUrl}/getUsersScoreboard/{count}/{offset}"
             });
+
+            if (!scoreboardResult.Success || scoreboardResult.Result == null)
+            {
+                throw new Exception(scoreboardResult.Message);
+            }
+
+            var userIds = scoreboardResult.Result.Select(u => u.TargetUserId).ToArray();
+            var apiResult = await apiCallsService.SendAsync<UserProfileDto[]>(new RequestDto()
+            {
+                ApiType = Enums.ApiType.POST,
+                BodyData = userIds,
+                Url = $"{microservicesUrl.AuthApiUrl}/user/getUsersProfiles"
+            });
+
+            if (!apiResult.Success || apiResult.Result == null)
+            {
+                throw new Exception(apiResult.Message);
+            }
+
+            //create a dictionary for lookups
+            var ratingLookup = scoreboardResult.Result.ToDictionary(
+                x => x.TargetUserId, //key
+                x => new { x.AverageRating, x.NumberOfRatings }); //value
+
+            //loop through the userProfileDto's
+            foreach (var profile in apiResult.Result)
+            {
+                //check the profile id against the lookup table containing the data from the
+                //userRating api and if the id match we set the userProfile rating data
+                if (ratingLookup.TryGetValue(profile.Id, out var ratingInfo))
+                {
+                    profile.AverageRating = ratingInfo.AverageRating;
+                    profile.NumberOfRatings = ratingInfo.NumberOfRatings;
+                }
+            }
+            return apiResult;
         }
 
         public async Task<MicroserviceResponseDto<T>> DeleteOfferedRatings<T>(string userId)

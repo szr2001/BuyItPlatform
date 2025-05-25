@@ -3,7 +3,6 @@ using BuyItPlatform.AuthApi.Service.IService;
 using BuyItPlatform.AuthApi.Services.IServices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 
 namespace BuyItPlatform.AuthApi.Controllers
 {
@@ -42,13 +41,13 @@ namespace BuyItPlatform.AuthApi.Controllers
             return Ok(response);
         }
 
-        [HttpGet]
-        [Route("getUserProfiles/{userId}")]
-        public async Task<IActionResult> GetUserProfiles(string[] userId)
+        [HttpPost]
+        [Route("getUsersProfiles")]
+        public async Task<IActionResult> GetUsersProfiles([FromBody] string[] userIds)
         {
             try
             {
-                response.Result = await userService.GetUsersProfiles(userId);
+                response.Result = await userService.GetUsersProfiles(userIds);
                 response.Success = true;
             }
             catch (Exception ex)

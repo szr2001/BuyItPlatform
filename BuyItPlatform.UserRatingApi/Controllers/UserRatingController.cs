@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BuyItPlatform.UserRatingApi.Controllers
 {
     [Route("userRatingApi")]
-    //[Authorize]
+    [Authorize]
     [ApiController]
     public class UserRatingController : Controller
     {

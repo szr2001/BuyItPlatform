@@ -27,6 +27,17 @@ namespace BuyItPlatform.GatewayApi.Service
                 Url = $"{microservicesUrl.AuthApiUrl}/user/getUserProfile/{userId}"
             });
         }
+        
+        public async Task<MicroserviceResponseDto<T>> GetUsersProfilesAsync<T>(string[] userIds)
+        {
+            return await apiCallsService.SendAsync<T>(new RequestDto()
+            {
+                ApiType = Enums.ApiType.POST,
+                BodyData = userIds,
+                Url = $"{microservicesUrl.AuthApiUrl}/user/getUsersProfiles"
+            });
+        }
+
         public async Task<MicroserviceResponseDto<T>> UpdateUserDescAsync<T>(string desc)
         {
             return await apiCallsService.SendAsync<T>(new RequestDto()
