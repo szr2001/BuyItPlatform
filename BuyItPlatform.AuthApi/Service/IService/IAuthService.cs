@@ -4,10 +4,10 @@ namespace BuyItPlatform.AuthApi.Service.IService
 {
     public interface IAuthService
     {
-        Task<LoginResponseDto> LoginUser(LoginRequestDto registerData);
-        Task RegisterUser(RegisterRequestDto registerData);
-        Task AssignRole(string email, string rolename);
-        Task<LoginResponseDto> RefreshToken(string refreshToken);
-        Task Logout(string? refreshToken);
+        Task<LoginResponseDto> LoginUserAsync(LoginRequestDto registerData);
+        Task RegisterUserAsync(RegisterRequestDto registerData);
+        Task AssignRoleAsync(string email, string rolename);
+        Task<LoginResponseDto> RefreshTokenAsync(string refreshToken);
+        Task LogoutAsync(string? refreshToken);
     }
 }

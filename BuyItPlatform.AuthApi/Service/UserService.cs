@@ -27,7 +27,7 @@ namespace BuyItPlatform.AuthApi.Service
             this.imageUploader = imageUploader;
         }
 
-        public async Task<UserProfileDto> GetUserProfile(string userId)
+        public async Task<UserProfileDto> GetUserProfileAsync(string userId)
         {
             var user = await userManager.FindByIdAsync(userId);
             if (user == null)
@@ -40,7 +40,7 @@ namespace BuyItPlatform.AuthApi.Service
             return userProfile;
         }
 
-        public async Task<UserProfileDto[]> GetUsersProfiles(string[] userId)
+        public async Task<UserProfileDto[]> GetUsersProfilesAsync(string[] userId)
         {
             var userProfiles = await userManager.Users.Where(u => userId.Contains(u.Id)).ToArrayAsync();
             var userProfilesDto = mapper.Map<UserProfileDto[]>(userProfiles);
@@ -48,7 +48,7 @@ namespace BuyItPlatform.AuthApi.Service
             return userProfilesDto;
         }
 
-        public async Task UpdateUserDesc(string userId, string desc)
+        public async Task SetUserDescAsync(string userId, string desc)
         {
             if (string.IsNullOrEmpty(userId))
             {
@@ -68,7 +68,7 @@ namespace BuyItPlatform.AuthApi.Service
             await userManager.UpdateAsync(user);
         }
 
-        public async Task UpdateUserName(string userId, string name)
+        public async Task SetUserNameAsync(string userId, string name)
         {
             if (string.IsNullOrEmpty(userId))
             {
@@ -93,7 +93,7 @@ namespace BuyItPlatform.AuthApi.Service
             await userManager.UpdateAsync(user);
         }
 
-        public async Task UpdateUserPhoneNumber(string userId, string phoneNumber)
+        public async Task SetUserPhoneNumberAsync(string userId, string phoneNumber)
         {
             if (string.IsNullOrEmpty(userId))
             {
@@ -117,7 +117,7 @@ namespace BuyItPlatform.AuthApi.Service
             await userManager.UpdateAsync(user);
         }
 
-        public async Task<string> UpdateUserProfilePic(string userId, ImageDto profilePic)
+        public async Task<string> SetUserProfilePicAsync(string userId, ImageDto profilePic)
         {
             if (string.IsNullOrEmpty(userId))
             {
@@ -145,7 +145,7 @@ namespace BuyItPlatform.AuthApi.Service
             return user.ProfileImgLink;
         }
 
-        public async Task AreUserIdsPresent(string[] userIds)
+        public async Task AreUserIdsPresentAsync(string[] userIds)
         {
             if (userIds == null || userIds.Length == 0)
             {
@@ -165,7 +165,7 @@ namespace BuyItPlatform.AuthApi.Service
             }
         }
 
-        public async Task IsUserIdPresent(string userId)
+        public async Task IsUserIdPresentAsync(string userId)
         {
             if (string.IsNullOrEmpty(userId))
             {

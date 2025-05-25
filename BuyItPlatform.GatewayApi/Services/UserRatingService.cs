@@ -15,7 +15,7 @@ namespace BuyItPlatform.GatewayApi.Services
             this.microservicesUrl = microservicesUrl;
         }
 
-        public async Task<MicroserviceResponseDto<UserProfileDto[]>> GetUsersScoreboard(int count, int offset)
+        public async Task<MicroserviceResponseDto<UserProfileDto[]>> GetUsersScoreboardAsync(int count, int offset)
         {
             var scoreboardResult = await apiCallsService.SendAsync<UserRatingResponseDto[]>(new RequestDto()
             {
@@ -60,7 +60,7 @@ namespace BuyItPlatform.GatewayApi.Services
             return apiResult;
         }
 
-        public async Task<MicroserviceResponseDto<T>> DeleteOfferedRatings<T>(string userId)
+        public async Task<MicroserviceResponseDto<T>> DeleteOfferedRatingsAsync<T>(string userId)
         {
             return await apiCallsService.SendAsync<T>(new RequestDto()
             {
@@ -69,7 +69,7 @@ namespace BuyItPlatform.GatewayApi.Services
             });
         }
 
-        public async Task<MicroserviceResponseDto<T>> GetUserRating<T>(string targetUserId)
+        public async Task<MicroserviceResponseDto<T>> GetUserRatingAsync<T>(string targetUserId)
         {
             var userIds = await apiCallsService.SendAsync<T>(new RequestDto()
             {
@@ -89,7 +89,7 @@ namespace BuyItPlatform.GatewayApi.Services
             });
         }
 
-        public async Task<MicroserviceResponseDto<T>> RateUser<T>(UserRatingRequestDto ratingRequest)
+        public async Task<MicroserviceResponseDto<T>> RateUserAsync<T>(UserRatingRequestDto ratingRequest)
         {
 
             var userIds = await apiCallsService.SendAsync<T>(new RequestDto()

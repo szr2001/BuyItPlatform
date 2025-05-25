@@ -20,7 +20,7 @@ namespace BuyItPlatform.GatewayApi.Controllers
         [Route("getUsersScoreboard")]
         public async Task<IActionResult> GetUsersScoreboard()
         {
-            var apiResult = await userRatingService.GetUsersScoreboard(20,0);
+            var apiResult = await userRatingService.GetUsersScoreboardAsync(20,0);
             return StatusCode(apiResult.StatusCode, apiResult);
         }
 
@@ -28,7 +28,7 @@ namespace BuyItPlatform.GatewayApi.Controllers
         [Route("getUserRating/{targetUserId}")]
         public async Task<IActionResult> GetUserRating(string targetUserId)
         {
-            var apiResult = await userRatingService.GetUserRating<UserRatingResponseDto>(targetUserId);
+            var apiResult = await userRatingService.GetUserRatingAsync<UserRatingResponseDto>(targetUserId);
             return StatusCode(apiResult.StatusCode, apiResult);
         }
 
@@ -36,7 +36,7 @@ namespace BuyItPlatform.GatewayApi.Controllers
         [Route("deleteOfferedRatings/{targetUserId}")]
         public async Task<IActionResult> DeleteOfferedRatings(string targetUserId)
         {
-            var apiResult = await userRatingService.DeleteOfferedRatings<object>(targetUserId);
+            var apiResult = await userRatingService.DeleteOfferedRatingsAsync<object>(targetUserId);
             return StatusCode(apiResult.StatusCode, apiResult);
         }
 
@@ -44,7 +44,7 @@ namespace BuyItPlatform.GatewayApi.Controllers
         [Route("rateUser")]
         public async Task<IActionResult> RateUser([FromBody] UserRatingRequestDto ratingRequest)
         {
-            var apiResult = await userRatingService.RateUser<object>(ratingRequest);
+            var apiResult = await userRatingService.RateUserAsync<object>(ratingRequest);
             return StatusCode(apiResult.StatusCode, apiResult);
         }
     }

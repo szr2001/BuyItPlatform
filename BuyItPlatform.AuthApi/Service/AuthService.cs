@@ -24,7 +24,7 @@ namespace BuyItPlatform.AuthApi.Service
             this.jwtTokenHandler = jwtTokenGenerator;
         }
 
-        public async Task RegisterUser(RegisterRequestDto registerData)
+        public async Task RegisterUserAsync(RegisterRequestDto registerData)
         {
             if(registerData.Password != registerData.RepeatPassword)
             {
@@ -43,10 +43,10 @@ namespace BuyItPlatform.AuthApi.Service
                 throw new ArgumentException(string.Join(",", result.Errors.Select(i=> i.Description)));
             }
 
-            await AssignRole(newUser.Email, RolesDefaults.User);
+            await AssignRoleAsync(newUser.Email, RolesDefaults.User);
         }
 
-        public async Task<LoginResponseDto> LoginUser(LoginRequestDto registerData)
+        public async Task<LoginResponseDto> LoginUserAsync(LoginRequestDto registerData)
         {
             BuyItUser user = await userManager.FindByEmailAsync(registerData.Email);
             if(user == null)
@@ -78,7 +78,7 @@ namespace BuyItPlatform.AuthApi.Service
             return loginResponseDto;
         }
 
-        public async Task<LoginResponseDto> RefreshToken(string refreshToken)
+        public async Task<LoginResponseDto> RefreshTokenAsync(string refreshToken)
         {
             if (string.IsNullOrEmpty(refreshToken)) 
             { 
@@ -112,7 +112,7 @@ namespace BuyItPlatform.AuthApi.Service
             return loginResponseDto;
         }
 
-        public async Task AssignRole(string email, string rolename)
+        public async Task AssignRoleAsync(string email, string rolename)
         {
             BuyItUser user = await userManager.FindByEmailAsync(email);
             if(user == null )
@@ -127,7 +127,7 @@ namespace BuyItPlatform.AuthApi.Service
             await userManager.AddToRoleAsync(user, rolename);
         }
 
-        public async Task Logout(string? refreshToken)
+        public async Task LogoutAsync(string? refreshToken)
         {
             if (string.IsNullOrEmpty(refreshToken))
             {

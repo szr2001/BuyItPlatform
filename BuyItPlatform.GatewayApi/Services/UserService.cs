@@ -38,7 +38,7 @@ namespace BuyItPlatform.GatewayApi.Service
             });
         }
 
-        public async Task<MicroserviceResponseDto<T>> UpdateUserDescAsync<T>(string desc)
+        public async Task<MicroserviceResponseDto<T>> SetUserDescAsync<T>(string desc)
         {
             return await apiCallsService.SendAsync<T>(new RequestDto()
             {
@@ -47,7 +47,7 @@ namespace BuyItPlatform.GatewayApi.Service
             });
         }
 
-        public async Task<MicroserviceResponseDto<T>> UpdateUserNameAsync<T>(string name)
+        public async Task<MicroserviceResponseDto<T>> SetUserNameAsync<T>(string name)
         {
             return await apiCallsService.SendAsync<T>(new RequestDto()
             {
@@ -56,7 +56,7 @@ namespace BuyItPlatform.GatewayApi.Service
             });
         }
 
-        public async Task<MicroserviceResponseDto<T>> UpdateUserPhoneNumberAsync<T>(string phoneNumber)
+        public async Task<MicroserviceResponseDto<T>> SetUserPhoneNumberAsync<T>(string phoneNumber)
         {
             return await apiCallsService.SendAsync<T>(new RequestDto()
             {
@@ -65,7 +65,7 @@ namespace BuyItPlatform.GatewayApi.Service
             });
         }
 
-        public async Task<MicroserviceResponseDto<T>> UpdateUserProfilePicsAsync<T>(ImageDto profilePic)
+        public async Task<MicroserviceResponseDto<T>> SetUserProfilePicsAsync<T>(ImageDto profilePic)
         {
             return await apiCallsService.SendAsync<T>(new RequestDto()
             {

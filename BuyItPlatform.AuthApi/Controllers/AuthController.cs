@@ -26,7 +26,7 @@ namespace BuyItPlatform.AuthApi.Controllers
         {
             try
             {
-                await authService.RegisterUser(registerData);
+                await authService.RegisterUserAsync(registerData);
                 response.Result = null;
                 response.Success = true;
             }
@@ -45,7 +45,7 @@ namespace BuyItPlatform.AuthApi.Controllers
         {
             try
             {
-                response.Result = await authService.LoginUser(loginData);
+                response.Result = await authService.LoginUserAsync(loginData);
                 response.Success = true;
             }
             catch (Exception ex)
@@ -65,7 +65,7 @@ namespace BuyItPlatform.AuthApi.Controllers
             {
                 var refreshToken = tokenProvider.GetRefreshToken();
 
-                response.Result = await authService.RefreshToken(refreshToken!);
+                response.Result = await authService.RefreshTokenAsync(refreshToken!);
                 response.Success = true;
             }
             catch (UnauthorizedAccessException ex)
@@ -112,7 +112,7 @@ namespace BuyItPlatform.AuthApi.Controllers
             {
                 var refreshToken = tokenProvider.GetRefreshToken();
 
-                await authService.Logout(refreshToken);
+                await authService.LogoutAsync(refreshToken);
                 response.Result = null;
                 response.Success = true;
             }

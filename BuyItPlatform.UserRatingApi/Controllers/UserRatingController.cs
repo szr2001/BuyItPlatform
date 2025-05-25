@@ -29,7 +29,7 @@ namespace BuyItPlatform.UserRatingApi.Controllers
         {
             try
             {
-                response.Result = await userRatingService.GetUsersScoreboard(count, offset);
+                response.Result = await userRatingService.GetUsersScoreboardAsync(count, offset);
                 response.Success = true;
             }
             catch (Exception ex)
@@ -53,7 +53,7 @@ namespace BuyItPlatform.UserRatingApi.Controllers
                 var Id = tokenData.Where(i => i.Type == "nameid").First().Value;
                 ratingRequest.UserId = Id;
 
-                await userRatingService.RateUser(ratingRequest);
+                await userRatingService.RateUserAsync(ratingRequest);
                 response.Result = null;
                 response.Success = true;
             }
@@ -73,7 +73,7 @@ namespace BuyItPlatform.UserRatingApi.Controllers
         {
             try
             {
-                response.Result = await userRatingService.GetUserRating(targetUserId);
+                response.Result = await userRatingService.GetUserRatingAsync(targetUserId);
                 response.Success = true;
             }
             catch (Exception ex)
@@ -92,7 +92,7 @@ namespace BuyItPlatform.UserRatingApi.Controllers
         {
             try
             {
-                await userRatingService.DeleteOfferedRatings(targetUserId);
+                await userRatingService.DeleteOfferedRatingsAsync(targetUserId);
                 response.Result = null;
                 response.Success = true;
             }

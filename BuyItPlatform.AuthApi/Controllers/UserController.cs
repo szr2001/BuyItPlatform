@@ -29,7 +29,7 @@ namespace BuyItPlatform.AuthApi.Controllers
         {
             try
             {
-                response.Result = await userService.GetUserProfile(userId);
+                response.Result = await userService.GetUserProfileAsync(userId);
                 response.Success = true;
             }
             catch (Exception ex)
@@ -47,7 +47,7 @@ namespace BuyItPlatform.AuthApi.Controllers
         {
             try
             {
-                response.Result = await userService.GetUsersProfiles(userIds);
+                response.Result = await userService.GetUsersProfilesAsync(userIds);
                 response.Success = true;
             }
             catch (Exception ex)
@@ -68,7 +68,7 @@ namespace BuyItPlatform.AuthApi.Controllers
                 var Token = tokenProvider.GetToken();
                 var tokenData = jwtTokenHandler.ExtractTokenData(Token);
                 var Id = tokenData.Where(i => i.Type == "nameid").First().Value;
-                await userService.UpdateUserDesc(Id, desc);
+                await userService.SetUserDescAsync(Id, desc);
                 response.Result = null;
                 response.Success = true;
             }
@@ -96,7 +96,7 @@ namespace BuyItPlatform.AuthApi.Controllers
                 var Token = tokenProvider.GetToken();
                 var tokenData = jwtTokenHandler.ExtractTokenData(Token);
                 var Id = tokenData.Where(i => i.Type == "nameid").First().Value;
-                await userService.UpdateUserName(Id, name);
+                await userService.SetUserNameAsync(Id, name);
                 response.Result = null;
                 response.Success = true;
             }
@@ -124,7 +124,7 @@ namespace BuyItPlatform.AuthApi.Controllers
                 var Token = tokenProvider.GetToken();
                 var tokenData = jwtTokenHandler.ExtractTokenData(Token);
                 var Id = tokenData.Where(i => i.Type == "nameid").First().Value;
-                await userService.UpdateUserPhoneNumber(Id, phoneNumber);
+                await userService.SetUserPhoneNumberAsync(Id, phoneNumber);
                 response.Result = null;
                 response.Success = true;
             }
@@ -153,7 +153,7 @@ namespace BuyItPlatform.AuthApi.Controllers
                 var tokenData = jwtTokenHandler.ExtractTokenData(Token);
                 var Id = tokenData.Where(i => i.Type == "nameid").First().Value;
 
-                response.Result = await userService.UpdateUserProfilePic(Id, profilePic);
+                response.Result = await userService.SetUserProfilePicAsync(Id, profilePic);
                 response.Success = true;
             }
             catch (UnauthorizedAccessException ex)
@@ -177,7 +177,7 @@ namespace BuyItPlatform.AuthApi.Controllers
         {
             try
             {
-                await userService.AreUserIdsPresent(userIds);
+                await userService.AreUserIdsPresentAsync(userIds);
                 response.Result = null;
                 response.Success = true;
             }
@@ -196,7 +196,7 @@ namespace BuyItPlatform.AuthApi.Controllers
         {
             try
             {
-                await userService.IsUserIdPresent(userId);
+                await userService.IsUserIdPresentAsync(userId);
                 response.Result = null;
                 response.Success = true;
             }

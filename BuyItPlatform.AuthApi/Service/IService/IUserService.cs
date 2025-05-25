@@ -4,13 +4,13 @@ namespace BuyItPlatform.AuthApi.Service.IService
 {
     public interface IUserService
     {
-        Task<UserProfileDto> GetUserProfile(string userId);
-        Task<UserProfileDto[]> GetUsersProfiles(string[] userId);
-        Task UpdateUserName(string userId, string name);
-        Task UpdateUserDesc(string userId, string desc);
-        Task<string> UpdateUserProfilePic(string userId, ImageDto profilePic);
-        Task UpdateUserPhoneNumber(string userId, string phoneNumber);
-        Task AreUserIdsPresent(string[] userIds);
-        Task IsUserIdPresent(string userId);
+        Task<UserProfileDto> GetUserProfileAsync(string userId);
+        Task<UserProfileDto[]> GetUsersProfilesAsync(string[] userId);
+        Task SetUserNameAsync(string userId, string name);
+        Task SetUserDescAsync(string userId, string desc);
+        Task<string> SetUserProfilePicAsync(string userId, ImageDto profilePic);
+        Task SetUserPhoneNumberAsync(string userId, string phoneNumber);
+        Task AreUserIdsPresentAsync(string[] userIds);
+        Task IsUserIdPresentAsync(string userId);
     }
 }

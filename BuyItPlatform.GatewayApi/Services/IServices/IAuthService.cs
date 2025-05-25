@@ -4,11 +4,11 @@ namespace BuyItPlatform.GatewayApi.Services.IServices
 {
     public interface IAuthService
     {
-        Task<MicroserviceResponseDto<T>> LoginUser<T>(LoginRequestDto registerData);
-        Task<MicroserviceResponseDto<T>> RegisterUser<T>(RegisterRequestDto registerData);
-        Task<MicroserviceResponseDto<T>> AssignRole<T>(string email, string rolename);
-        Task<MicroserviceResponseDto<T>> RefreshToken<T>();
-        Task<MicroserviceResponseDto<T>> GetUserProfile<T>(string userId);
-        Task<MicroserviceResponseDto<T>> Logout<T>();
+        Task<MicroserviceResponseDto<T>> LoginUserAsync<T>(LoginRequestDto registerData);
+        Task<MicroserviceResponseDto<T>> RegisterUserAsync<T>(RegisterRequestDto registerData);
+        Task<MicroserviceResponseDto<T>> AssignRoleAsync<T>(string email, string rolename);
+        Task<MicroserviceResponseDto<T>> RefreshTokenAsync<T>();
+        Task<MicroserviceResponseDto<T>> GetUserProfileAsync<T>(string userId);
+        Task<MicroserviceResponseDto<T>> LogoutAsync<T>();
     }
 }

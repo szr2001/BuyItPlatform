@@ -4,9 +4,9 @@ namespace BuyItPlatform.UserRatingApi.Services.IServices
 {
     public interface IUserRatingService
     {
-        Task RateUser(UserRatingRequestDto ratingRequest);
-        Task<UserRatingResponseDto> GetUserRating(string targetUserId);
-        Task DeleteOfferedRatings(string userId);
-        Task<UserRatingResponseDto[]> GetUsersScoreboard(int count, int offset);
+        Task RateUserAsync(UserRatingRequestDto ratingRequest);
+        Task<UserRatingResponseDto> GetUserRatingAsync(string targetUserId);
+        Task DeleteOfferedRatingsAsync(string userId);
+        Task<UserRatingResponseDto[]> GetUsersScoreboardAsync(int count, int offset);
     }
 }

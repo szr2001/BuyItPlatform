@@ -15,33 +15,36 @@ namespace BuyItPlatform.UserRatingApi.Services
             this.dbContext = dbContext;
         }
 
-        public async Task DeleteOfferedRatings(string userId)
+        public async Task DeleteOfferedRatingsAsync(string userId)
         {
-            var ratings = dbContext.Ratings.Where(r => r.UserId == userId);
+            var ratings = await dbContext.Ratings.Where(r => r.UserId == userId).FirstOrDefaultAsync();
+            if (ratings == null)
+            {
+                throw new ArgumentNullException("UserId not found");
+            }
 
             dbContext.Ratings.RemoveRange(ratings);
             await dbContext.SaveChangesAsync();
         }
 
-        public async Task<UserRatingResponseDto> GetUserRating(string targetUserId)
+        public async Task<UserRatingResponseDto> GetUserRatingAsync(string targetUserId)
         {
-            UserRatingResponseDto userRating = new();
-            userRating.TargetUserId = targetUserId;
+            var averageRating = await dbContext.Ratings
+                    .Where(r => r.TargetUserId == targetUserId)
+                    .AverageAsync(r => (double?)r.Rating) ?? 0;
 
-            var ratings = dbContext.Ratings.Where(r => r.TargetUserId == targetUserId);
+            var numberOfRatings = await dbContext.Ratings
+                .CountAsync(r => r.TargetUserId == targetUserId);
 
-            if(ratings.Any())
+            return new UserRatingResponseDto
             {
-                var averageRating = await ratings.AverageAsync(r => r.Rating);
-                var numberOfRatings = await ratings.CountAsync();
-                userRating.AverageRating = (int)averageRating;
-                userRating.NumberOfRatings = numberOfRatings;
-            }
-
-            return userRating;
+                TargetUserId = targetUserId,
+                AverageRating = (int)averageRating,
+                NumberOfRatings = numberOfRatings
+            };
         }
 
-        public async Task<UserRatingResponseDto[]> GetUsersScoreboard(int count, int offset)
+        public async Task<UserRatingResponseDto[]> GetUsersScoreboardAsync(int count, int offset)
         {
             return await dbContext.Ratings
                     .GroupBy(r => r.TargetUserId)
@@ -57,7 +60,7 @@ namespace BuyItPlatform.UserRatingApi.Services
                     .ToArrayAsync();
         }
 
-        public async Task RateUser(UserRatingRequestDto ratingRequest)
+        public async Task RateUserAsync(UserRatingRequestDto ratingRequest)
         {
             var existingRating = await dbContext.Ratings.FirstOrDefaultAsync(e => e.UserId == ratingRequest.UserId && e.TargetUserId == ratingRequest.TargetUserId);
 

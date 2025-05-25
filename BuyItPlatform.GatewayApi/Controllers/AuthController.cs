@@ -21,7 +21,7 @@ namespace BuyItPlatform.GatewayApi.Controllers
         [Route("register")]
         public async Task<IActionResult> Register([FromBody] RegisterRequestDto registerData)
         {
-            var apiResult = await authService.RegisterUser<object>(registerData);
+            var apiResult = await authService.RegisterUserAsync<object>(registerData);
             return StatusCode(apiResult.StatusCode, apiResult);
         }
 
@@ -30,7 +30,7 @@ namespace BuyItPlatform.GatewayApi.Controllers
         public async Task<IActionResult> Login([FromBody] LoginRequestDto loginData)
         {
             MicroserviceResponseDto<UserDto> apiResult = new();
-            var loginResult =  await authService.LoginUser<LoginResponseDto>(loginData);
+            var loginResult =  await authService.LoginUserAsync<LoginResponseDto>(loginData);
             if (loginResult.Success)
             { 
                 //if the request was a success, get the tokens and save them in the cookies for the frontend
@@ -59,7 +59,7 @@ namespace BuyItPlatform.GatewayApi.Controllers
         {
             MicroserviceResponseDto<object> apiResult = new();
 
-            var tokenResult = await authService.RefreshToken<LoginResponseDto>();
+            var tokenResult = await authService.RefreshTokenAsync<LoginResponseDto>();
             
             if (tokenResult.Success)
             {
@@ -80,7 +80,7 @@ namespace BuyItPlatform.GatewayApi.Controllers
         [Route("logout")]
         public async Task<IActionResult> Logout()
         {
-            var apiResult = await authService.Logout<object>();
+            var apiResult = await authService.LogoutAsync<object>();
             if(apiResult.Success)
             {
                 tokenProvider.ClearTokens();
