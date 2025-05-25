@@ -19,6 +19,14 @@ namespace BuyItPlatform.GatewayApi.Controllers
         }
 
         [HttpGet]
+        [Route("getUsersScoreboard/{count:int}/{offset:int}")]
+        public async Task<IActionResult> GetUsersScoreboard()
+        {
+            var apiResult = await userRatingService.GetUsersScoreboard<UserRatingResponseDto>(10,0);
+            return StatusCode(apiResult.StatusCode, apiResult);
+        }
+
+        [HttpGet]
         [Route("getUserRating/{targetUserId}")]
         public async Task<IActionResult> GetUserRating(string targetUserId)
         {

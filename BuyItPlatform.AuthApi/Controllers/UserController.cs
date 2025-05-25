@@ -42,6 +42,24 @@ namespace BuyItPlatform.AuthApi.Controllers
             return Ok(response);
         }
 
+        [HttpGet]
+        [Route("getUserProfiles/{userId}")]
+        public async Task<IActionResult> GetUserProfiles(string[] userId)
+        {
+            try
+            {
+                response.Result = await userService.GetUsersProfiles(userId);
+                response.Success = true;
+            }
+            catch (Exception ex)
+            {
+                response.Success = false;
+                response.Message = $"{ex.Message}";
+                return BadRequest(response);
+            }
+            return Ok(response);
+        }
+
         [HttpPost]
         [Route("updateUserDesc/{desc}")]
         public async Task<IActionResult> UpdateUserDesc(string desc)
@@ -161,6 +179,25 @@ namespace BuyItPlatform.AuthApi.Controllers
             try
             {
                 await userService.AreUserIdsPresent(userIds);
+                response.Result = null;
+                response.Success = true;
+            }
+            catch (Exception ex)
+            {
+                response.Success = false;
+                response.Message = $"{ex.Message}";
+                return BadRequest(response);
+            }
+            return Ok(response);
+        }
+
+        [HttpPost]
+        [Route("isUserIdPresent/{userId}")]
+        public async Task<IActionResult> IsUserIdPresent(string userId)
+        {
+            try
+            {
+                await userService.IsUserIdPresent(userId);
                 response.Result = null;
                 response.Success = true;
             }

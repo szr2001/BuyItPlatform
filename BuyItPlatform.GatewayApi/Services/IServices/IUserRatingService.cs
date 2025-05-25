@@ -8,5 +8,6 @@ namespace BuyItPlatform.GatewayApi.Services.IServices
         Task<MicroserviceResponseDto<T>> RateUser<T>(UserRatingRequestDto ratingRequest);
         Task<MicroserviceResponseDto<T>> GetUserRating<T>(string targetUserId);
         Task<MicroserviceResponseDto<T>> DeleteOfferedRatings<T>(string userId);
+        Task<MicroserviceResponseDto<T>> GetUsersScoreboard<T>(int count, int offset);
     }
 }

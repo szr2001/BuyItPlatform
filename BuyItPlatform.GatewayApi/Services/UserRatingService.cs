@@ -15,6 +15,15 @@ namespace BuyItPlatform.GatewayApi.Services
             this.microservicesUrl = microservicesUrl;
         }
 
+        public async Task<MicroserviceResponseDto<T>> GetUsersScoreboard<T>(int count, int offset)
+        {
+            return await apiCallsService.SendAsync<T>(new RequestDto()
+            {
+                ApiType = Enums.ApiType.GET,
+                Url = $"{microservicesUrl.UserRatingApiUrl}/getUsersScoreboard/{count}/{offset}"
+            });
+        }
+
         public async Task<MicroserviceResponseDto<T>> DeleteOfferedRatings<T>(string userId)
         {
             return await apiCallsService.SendAsync<T>(new RequestDto()
@@ -26,7 +35,17 @@ namespace BuyItPlatform.GatewayApi.Services
 
         public async Task<MicroserviceResponseDto<T>> GetUserRating<T>(string targetUserId)
         {
-            //check userId
+            var userIds = await apiCallsService.SendAsync<T>(new RequestDto()
+            {
+                ApiType = Enums.ApiType.POST,
+                Url = $"{microservicesUrl.AuthApiUrl}/user/isUserIdPresent/{targetUserId}"
+            });
+
+            if (!userIds.Success)
+            {
+                return userIds;
+            }
+
             return await apiCallsService.SendAsync<T>(new RequestDto()
             {
                 ApiType = Enums.ApiType.GET,
@@ -40,8 +59,7 @@ namespace BuyItPlatform.GatewayApi.Services
             var userIds = await apiCallsService.SendAsync<T>(new RequestDto()
             {
                 ApiType = Enums.ApiType.POST,
-                BodyData = new string[]{ ratingRequest.TargetUserId },
-                Url = $"{microservicesUrl.AuthApiUrl}/user/areUserIdsPresent"
+                Url = $"{microservicesUrl.AuthApiUrl}/user/isUserIdPresent/{ratingRequest.TargetUserId}"
             });
 
             if (!userIds.Success)

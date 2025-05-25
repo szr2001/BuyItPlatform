@@ -26,6 +26,7 @@ namespace BuyItPlatform.UserRatingApi.Services
         public async Task<UserRatingResponseDto> GetUserRating(string targetUserId)
         {
             UserRatingResponseDto userRating = new();
+            userRating.TargetUserId = targetUserId;
 
             var ratings = dbContext.Ratings.Where(r => r.TargetUserId == targetUserId);
 
@@ -40,15 +41,20 @@ namespace BuyItPlatform.UserRatingApi.Services
             return userRating;
         }
 
-        public async Task<string[]> GetUsersScoreboard(int count, int offset)
+        public async Task<UserRatingResponseDto[]> GetUsersScoreboard(int count, int offset)
         {
             return await dbContext.Ratings
-                .GroupBy(r => r.TargetUserId)
-                .OrderByDescending(g => g.Count())  
-                .Skip(offset)
-                .Take(count)
-                .Select(g => g.Key)
-                .ToArrayAsync();
+                    .GroupBy(r => r.TargetUserId)
+                    .Select(g => new UserRatingResponseDto
+                    {
+                        TargetUserId = g.Key,
+                        AverageRating = (int)g.Average(r => r.Rating),
+                        NumberOfRatings = g.Count()
+                    })
+                    .OrderByDescending(dto => dto.NumberOfRatings)
+                    .Skip(offset)
+                    .Take(count)
+                    .ToArrayAsync();
         }
 
         public async Task RateUser(UserRatingRequestDto ratingRequest)

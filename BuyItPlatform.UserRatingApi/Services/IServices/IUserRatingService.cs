@@ -7,6 +7,6 @@ namespace BuyItPlatform.UserRatingApi.Services.IServices
         Task RateUser(UserRatingRequestDto ratingRequest);
         Task<UserRatingResponseDto> GetUserRating(string targetUserId);
         Task DeleteOfferedRatings(string userId);
-        Task<string[]> GetUsersScoreboard(int count, int offset);
+        Task<UserRatingResponseDto[]> GetUsersScoreboard(int count, int offset);
     }
 }

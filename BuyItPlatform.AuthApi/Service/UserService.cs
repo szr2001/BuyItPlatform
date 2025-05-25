@@ -6,6 +6,7 @@ using BuyItPlatform.AuthApi.Service.IService;
 using BuyItPlatform.AuthApi.Services.IServices;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System.Xml.Linq;
 
 namespace BuyItPlatform.AuthApi.Service
@@ -36,6 +37,11 @@ namespace BuyItPlatform.AuthApi.Service
             UserProfileDto userProfile = mapper.Map<UserProfileDto>(user);
 
             return userProfile;
+        }
+
+        public async Task<UserProfileDto[]> GetUsersProfiles(string[] userId)
+        {
+            throw new KeyNotFoundException("user could not be found");
         }
 
         public async Task UpdateUserDesc(string userId, string desc)
@@ -137,17 +143,34 @@ namespace BuyItPlatform.AuthApi.Service
 
         public async Task AreUserIdsPresent(string[] userIds)
         {
-            if (userIds.Length == 0)
+            if (userIds == null || userIds.Length == 0)
             {
-                throw new IndexOutOfRangeException("userIds empty");
+                throw new IndexOutOfRangeException("userIds is empty");
             }
 
-            foreach(string userId in userIds)
+            var validUserIds = await userManager.Users
+                .Where(u => userIds.Contains(u.Id))
+                .Select(u => u.Id)
+                .ToListAsync();
+
+            var missingIds = userIds.Except(validUserIds).ToList();
+
+            if (missingIds.Any())
             {
-                if (string.IsNullOrEmpty(userId) || (await userManager.FindByIdAsync(userId)) == null)
-                {
-                    throw new KeyNotFoundException("UserIds are not correct or not valid");
-                }
+                throw new KeyNotFoundException($"UserIds are not correct or not valid");
+            }
+        }
+
+        public async Task IsUserIdPresent(string userId)
+        {
+            if (string.IsNullOrEmpty(userId))
+            {
+                throw new IndexOutOfRangeException("userId empty");
+            }
+
+            if ((await userManager.FindByIdAsync(userId)) == null)
+            {
+                throw new KeyNotFoundException("UserId is not correct or not valid");
             }
         }
     }
