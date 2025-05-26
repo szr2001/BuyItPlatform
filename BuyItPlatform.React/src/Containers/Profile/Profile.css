@@ -24,6 +24,54 @@
     font-size: 15px;
     border: none;
 }
+.shop-table {
+    position:relative;
+}
+.shop-table-background {
+    margin: 15px;
+    background-color:var(--secondary-color);
+    padding:5px;
+    border-radius: 25px;
+    justify-content: center;
+    object-fit: fill;
+    display: flex;
+    flex: 1;
+    width: 97%;
+    margin: 10px;
+}
+.shop-item {
+    background-color: var(--secondary-color);
+    position: absolute;
+    width: 10%;
+    transition: all 0.1s;
+    height: auto;
+    aspect-ratio: 1;
+    border-radius: 35%;
+    box-shadow: rgba(0, 0, 0, 0.6) 7px 7px 10px;
+}
+.shop-item:hover{
+    transform:scale(1.1);
+}
+.shop-item-1 {
+    top: 35%;
+    left: 15%;
+}
+.shop-item-2 {
+    top: 38%;
+    left: 30%;
+}
+.shop-item-3 {
+    top: 38%;
+    left: 45%;
+}
+.shop-item-4 {
+    top: 38%;
+    left: 60%;
+}
+.shop-item-5 {
+    top: 35%;
+    left: 75%;
+}
 .profile-logout:hover {
     transform: scale(1.1);
 }

@@ -104,7 +104,15 @@ function Profile() {
                                 }
                             </div>
                             <div className="profile-right">
-                                <UserDesc editable={isOwnProfile} desc={userProfile.description}/>
+                                <UserDesc editable={isOwnProfile} desc={userProfile.description} />
+                                <div className="shop-table" >
+                                    <img className="shop-table-background" src="/userShop.png"/>
+                                    <div className="shop-item shop-item-1"/>
+                                    <div className="shop-item shop-item-2"/>
+                                    <div className="shop-item shop-item-3"/>
+                                    <div className="shop-item shop-item-4"/>
+                                    <div className="shop-item shop-item-5"/>
+                                </div>
                             </div>
                         </div>
                         :
