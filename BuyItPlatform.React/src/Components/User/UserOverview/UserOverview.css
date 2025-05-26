@@ -1,75 +1,54 @@
-.overview-img {
-    width: 40px;
-    height: 40px;
-    align-self: center;
-    color: var(--primary-color);
-    margin: 5px;
+.useroverview-holder{
+    background-color:var(--primary-color);
+    border-radius:25px;
+    transition:all 0.1s;
+    padding:10px;
+    width:400px;
+    height:200px;
+    margin:10px;
+    display:flex;
+    flex-direction:row;
 }
-
-.overview-button {
-    justify-content: center;
-    border: none;
-    background-color: var(--primary-color);
-    color: white;
-    animation-delay: 0.3s;
-    height: 50px;
-    font-family: var(--primary-font);
-    transition: all 0.1s;
-    border-radius: 10px;
-    cursor: pointer;
+.useroverview-holder:hover{
+    transform:scale(1.02);
 }
-
-.overview-button label {
-    border: none;
-    align-self: center;
-    font-family: var(--primary-font);
-    border-color: var(--highlight-color);
-    font-size: 20px;
-    outline: none;
-    pointer-events: none;
-    font-weight: bold;
-}
-
-.overview-button:hover {
-    background-color: var(--highlight-color);
-    border-radius: 20px;
-}
-
-.welcome-text {
-    font-family: var(--primary-font);
-    font-size: 35px;
-    animation-delay: 0.1s;
-    font-weight: bold;
-    margin: 35px;
-    margin-bottom: 5px;
-}
-
-.overview-text {
-    border: none;
-    height: 55px;
-    align-self: center;
-    font-family: var(--primary-font);
-    background-color: transparent;
-    border-color: var(--highlight-color);
-    font-size: 25px;
-    outline: none;
-    width: 100%;
-    margin: 10px;
-}
-
-.overview-text:focus {
-    border-bottom: groove;
-    border-color: var(--highlight-color);
-    border-width: 3px;
-}
-
-.overview-element {
-    margin: 20px;
+.useroverview-right {
     display: flex;
-    animation-delay: 0.2s;
+    flex-direction: column;
+    height:100%;
+    justify-content:space-between;
+}
+.useroverview-title{
+    color:var(--secondary-color);
+    font-weight:bold;
+    font-size:25px;
+}
+.useroverview-rating {
+    color: var(--secondary-color);
+    font-weight: bold;
+    font-size: 35px;
+}
+.useroverview-icon-rating {
+    color: var(--secondary-color);
+    width: 25px;
+    margin: 2px;
+}
+.useroverview-holder-rating {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+.useroverview-desc {
+    color: var(--secondary-color);
+    font-size: 15px;
+}
+.useroverview-img {
+    flex: 1;
+    width: 100px;
+    height: 100px;
+    border-radius: 15px;
+    background-color: var(--secondary-color);
+    object-fit: cover;
     padding: 5px;
-    background-color: white;
-    border-radius: 25px;
-    width: 400px;
-    height: 55px;
+    display: flex;
 }

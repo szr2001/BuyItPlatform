@@ -57,12 +57,11 @@ function Village() {
                             <Loading displayText="Fetching the legends..." />
                         </div>
                     ) : (
-                        <div className="holder">
+                        <div className="holder holder-village">
                             {
                                 scoreboardUsers.map((user, index) => (
                                     <UserOverview key={user.id || index} user={user} />
                                 ))
-
                             }
                         </div>
                     )
