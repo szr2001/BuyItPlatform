@@ -1,13 +1,14 @@
-.useroverview-holder{
-    background-color:var(--primary-color);
-    border-radius:25px;
-    transition:all 0.1s;
-    padding:10px;
-    width:400px;
-    height:200px;
-    margin:10px;
-    display:flex;
-    flex-direction:row;
+.useroverview-holder {
+    background-color: var(--primary-color);
+    border-radius: 25px;
+    transition: all 0.1s;
+    padding: 10px;
+    width: 400px;
+    height: 200px;
+    justify-content: space-evenly;
+    margin: 10px;
+    display: flex;
+    flex-direction: row;
 }
 .useroverview-holder:hover{
     transform:scale(1.02);
@@ -15,7 +16,6 @@
 .useroverview-right {
     display: flex;
     flex-direction: column;
-    height:100%;
     justify-content:space-between;
 }
 .useroverview-title{
@@ -46,6 +46,8 @@
     flex: 1;
     width: 100px;
     height: 100px;
+    max-width:100px;
+    max-height:100px;
     border-radius: 15px;
     background-color: var(--secondary-color);
     object-fit: cover;

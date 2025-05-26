@@ -50,6 +50,7 @@ function Village() {
 
     return (
         <main>
+                <label className="village-title">Most respected villagers</label>
             {
                 scoreboardUsers === null ?
                     (
