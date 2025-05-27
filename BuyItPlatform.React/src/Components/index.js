@@ -4,7 +4,7 @@ export { default as ListingSearch } from './ListingSearch/ListingSearch';
 export { default as Categories } from './Categories/Categories';
 export { default as ListingsDisplay } from './ListingsDisplay/ListingsDisplay';
 export { default as Loading } from './Loading/Loading';
-export { default as Listing } from './Listing/Listing';
+export { default as ListingOverview } from './Listing/Listing';
 export { default as Auth } from './Auth/Auth';
 export { default as UserDesc } from './User/UserDesc/UserDesc';
 export { default as UserPic} from './User/UserPic/UserPic';

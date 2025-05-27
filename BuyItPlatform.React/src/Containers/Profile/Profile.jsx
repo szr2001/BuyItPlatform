@@ -107,7 +107,7 @@ function Profile() {
                                 <UserDesc editable={isOwnProfile} desc={userProfile.description} />
                                 <div className="shop-table" >
                                     <img className="shop-table-background" src="/userShop.png"/>
-                                    <ShopItem editable={isOwnProfile} listingLink={"d"} listingIcon={"/userShop.png"} overrideClass={"shop-item-1"}/>
+                                    <ShopItem editable={isOwnProfile} listingLink={"a102kdplawd91823mawp5lmbn"} listingIcon={"/userShop.png"} overrideClass={"shop-item-1"}/>
                                     <ShopItem editable={isOwnProfile} overrideClass={"shop-item-2"}/>
                                     <ShopItem editable={isOwnProfile} overrideClass={"shop-item-3"}/>
                                     <ShopItem editable={isOwnProfile} overrideClass={"shop-item-4"}/>
