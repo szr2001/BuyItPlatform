@@ -39,19 +39,6 @@
     width: 97%;
     margin: 10px;
 }
-.shop-item {
-    background-color: var(--secondary-color);
-    position: absolute;
-    width: 10%;
-    transition: all 0.1s;
-    height: auto;
-    aspect-ratio: 1;
-    border-radius: 35%;
-    box-shadow: rgba(0, 0, 0, 0.6) 7px 7px 10px;
-}
-.shop-item:hover{
-    transform:scale(1.1);
-}
 .shop-item-1 {
     top: 35%;
     left: 15%;

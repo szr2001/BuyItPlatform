@@ -7,7 +7,7 @@ import { AuthContext } from '../../Components/Auth/Auth'
 import { useRef } from 'react';
 import Api from '../../Api/Api';
 import { useNavigate } from "react-router-dom";
-import { UserDesc, UserName, UserPic, UserPhone, UserRating, Loading } from '../../Components'
+import { UserDesc, UserName, UserPic, UserPhone, UserRating, Loading, ShopItem } from '../../Components'
 
 function Profile() {
     const {userId } = useParams();
@@ -107,11 +107,11 @@ function Profile() {
                                 <UserDesc editable={isOwnProfile} desc={userProfile.description} />
                                 <div className="shop-table" >
                                     <img className="shop-table-background" src="/userShop.png"/>
-                                    <div className="shop-item shop-item-1"/>
-                                    <div className="shop-item shop-item-2"/>
-                                    <div className="shop-item shop-item-3"/>
-                                    <div className="shop-item shop-item-4"/>
-                                    <div className="shop-item shop-item-5"/>
+                                    <ShopItem editable={isOwnProfile} listingLink={"d"} listingIcon={"/userShop.png"} overrideClass={"shop-item-1"}/>
+                                    <ShopItem editable={isOwnProfile} overrideClass={"shop-item-2"}/>
+                                    <ShopItem editable={isOwnProfile} overrideClass={"shop-item-3"}/>
+                                    <ShopItem editable={isOwnProfile} overrideClass={"shop-item-4"}/>
+                                    <ShopItem editable={isOwnProfile} overrideClass={"shop-item-5"}/>
                                 </div>
                             </div>
                         </div>
