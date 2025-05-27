@@ -25,7 +25,7 @@ namespace BuyItPlatform.ListingsApi.Services
             return await dbContext.Listings.Where(i => i.Id == id).FirstAsync();
         }
 
-        public async Task<List<Listing>> GetListingsAsync(ListingFIlterDto listFilter, int count, int offset)
+        public async Task<ICollection<Listing>> GetListingsAsync(ListingFIlterDto listFilter, int count, int offset)
         {
             IQueryable<Listing> query = dbContext.Listings.AsQueryable();
 
@@ -86,6 +86,12 @@ namespace BuyItPlatform.ListingsApi.Services
                 throw new ArgumentOutOfRangeException("Each listing can have a maximum of 3 images.");
             }
 
+            var existingListing = await dbContext.Listings.Where((u) => u.UserId == listingDto.UserId && u.SlotId == listingDto.SlotId).SingleOrDefaultAsync();
+            if(existingListing != null)
+            {
+                throw new ArgumentOutOfRangeException("This slot is already occupated.");
+            }
+
             Listing newListing = mapper.Map<Listing>(listingDto);
 
             dbContext.Listings.Add(newListing);
@@ -106,11 +112,16 @@ namespace BuyItPlatform.ListingsApi.Services
             await dbContext.SaveChangesAsync();
         }
 
-        public async Task DeleteUserListingsAsync(int userId)
+        public async Task DeleteUserListingsAsync(string userId)
         {
             var listing = await dbContext.Listings.Where(i => i.UserId == userId).ToListAsync();
             dbContext.Listings.RemoveRange(listing);
             await dbContext.SaveChangesAsync();
+        }
+
+        public async Task<ICollection<Listing>> GetUserListings(string userId)
+        {
+            return await dbContext.Listings.Where((e) => e.UserId == userId).ToListAsync();
         }
     }
 }

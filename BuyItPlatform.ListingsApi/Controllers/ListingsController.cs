@@ -9,7 +9,7 @@ namespace BuyItPlatform.ListingsApi.Controllers
 {
     [ApiController]
     [Route("listingsApi")]
-    [Authorize]
+    //[Authorize]
     public class ListingsController : Controller
     {
         private readonly IMapper mapper;
@@ -43,6 +43,27 @@ namespace BuyItPlatform.ListingsApi.Controllers
         }
 
         [HttpGet]
+        [Route("getUserListings/{userId}")]
+        public async Task<IActionResult> GetUserListings(string userId)
+        {
+            try
+            {
+                ICollection<Listing> listing = await listingService.GetUserListings(userId);
+                List<ListingDto> responseDto = mapper.Map<List<ListingDto>>(listing);
+                response.Result = responseDto;
+                response.Success = true;
+            }
+            catch (Exception ex)
+            {
+                response.Success = false;
+                response.Message = ex.Message;
+                return BadRequest(response);
+            }
+
+            return Ok(response);
+        }
+
+        [HttpGet]
         [Route("getListingWithId/{listingId:int}")]
         public async Task<IActionResult> GetListingWithId(int listingId)
         {
@@ -69,7 +90,7 @@ namespace BuyItPlatform.ListingsApi.Controllers
         {
             try
             {
-                List<Listing> listings = await listingService.GetListingsAsync(listFilter, count, offset);
+                ICollection<Listing> listings = await listingService.GetListingsAsync(listFilter, count, offset);
                 List<ListingDto> listingDtos = mapper.Map<List<ListingDto>>(listings);
                 response.Result = listingDtos;
                 response.Success = true;
@@ -105,8 +126,8 @@ namespace BuyItPlatform.ListingsApi.Controllers
         }
 
         [HttpGet]
-        [Route("deleteUserListings/{userid:int}")]
-        public async Task<IActionResult> DeleteUserListings(int userid)
+        [Route("deleteUserListings/{userid}")]
+        public async Task<IActionResult> DeleteUserListings(string userid)
         {
             try
             {

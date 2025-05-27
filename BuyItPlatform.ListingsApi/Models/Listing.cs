@@ -9,17 +9,18 @@ namespace BuyItPlatform.ListingsApi.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+        public int SlotId { get; set; }
         [MaxLength(20)]
-        public string Name { get; set; }
+        public string Name { get; set; } = "";
         [MaxLength(200)]
-        public string Description { get; set; }
+        public string Description { get; set; } = "";
         [MaxLength(3)]
         //use AWS blob storage for storing Images and save the path in the db
         public ICollection<string> ImagePaths { get;set; } = new List<string>();
         public float Price { get; set; }
         [MaxLength(10)]
-        public string Currency {get;set; }
-        public int UserId { get; set; }
+        public string Currency { get; set; } = "";
+        public string UserId { get; set; } = "";
         public TransactionType ListingType { get; set; }
         public Category Category { get; set; }
         public SubCategory? SubCategory { get; set; }
