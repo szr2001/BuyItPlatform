@@ -7,10 +7,10 @@ function ShopItem({overrideClass, listingLink, listingIcon, editable }) {
     const viewItem = () =>
     {
         if (listingLink) {
-            navigate(`/Listing/${listingLink}`);
+            navigate(`/ViewListing/${listingLink}`);
         }
         else if (editable) {
-            navigate(`/UploadListing/`);
+            navigate(`/AddListing/`);
         }
 
     }

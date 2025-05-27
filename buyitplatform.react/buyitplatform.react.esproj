@@ -17,8 +17,6 @@
   <ItemGroup>
     <Folder Include="src\Components\Auth\" />
     <Folder Include="src\Components\User\UserDesc\" />
-    <Folder Include="src\Containers\AddListing\" />
-    <Folder Include="src\Containers\ViewListing\" />
     <Folder Include="src\Hooks\" />
   </ItemGroup>
   <ItemGroup>

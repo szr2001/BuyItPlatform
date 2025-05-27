@@ -1,6 +1,6 @@
 ﻿import './Home.css'
 import { useState } from 'react';
-import { ListingSearch, Categories, ListingsDisplay, Listing } from '../../Components';
+import { ListingSearch, Categories, ListingsDisplay, ListingOverview } from '../../Components';
 function Home() {
     const [listings, setListings] = useState([]);
     const handleSearch = ({ title, location }) => {
@@ -13,7 +13,7 @@ function Home() {
               <ListingSearch onSearch={handleSearch} />
               <Categories />
               <ListingsDisplay listings={listings} />
-              <Listing/>
+              <ListingOverview />
           </div>
 
         </main>

@@ -1,5 +1,5 @@
 import './App.css'
-import { Home, Login, Register, Profile, Village } from "../../Containers";
+import { Home, Login, Register, Profile, Village, ViewListing, AddListing } from "../../Containers";
 import { Routes, Route } from "react-router-dom";
 import { BrowserRouter } from "react-router-dom";
 import { Navbar, Auth } from '../../Components';
@@ -15,7 +15,8 @@ function App() {
                     <Route path="/Register" element={<Register/>} />
                     <Route path="/Village" element={<Village />} />
                     <Route path="/Profile/:userId" element={<Profile />} />
-                    <Route path="/Listing/:listingId" element={<Profile />} />
+                    <Route path="/ViewListing/:listingId" element={<ViewListing />} />
+                    <Route path="/AddListing/" element={<AddListing />} />
                 </Routes>
             </Auth>
         </BrowserRouter>
