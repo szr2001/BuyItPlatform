@@ -1,5 +1,6 @@
 ﻿using BuyItPlatform.GatewayApi.Models;
 using BuyItPlatform.GatewayApi.Models.Dto;
+using BuyItPlatform.GatewayApi.Service.IService;
 using BuyItPlatform.GatewayApi.Services.IServices;
 using BuyItPlatform.GatewayApi.Utility;
 
@@ -7,12 +8,16 @@ namespace BuyItPlatform.GatewayApi.Services
 {
     public class UserRatingService : IUserRatingService
     {
+        private readonly IAuthService authService;
+        private readonly IUserService userService;
         private readonly IApiCallsService apiCallsService;
         private readonly MicroservicesUrls microservicesUrl;
-        public UserRatingService(IApiCallsService serviceBase, MicroservicesUrls microservicesUrl)
+        public UserRatingService(IApiCallsService serviceBase, MicroservicesUrls microservicesUrl, IUserService userService, IAuthService authService)
         {
             this.apiCallsService = serviceBase;
             this.microservicesUrl = microservicesUrl;
+            this.userService = userService;
+            this.authService = authService;
         }
 
         public async Task<MicroserviceResponseDto<UserProfileDto[]>> GetUsersScoreboardAsync(int count, int offset)
@@ -29,12 +34,7 @@ namespace BuyItPlatform.GatewayApi.Services
             }
 
             var userIds = scoreboardResult.Result.Select(u => u.TargetUserId).ToArray();
-            var apiResult = await apiCallsService.SendAsync<UserProfileDto[]>(new RequestDto()
-            {
-                ApiType = Enums.ApiType.POST,
-                BodyData = userIds,
-                Url = $"{microservicesUrl.AuthApiUrl}/user/getUsersProfiles"
-            });
+            var apiResult = await userService.GetUsersProfilesAsync<UserProfileDto[]>(userIds);
 
             if (!apiResult.Success || apiResult.Result == null)
             {
@@ -71,11 +71,7 @@ namespace BuyItPlatform.GatewayApi.Services
 
         public async Task<MicroserviceResponseDto<T>> GetUserRatingAsync<T>(string targetUserId)
         {
-            var userIds = await apiCallsService.SendAsync<T>(new RequestDto()
-            {
-                ApiType = Enums.ApiType.POST,
-                Url = $"{microservicesUrl.AuthApiUrl}/user/isUserIdPresent/{targetUserId}"
-            });
+            var userIds = await authService.IsUserIdPresent<T>(targetUserId);
 
             if (!userIds.Success)
             {
@@ -92,11 +88,7 @@ namespace BuyItPlatform.GatewayApi.Services
         public async Task<MicroserviceResponseDto<T>> RateUserAsync<T>(UserRatingRequestDto ratingRequest)
         {
 
-            var userIds = await apiCallsService.SendAsync<T>(new RequestDto()
-            {
-                ApiType = Enums.ApiType.POST,
-                Url = $"{microservicesUrl.AuthApiUrl}/user/isUserIdPresent/{ratingRequest.TargetUserId}"
-            });
+            var userIds = await authService.IsUserIdPresent<T>(ratingRequest.TargetUserId);
 
             if (!userIds.Success)
             {

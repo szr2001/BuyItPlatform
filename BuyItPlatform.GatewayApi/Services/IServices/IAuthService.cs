@@ -1,4 +1,5 @@
 ﻿using BuyItPlatform.GatewayApi.Models;
+using BuyItPlatform.GatewayApi.Utility;
 
 namespace BuyItPlatform.GatewayApi.Services.IServices
 {
@@ -10,5 +11,7 @@ namespace BuyItPlatform.GatewayApi.Services.IServices
         Task<MicroserviceResponseDto<T>> RefreshTokenAsync<T>();
         Task<MicroserviceResponseDto<T>> GetUserProfileAsync<T>(string userId);
         Task<MicroserviceResponseDto<T>> LogoutAsync<T>();
+        Task<MicroserviceResponseDto<T>> IsUserIdPresent<T>(string targetUserId);
+        Task<MicroserviceResponseDto<T>> AreUserIdsPresent<T>(string[] userIds);
     }
 }

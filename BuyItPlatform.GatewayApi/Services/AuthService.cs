@@ -62,7 +62,23 @@ namespace BuyItPlatform.GatewayApi.Services
                 Url = $"{microservicesUrl.AuthApiUrl}/auth/refreshToken"
             });
         }
-
+        public async Task<MicroserviceResponseDto<T>> IsUserIdPresent<T>(string targetUserId)
+        {
+            return await apiCallsService.SendAsync<T>(new RequestDto()
+            {
+                ApiType = Enums.ApiType.POST,
+                Url = $"{microservicesUrl.AuthApiUrl}/user/isUserIdPresent/{targetUserId}"
+            });
+        }
+        public async Task<MicroserviceResponseDto<T>> AreUserIdsPresent<T>(string[] userIds)
+        {
+            return await apiCallsService.SendAsync<T>(new RequestDto()
+            {
+                ApiType = Enums.ApiType.POST,
+                BodyData = userIds,
+                Url = $"{microservicesUrl.AuthApiUrl}/user/areUserIdsPresent"
+            });
+        }
         public async Task<MicroserviceResponseDto<T>> RegisterUserAsync<T>(RegisterRequestDto registerData)
         {
             return await apiCallsService.SendAsync<T>(new RequestDto()

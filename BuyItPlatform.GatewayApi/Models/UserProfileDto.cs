@@ -9,5 +9,6 @@
         public int NumberOfRatings { get; set; }
         public string ProfileImgLink { get; set; }
         public string PhoneNumber { get; set; }
+        public ICollection<ListingDto> Listings { get; set; }
     }
 }
