@@ -2,7 +2,7 @@
 
 BuyIt is a full-stack online marketplace where users can post both **Sell Listings** and **Buy Listings**. Users can sell items such as cars, clothes, and random goods, while also posting what they are looking to buy. The platform ensures transparency through user ratings, reporting, and a robust commenting system.
 
-![DayBuddy Overview](BuyItPlatform/gitOverview.gif)
+![DayBuddy Overview](gitOverview.gif)
 
 ## Features
 
