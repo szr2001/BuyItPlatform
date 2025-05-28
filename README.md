@@ -1,28 +1,23 @@
 # BuyIt (Work In Progress)
 
-BuyIt is a full-stack online marketplace where users can post both **Sell Listings** and **Buy Listings**. Users can sell items such as cars, clothes, and random goods, while also posting what they are looking to buy. The platform ensures transparency through user ratings, reporting, and a robust commenting system.
+BuyIt is a full-stack online marketplace where users can post both **Sell Listings** and **Buy Listings**. Users can sell items such as cars, clothes, and random goods, while also posting what they are looking to buy. The platform ensures transparency through user ratings, and a robust commenting system, while displaying listings on a table for a game-like medieval shop feeling.
 
 ![DayBuddy Overview](gitOverview.gif)
 
 ## Features
 
 ### User Features
-- **Sell Listings**:
+- **Buy/Sell Listings**:
   - Users can post items they want to sell, including images, descriptions, and prices.
+  - Listings appear on the user profile on the table for a game-like display.
   - Listings can be categorized by item type for better discoverability.
-- **Buy Listings**:
   - Users can post items they are looking to buy, allowing sellers or Users to reach out if they have matching items.
 - **User Interaction**:
   - Users can comment on listings to ask questions or negotiate.
-  - Reporting system to flag inappropriate listings or users.
   - Rate other users based on transaction experiences to build a trust system.
+  - Easily Copy user phone number for contact.
 - **Listings Browser**:
   - Advanced filtering for buy/sell listings based on item type, price, location, and other attributes.
-  
-### Admin Features
-- **Admin Panel**:
-  - Manage user reports and take appropriate actions (e.g., removing fraudulent listings, banning users).
-  - Moderate user ratings and comments.
 
 ## Technology Stack
 
@@ -36,10 +31,8 @@ BuyIt is a full-stack online marketplace where users can post both **Sell Listin
   - **BuyItPlatform.GatewayApi**: Manages API request routing.
   - **BuyItPlatform.AuthApi**: Handles authentication and user management.
   - **BuyItPlatform.CommentsApi**: Manages listing comments and discussions.
-  - **BuyItPlatform.ListingReportingApi**: Manages reports on listings.
   - **BuyItPlatform.ListingsApi**: Handles buy/sell listings.
-  - **BuyItPlatform.UserReportingApi**: Handles reports on users.
-  - **BuyItPlatform.UserRatingApi`Api**: Handles user ratings.
+  - **BuyItPlatform.UserRatingApi**: Handles user ratings.
 
 ### Database
 - Each microservice uses its own **PostgreSQL** database for data persistence.
@@ -53,25 +46,15 @@ BuyIt is a full-stack online marketplace where users can post both **Sell Listin
 - **Services**
   - `BuyItPlatform.AuthApi`
   - `BuyItPlatform.CommentsApi`
-  - `BuyItPlatform.ListingReportingApi`
   - `BuyItPlatform.ListingsApi`
   - `BuyItPlatform.UserRatingApi`
-  - `BuyItPlatform.UserReportingApi`
 
 ## Usage
 
 ### User Workflow
 1. **Sign up** and create a profile.
-2. **Post Sell Listings** for items you want to sell.
-3. **Post Buy Listings** for items you are looking for.
-4. **Browse Listings** using filters to find relevant posts.
+2. **Post Buy/Sell Listings** for items you want to sell/buy, they are displayed on the table on your profile.
+4. **Browse Listings** using filters to find relevant listings, based on category, tags, sub-category, transaction type and more.
 5. **Interact** by commenting on listings and rating users.
-6. **Report** inappropriate listings or users if necessary.
-
-### Admin Workflow
-1. Open the **Admin Panel**.
-2. Review **user reports** and take action if needed.
-3. Moderate **user ratings and comments**.
-
 
 This project is meant to help me practice working with React, Microservices and JWT tokens.
