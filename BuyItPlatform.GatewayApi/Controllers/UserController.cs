@@ -26,6 +26,15 @@ namespace BuyItPlatform.GatewayApi.Controllers
         public async Task<IActionResult> GetUserProfile(string userId)
         {
             var apiResult = await userService.GetUserProfileAsync<UserProfileDto>(userId);
+            if (apiResult.Success && apiResult.Result != null)
+            {
+                var ratingResult = await userRatingService.GetUserRatingAsync<UserRatingResponseDto>(apiResult.Result.Id);
+                if (ratingResult.Success && ratingResult.Result != null)
+                {
+                    apiResult.Result.AverageRating = ratingResult.Result.AverageRating;
+                    apiResult.Result.NumberOfRatings = ratingResult.Result.NumberOfRatings;
+                }
+            }
             return StatusCode(apiResult.StatusCode, apiResult);
         }
 

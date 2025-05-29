@@ -1,41 +1,29 @@
 ﻿using BuyItPlatform.GatewayApi.Models;
 using BuyItPlatform.GatewayApi.Models.Dto;
 using BuyItPlatform.GatewayApi.Service.IService;
-using BuyItPlatform.GatewayApi.Services;
 using BuyItPlatform.GatewayApi.Services.IServices;
 using BuyItPlatform.GatewayApi.Utility;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 
 namespace BuyItPlatform.GatewayApi.Service
 {
     public class UserService : IUserService
     {
-        private readonly IUserRatingService userRatingService;
         private readonly IApiCallsService apiCallsService;
         private readonly MicroservicesUrls microservicesUrl;
 
-        public UserService(IApiCallsService serviceBase, MicroservicesUrls microservicesUrl, IUserRatingService userRatingService)
+        public UserService(IApiCallsService serviceBase, MicroservicesUrls microservicesUrl)
         {
             this.apiCallsService = serviceBase;
             this.microservicesUrl = microservicesUrl;
-            this.userRatingService = userRatingService;
         }
 
         public async Task<MicroserviceResponseDto<T>> GetUserProfileAsync<T>(string userId)
         {
-            var ratingResult = await userRatingService.GetUserRatingAsync<UserRatingResponseDto>(userId);
-            if (ratingResult.Success && ratingResult.Result != null)
-            {
-                apiResult.Result.AverageRating = ratingResult.Result.AverageRating;
-                apiResult.Result.NumberOfRatings = ratingResult.Result.NumberOfRatings;
-            }
-            var user = await apiCallsService.SendAsync<T>(new RequestDto()
+            return await apiCallsService.SendAsync<T>(new RequestDto()
             {
                 ApiType = Enums.ApiType.GET,
                 Url = $"{microservicesUrl.AuthApiUrl}/user/getUserProfile/{userId}"
             });
-
         }
         
         public async Task<MicroserviceResponseDto<T>> GetUsersProfilesAsync<T>(string[] userIds)

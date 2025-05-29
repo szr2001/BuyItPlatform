@@ -1,8 +1,6 @@
 ﻿using BuyItPlatform.GatewayApi.Models;
 using BuyItPlatform.GatewayApi.Services.IServices;
 using BuyItPlatform.GatewayApi.Utility;
-using Microsoft.AspNetCore.Identity;
-using System.Security.Claims;
 
 namespace BuyItPlatform.GatewayApi.Services
 {
@@ -42,7 +40,7 @@ namespace BuyItPlatform.GatewayApi.Services
                 ApiType = Enums.ApiType.POST,
                 BodyData = loginData,
                 Url = $"{microservicesUrl.AuthApiUrl}/auth/login"
-            },false);
+            }, false);
         }
 
         public async Task<MicroserviceResponseDto<T>> LogoutAsync<T>()

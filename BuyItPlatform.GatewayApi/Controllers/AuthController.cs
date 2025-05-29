@@ -46,13 +46,6 @@ namespace BuyItPlatform.GatewayApi.Controllers
             return StatusCode(apiResult.StatusCode, apiResult);
         }
 
-        //[HttpPost]
-        //[Route("assignRole")]
-        //public async Task<IActionResult> AssignRole([FromQuery] string email, [FromQuery] string roleName)
-        //{
-        //    return Ok(await authService.AssignRole<object>(email, roleName));
-        //}
-
         [HttpGet]
         [Route("refreshToken")]
         public async Task<IActionResult> RefreshToken()
