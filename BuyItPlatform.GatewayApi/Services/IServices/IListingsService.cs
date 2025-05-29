@@ -4,10 +4,10 @@ namespace BuyItPlatform.GatewayApi.Services.IServices
 {
     public interface IListingsService
     {
-        Task<MicroserviceResponseDto<T>> DeleteListingAsync<T>(int listingId);
-        Task<MicroserviceResponseDto<T>> DeleteUserListingsAsync<T>(int userId);
-        Task<MicroserviceResponseDto<T>> GetListingsAsync<T>(ListingFIlterDto listFilter, int count, int offset);
-        Task<MicroserviceResponseDto<T>> GetListingWithIdAsync<T>(int id);
-        Task<MicroserviceResponseDto<T>> UploadListingAsync<T>(ListingDto listingDto);
+        Task<MicroserviceResponseDto<object>> DeleteListingAsync(int listingId);
+        Task<MicroserviceResponseDto<object>> DeleteUserListingsAsync(int userId);
+        Task<MicroserviceResponseDto<List<ListingDto>>> GetListingsAsync(ListingFIlterDto listFilter, int count, int offset);
+        Task<MicroserviceResponseDto<ListingDto>> GetListingWithIdAsync(int id);
+        Task<MicroserviceResponseDto<object>> UploadListingAsync(ListingDto listingDto);
     }
 }

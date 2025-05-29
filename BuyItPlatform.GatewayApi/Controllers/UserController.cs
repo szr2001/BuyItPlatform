@@ -25,10 +25,10 @@ namespace BuyItPlatform.GatewayApi.Controllers
         [Route("getUserProfile/{userId}")]
         public async Task<IActionResult> GetUserProfile(string userId)
         {
-            var apiResult = await userService.GetUserProfileAsync<UserProfileDto>(userId);
+            var apiResult = await userService.GetUserProfileAsync(userId);
             if (apiResult.Success && apiResult.Result != null)
             {
-                var ratingResult = await userRatingService.GetUserRatingAsync<UserRatingResponseDto>(apiResult.Result.Id);
+                var ratingResult = await userRatingService.GetUserRatingAsync(apiResult.Result.Id);
                 if (ratingResult.Success && ratingResult.Result != null)
                 {
                     apiResult.Result.AverageRating = ratingResult.Result.AverageRating;
@@ -42,7 +42,7 @@ namespace BuyItPlatform.GatewayApi.Controllers
         [Route("updateUserDesc/{desc}")]
         public async Task<IActionResult> UpdateUserDesc(string desc)
         {
-            var apiResult = await userService.SetUserDescAsync<object>(desc);
+            var apiResult = await userService.SetUserDescAsync(desc);
             return StatusCode(apiResult.StatusCode, apiResult);
         }
 
@@ -50,7 +50,7 @@ namespace BuyItPlatform.GatewayApi.Controllers
         [Route("updateUserName/{name}")]
         public async Task<IActionResult> UpdateUserName(string name)
         {
-            var apiResult = await userService.SetUserNameAsync<object>(name);
+            var apiResult = await userService.SetUserNameAsync(name);
             return StatusCode(apiResult.StatusCode, apiResult);
         }
 
@@ -58,7 +58,7 @@ namespace BuyItPlatform.GatewayApi.Controllers
         [Route("updateUserPhoneNumber/{phoneNumber}")]
         public async Task<IActionResult> UpdateUserPhoneNumber(string phoneNumber)
         {
-            var apiResult = await userService.SetUserPhoneNumberAsync<object>(phoneNumber);
+            var apiResult = await userService.SetUserPhoneNumberAsync(phoneNumber);
             return StatusCode(apiResult.StatusCode, apiResult);
         }
 
@@ -66,7 +66,7 @@ namespace BuyItPlatform.GatewayApi.Controllers
         [Route("updateUserProfilePic")] // FromForm because we expect an image in Binary format
         public async Task<IActionResult> UpdateUserProfilePic([FromForm] ImageDto profilePic)
         {
-            var apiResult = await userService.SetUserProfilePicsAsync<string>(profilePic);
+            var apiResult = await userService.SetUserProfilePicAsync(profilePic);
             return StatusCode(apiResult.StatusCode, apiResult);
         }
     }

@@ -17,18 +17,18 @@ namespace BuyItPlatform.GatewayApi.Service
             this.microservicesUrl = microservicesUrl;
         }
 
-        public async Task<MicroserviceResponseDto<T>> GetUserProfileAsync<T>(string userId)
+        public async Task<MicroserviceResponseDto<UserProfileDto>> GetUserProfileAsync(string userId)
         {
-            return await apiCallsService.SendAsync<T>(new RequestDto()
+            return await apiCallsService.SendAsync<UserProfileDto>(new RequestDto()
             {
                 ApiType = Enums.ApiType.GET,
                 Url = $"{microservicesUrl.AuthApiUrl}/user/getUserProfile/{userId}"
             });
         }
         
-        public async Task<MicroserviceResponseDto<T>> GetUsersProfilesAsync<T>(string[] userIds)
+        public async Task<MicroserviceResponseDto<UserProfileDto[]>> GetUsersProfilesAsync(string[] userIds)
         {
-            return await apiCallsService.SendAsync<T>(new RequestDto()
+            return await apiCallsService.SendAsync<UserProfileDto[]>(new RequestDto()
             {
                 ApiType = Enums.ApiType.POST,
                 BodyData = userIds,
@@ -36,36 +36,36 @@ namespace BuyItPlatform.GatewayApi.Service
             });
         }
 
-        public async Task<MicroserviceResponseDto<T>> SetUserDescAsync<T>(string desc)
+        public async Task<MicroserviceResponseDto<object>> SetUserDescAsync(string desc)
         {
-            return await apiCallsService.SendAsync<T>(new RequestDto()
+            return await apiCallsService.SendAsync<object>(new RequestDto()
             {
                 ApiType = Enums.ApiType.POST,
                 Url = $"{microservicesUrl.AuthApiUrl}/user/updateUserDesc/{desc}"
             });
         }
 
-        public async Task<MicroserviceResponseDto<T>> SetUserNameAsync<T>(string name)
+        public async Task<MicroserviceResponseDto<object>> SetUserNameAsync(string name)
         {
-            return await apiCallsService.SendAsync<T>(new RequestDto()
+            return await apiCallsService.SendAsync<object>(new RequestDto()
             {
                 ApiType = Enums.ApiType.POST,
                 Url = $"{microservicesUrl.AuthApiUrl}/user/updateUserName/{name}"
             });
         }
 
-        public async Task<MicroserviceResponseDto<T>> SetUserPhoneNumberAsync<T>(string phoneNumber)
+        public async Task<MicroserviceResponseDto<object>> SetUserPhoneNumberAsync(string phoneNumber)
         {
-            return await apiCallsService.SendAsync<T>(new RequestDto()
+            return await apiCallsService.SendAsync<object>(new RequestDto()
             {
                 ApiType = Enums.ApiType.POST,
                 Url = $"{microservicesUrl.AuthApiUrl}/user/updateUserPhoneNumber/{phoneNumber}"
             });
         }
 
-        public async Task<MicroserviceResponseDto<T>> SetUserProfilePicsAsync<T>(ImageDto profilePic)
+        public async Task<MicroserviceResponseDto<string>> SetUserProfilePicAsync(ImageDto profilePic)
         {
-            return await apiCallsService.SendAsync<T>(new RequestDto()
+            return await apiCallsService.SendAsync<string>(new RequestDto()
             {
                 ApiType = Enums.ApiType.POST,
                 FormData = profilePic,

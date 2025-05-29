@@ -5,11 +5,11 @@ namespace BuyItPlatform.GatewayApi.Service.IService
 {
     public interface IUserService
     {
-        Task<MicroserviceResponseDto<T>> GetUserProfileAsync<T>(string userId);
-        Task<MicroserviceResponseDto<T>> GetUsersProfilesAsync<T>(string[] userIds);
-        Task<MicroserviceResponseDto<T>> SetUserDescAsync<T>(string desc);
-        Task<MicroserviceResponseDto<T>> SetUserNameAsync<T>(string name);
-        Task<MicroserviceResponseDto<T>> SetUserPhoneNumberAsync<T>(string phoneNumber);
-        Task<MicroserviceResponseDto<T>> SetUserProfilePicsAsync<T>(ImageDto profilePic);
+        Task<MicroserviceResponseDto<UserProfileDto>> GetUserProfileAsync(string userId);
+        Task<MicroserviceResponseDto<UserProfileDto[]>> GetUsersProfilesAsync(string[] userIds);
+        Task<MicroserviceResponseDto<object>> SetUserDescAsync(string desc);
+        Task<MicroserviceResponseDto<object>> SetUserNameAsync(string name);
+        Task<MicroserviceResponseDto<object>> SetUserPhoneNumberAsync(string phoneNumber);
+        Task<MicroserviceResponseDto<string>> SetUserProfilePicAsync(ImageDto profilePic);
     }
 }

@@ -28,7 +28,7 @@ namespace BuyItPlatform.GatewayApi.Controllers
         [Route("getUsersScoreboard")]
         public async Task<IActionResult> GetUsersScoreboard()
         {
-            var scoreboardResult = await userRatingService.GetUsersScoreboardAsync<UserRatingResponseDto[]>(20, 0);
+            var scoreboardResult = await userRatingService.GetUsersScoreboardAsync(20, 0);
 
             if (!scoreboardResult.Success || scoreboardResult.Result == null)
             {
@@ -36,7 +36,7 @@ namespace BuyItPlatform.GatewayApi.Controllers
             }
 
             var userIds = scoreboardResult.Result.Select(u => u.TargetUserId).ToArray();
-            var apiResult = await userService.GetUsersProfilesAsync<UserProfileDto[]>(userIds);
+            var apiResult = await userService.GetUsersProfilesAsync(userIds);
 
             if (!apiResult.Success || apiResult.Result == null)
             {
@@ -66,14 +66,14 @@ namespace BuyItPlatform.GatewayApi.Controllers
         [Route("getUserRating/{targetUserId}")]
         public async Task<IActionResult> GetUserRating(string targetUserId)
         {
-            var userIds = await authService.IsUserIdPresent<object>(targetUserId);
+            var userIds = await authService.IsUserIdPresent(targetUserId);
 
             if (!userIds.Success)
             {
                 return StatusCode(userIds.StatusCode, userIds);
             }
 
-            var apiResult = await userRatingService.GetUserRatingAsync<UserRatingResponseDto>(targetUserId);
+            var apiResult = await userRatingService.GetUserRatingAsync(targetUserId);
             return StatusCode(apiResult.StatusCode, apiResult);
         }
 
@@ -81,7 +81,7 @@ namespace BuyItPlatform.GatewayApi.Controllers
         [Route("deleteOfferedRatings/{targetUserId}")]
         public async Task<IActionResult> DeleteOfferedRatings(string targetUserId)
         {
-            var apiResult = await userRatingService.DeleteOfferedRatingsAsync<object>(targetUserId);
+            var apiResult = await userRatingService.DeleteOfferedRatingsAsync(targetUserId);
             return StatusCode(apiResult.StatusCode, apiResult);
         }
 
@@ -89,14 +89,14 @@ namespace BuyItPlatform.GatewayApi.Controllers
         [Route("rateUser")]
         public async Task<IActionResult> RateUser([FromBody] UserRatingRequestDto ratingRequest)
         {
-            var userIdResult = await authService.IsUserIdPresent<object>(ratingRequest.TargetUserId);
+            var userIdResult = await authService.IsUserIdPresent(ratingRequest.TargetUserId);
 
             if (!userIdResult.Success)
             {
                 return StatusCode(userIdResult.StatusCode, userIdResult);
             }
 
-            var apiResult = await userRatingService.RateUserAsync<object>(ratingRequest);
+            var apiResult = await userRatingService.RateUserAsync(ratingRequest);
             return StatusCode(apiResult.StatusCode, apiResult);
         }
     }

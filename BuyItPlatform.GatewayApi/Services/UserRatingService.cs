@@ -15,36 +15,36 @@ namespace BuyItPlatform.GatewayApi.Services
             this.microservicesUrl = microservicesUrl;
         }
 
-        public async Task<MicroserviceResponseDto<T>> GetUsersScoreboardAsync<T>(int count, int offset)
+        public async Task<MicroserviceResponseDto<UserRatingResponseDto[]>> GetUsersScoreboardAsync(int count, int offset)
         {
-            return await apiCallsService.SendAsync<T>(new RequestDto()
+            return await apiCallsService.SendAsync<UserRatingResponseDto[]>(new RequestDto()
             {
                 ApiType = Enums.ApiType.GET,
                 Url = $"{microservicesUrl.UserRatingApiUrl}/getUsersScoreboard/{count}/{offset}"
             });
         }
 
-        public async Task<MicroserviceResponseDto<T>> DeleteOfferedRatingsAsync<T>(string userId)
+        public async Task<MicroserviceResponseDto<object>> DeleteOfferedRatingsAsync(string userId)
         {
-            return await apiCallsService.SendAsync<T>(new RequestDto()
+            return await apiCallsService.SendAsync<object>(new RequestDto()
             {
                 ApiType = Enums.ApiType.GET,
                 Url = $"{microservicesUrl.UserRatingApiUrl}/deleteOfferedRatings/{userId}"
             });
         }
 
-        public async Task<MicroserviceResponseDto<T>> GetUserRatingAsync<T>(string targetUserId)
+        public async Task<MicroserviceResponseDto<UserRatingResponseDto>> GetUserRatingAsync(string targetUserId)
         {
-            return await apiCallsService.SendAsync<T>(new RequestDto()
+            return await apiCallsService.SendAsync<UserRatingResponseDto>(new RequestDto()
             {
                 ApiType = Enums.ApiType.GET,
                 Url = $"{microservicesUrl.UserRatingApiUrl}/getUserRating/{targetUserId}"
             });
         }
 
-        public async Task<MicroserviceResponseDto<T>> RateUserAsync<T>(UserRatingRequestDto ratingRequest)
+        public async Task<MicroserviceResponseDto<object>> RateUserAsync(UserRatingRequestDto ratingRequest)
         {
-            return await apiCallsService.SendAsync<T>(new RequestDto()
+            return await apiCallsService.SendAsync<object>(new RequestDto()
             {
                 ApiType = Enums.ApiType.POST,
                 BodyData = ratingRequest,

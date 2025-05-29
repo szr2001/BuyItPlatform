@@ -1,17 +1,17 @@
 ﻿using BuyItPlatform.GatewayApi.Models;
-using BuyItPlatform.GatewayApi.Utility;
+using BuyItPlatform.GatewayApi.Models.Dto;
 
 namespace BuyItPlatform.GatewayApi.Services.IServices
 {
     public interface IAuthService
     {
-        Task<MicroserviceResponseDto<T>> LoginUserAsync<T>(LoginRequestDto registerData);
-        Task<MicroserviceResponseDto<T>> RegisterUserAsync<T>(RegisterRequestDto registerData);
-        Task<MicroserviceResponseDto<T>> AssignRoleAsync<T>(string email, string rolename);
-        Task<MicroserviceResponseDto<T>> RefreshTokenAsync<T>();
-        Task<MicroserviceResponseDto<T>> GetUserProfileAsync<T>(string userId);
-        Task<MicroserviceResponseDto<T>> LogoutAsync<T>();
-        Task<MicroserviceResponseDto<T>> IsUserIdPresent<T>(string targetUserId);
-        Task<MicroserviceResponseDto<T>> AreUserIdsPresent<T>(string[] userIds);
+        Task<MicroserviceResponseDto<LoginResponseDto>> LoginUserAsync(LoginRequestDto registerData);
+        Task<MicroserviceResponseDto<object>> RegisterUserAsync(RegisterRequestDto registerData);
+        Task<MicroserviceResponseDto<object>> AssignRoleAsync(string email, string rolename);
+        Task<MicroserviceResponseDto<LoginResponseDto>> RefreshTokenAsync();
+        Task<MicroserviceResponseDto<UserProfileDto>> GetUserProfileAsync(string userId);
+        Task<MicroserviceResponseDto<object>> LogoutAsync();
+        Task<MicroserviceResponseDto<object>> IsUserIdPresent(string targetUserId);
+        Task<MicroserviceResponseDto<object>> AreUserIdsPresent(string[] userIds);
     }
 }

@@ -5,9 +5,9 @@ namespace BuyItPlatform.GatewayApi.Services.IServices
 {
     public interface IUserRatingService
     {
-        Task<MicroserviceResponseDto<T>> RateUserAsync<T>(UserRatingRequestDto ratingRequest);
-        Task<MicroserviceResponseDto<T>> GetUserRatingAsync<T>(string targetUserId);
-        Task<MicroserviceResponseDto<T>> DeleteOfferedRatingsAsync<T>(string userId);
-        Task<MicroserviceResponseDto<T>> GetUsersScoreboardAsync<T>(int count, int offset);
+        Task<MicroserviceResponseDto<object>> RateUserAsync(UserRatingRequestDto ratingRequest);
+        Task<MicroserviceResponseDto<UserRatingResponseDto>> GetUserRatingAsync(string targetUserId);
+        Task<MicroserviceResponseDto<object>> DeleteOfferedRatingsAsync(string userId);
+        Task<MicroserviceResponseDto<UserRatingResponseDto[]>> GetUsersScoreboardAsync(int count, int offset);
     }
 }
