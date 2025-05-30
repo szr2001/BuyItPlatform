@@ -50,23 +50,21 @@ function Village() {
 
     return (
         <main>
+            <div className="holder">
                 <label className="village-title">Most respected villagers</label>
-            {
-                scoreboardUsers === null ?
-                    (
-                        <div className="holder">
-                            <Loading displayText="Fetching the legends..." />
-                        </div>
-                    ) : (
-                        <div className="holder holder-village">
-                            {
-                                scoreboardUsers.map((user, index) => (
-                                    <UserOverview key={user.id || index} user={user} />
-                                ))
-                            }
-                        </div>
-                    )
-            }
+                <div className="villagers">
+                {
+                    scoreboardUsers === null ?
+                        (
+                                <Loading displayText="Fetching the legends..." />
+                        ) : (
+                            scoreboardUsers.map((user, index) => (
+                                <UserOverview key={user.id || index} user={user} />
+                            ))
+                        )
+                }
+                </div>
+            </div>
         </main>
     );
 }

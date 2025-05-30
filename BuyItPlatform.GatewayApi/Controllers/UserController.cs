@@ -1,10 +1,8 @@
-﻿using BuyItPlatform.GatewayApi.Models;
-using BuyItPlatform.GatewayApi.Models.Dto;
+﻿using BuyItPlatform.GatewayApi.Models.Dto;
 using BuyItPlatform.GatewayApi.Service.IService;
 using BuyItPlatform.GatewayApi.Services.IServices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Xml.Linq;
 
 namespace BuyItPlatform.GatewayApi.Controllers
 {
