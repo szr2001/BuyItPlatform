@@ -1,6 +1,7 @@
 import './ViewListing.css'
 import { useParams } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
+import { ImagesViewer } from '../../Components';
 
 function ViewListing() {
     const {userId, listingId } = useParams();
@@ -10,11 +11,19 @@ function ViewListing() {
     return (
         <main>
             <div className="holder">
-                <label>{listing.name}</label>
-                <label>{listing.description}</label>
-                <label>{listing.price}</label>
-                <label>{listing.currency}</label>
-                <label>{listing.category}</label>
+                <div className="viewlisting">
+                    <div className="viewlisting-left">
+                        <ImagesViewer imagePaths={listing.imagePaths} />
+                        <label>{listing.name}</label>
+                        <label>{listing.description}</label>
+
+                    </div>
+                    <div className="viewlisting-right">
+                        <label>{listing.price}</label>
+                        <label>{listing.currency}</label>
+                        <label>{listing.category}</label>
+                    </div>
+                </div>
             </div>
         </main>
   );

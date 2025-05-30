@@ -1,8 +1,7 @@
 import './UserPic.css'
 import { Loading } from '../../../Components';
-import { useState } from 'react';
 import Api from '../../../Api/Api';
-import { useContext, useEffect } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { AuthContext } from '../../Auth/Auth'
 import { toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
