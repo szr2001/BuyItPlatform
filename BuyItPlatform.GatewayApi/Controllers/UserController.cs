@@ -11,12 +11,14 @@ namespace BuyItPlatform.GatewayApi.Controllers
     [ApiController]
     public class UserController : Controller
     {
+        private readonly IListingsService listingsService;
         private readonly IUserService userService;
         private readonly IUserRatingService userRatingService;
-        public UserController(IUserService userService, IUserRatingService userRatingService)
+        public UserController(IUserService userService, IUserRatingService userRatingService, IListingsService listingsService)
         {
             this.userService = userService;
             this.userRatingService = userRatingService;
+            this.listingsService = listingsService;
         }
 
         [HttpGet]
@@ -31,6 +33,12 @@ namespace BuyItPlatform.GatewayApi.Controllers
                 {
                     apiResult.Result.AverageRating = ratingResult.Result.AverageRating;
                     apiResult.Result.NumberOfRatings = ratingResult.Result.NumberOfRatings;
+                }
+
+                var listingResult = await listingsService.GetUserListings(userId);
+                if(listingResult.Success == true && listingResult.Result != null)
+                {
+                    apiResult.Result.Listings = listingResult.Result;
                 }
             }
             return StatusCode(apiResult.StatusCode, apiResult);

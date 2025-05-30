@@ -30,6 +30,7 @@ function Profile() {
                     console.error(response);
                 }
 
+                console.log(response);
                 setUser(response.data.result);
             }
             catch (error) {
@@ -107,11 +108,11 @@ function Profile() {
                                 <UserDesc editable={isOwnProfile} desc={userProfile.description} />
                                 <div className="shop-table" >
                                     <img className="shop-table-background" src="/userShop.png"/>
-                                    <ShopItem editable={isOwnProfile} listingLink={"a102kdplawd91823mawp5lmbn"} listingIcon={"/userShop.png"} overrideClass={"shop-item-1"}/>
-                                    <ShopItem editable={isOwnProfile} overrideClass={"shop-item-2"}/>
-                                    <ShopItem editable={isOwnProfile} overrideClass={"shop-item-3"}/>
-                                    <ShopItem editable={isOwnProfile} overrideClass={"shop-item-4"}/>
-                                    <ShopItem editable={isOwnProfile} overrideClass={"shop-item-5"}/>
+                                    <ShopItem editable={isOwnProfile} listing={userProfile.listings[0]} overrideClass={"shop-item-1"}/>
+                                    <ShopItem editable={isOwnProfile} listing={userProfile.listings[1]} overrideClass={"shop-item-2"}/>
+                                    <ShopItem editable={isOwnProfile} listing={userProfile.listings[2]} overrideClass={"shop-item-3"}/>
+                                    <ShopItem editable={isOwnProfile} listing={userProfile.listings[3]} overrideClass={"shop-item-4"}/>
+                                    <ShopItem editable={isOwnProfile} listing={userProfile.listings[4]} overrideClass={"shop-item-5"}/>
                                 </div>
                             </div>
                         </div>

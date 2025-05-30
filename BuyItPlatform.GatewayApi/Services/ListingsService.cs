@@ -1,6 +1,7 @@
 ﻿using BuyItPlatform.GatewayApi.Models;
 using BuyItPlatform.GatewayApi.Services.IServices;
 using BuyItPlatform.GatewayApi.Utility;
+using System.Collections.Generic;
 
 namespace BuyItPlatform.GatewayApi.Services
 {
@@ -45,6 +46,14 @@ namespace BuyItPlatform.GatewayApi.Services
             return await apiCallsService.SendAsync<ListingDto>(new RequestDto()
             {
                 Url = $"{microservicesUrl.ListingsApiUrl}/getListingWithId/{id}"
+            });
+        }
+
+        public async Task<MicroserviceResponseDto<ICollection<ListingDto>>> GetUserListings(string userId)
+        {
+            return await apiCallsService.SendAsync<ICollection<ListingDto>>(new RequestDto()
+            {
+                Url = $"{microservicesUrl.ListingsApiUrl}/getUserListings/{userId}"
             });
         }
 

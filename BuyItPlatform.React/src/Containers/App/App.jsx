@@ -15,7 +15,7 @@ function App() {
                     <Route path="/Register" element={<Register/>} />
                     <Route path="/Village" element={<Village />} />
                     <Route path="/Profile/:userId" element={<Profile />} />
-                    <Route path="/ViewListing/:listingId" element={<ViewListing />} />
+                    <Route path="/ViewListing/:userId/:listingId" element={<ViewListing />} />
                     <Route path="/AddListing/" element={<AddListing />} />
                 </Routes>
             </Auth>
