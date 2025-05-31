@@ -84,7 +84,7 @@
 }
 
 /*responsive design example in pure css*/
-@media (max-width: 868px) {
+@media (max-width: 1024px) {
     .searchbar {
         flex-direction:column;
         justify-content: space-between;

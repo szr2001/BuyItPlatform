@@ -47,7 +47,7 @@
     transform: scale(1.08);
 }
 
-@media (max-width: 868px) {
+@media (max-width: 1024px) {
     .navbar-option {
         font-size: 0px;
     }

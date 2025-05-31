@@ -15,6 +15,9 @@ export { default as RatingStars } from '../Components/RatingStars/RatingStars';
 export { default as UserOverview } from '../Components/User/UserOverview/UserOverview';
 export { default as ShopItem } from '../Components/ShopItem/ShopItem';
 export { default as ImagesViewer } from '../Components/ImagesViewer/ImagesViewer';
+export { default as ColorDisplay } from '../Components/ColorDisplay/ColorDisplay';
+export { default as CategoryDisplay } from '../Components/CategoryDisplay/CategoryDisplay';
+export { default as TagsDisplay } from '../Components/TagsDisplay/TagsDisplay';
 
 //export components directly from this index file, and then we can import
 //components directly from the folder with one line

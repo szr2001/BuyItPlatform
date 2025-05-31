@@ -3,7 +3,7 @@
     width:100%;
 }
 .profile-icon {
-    width: 0px;;
+    width: 0px;
     transform: scale(0);
     height: 25px;
     margin-right: 5px;
@@ -78,7 +78,7 @@
 
 }
 
-@media (max-width: 868px) {
+@media (max-width: 1024px) {
     .profile {
         flex-direction:column !important;
         align-items:center;

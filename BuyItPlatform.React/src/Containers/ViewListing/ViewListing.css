@@ -1,28 +1,73 @@
+/* Grid example */
+
 .viewlisting {
-    display: flex;
-    margin: 20px;
-    width:100%;
-    flex:1;
+    display: grid;
+    margin: 10px;
+    width: 95%;
+    justify-content:center;
+    grid-template-columns: 70% 30%; /* The percentage of columnds */
+    grid-template-rows: auto; /* rows are auto in size */
 }
-.viewlisting-left { //use grid
-    flex: 1;
-    width: 70%;
+.viewlisting-user{
+    flex-direction:column !important;
+    width:85% !important;
+    height:auto;
+    justify-self:center;
+}
+.viewlisting-icon {
+    width: 25px;
+    height: 25px;
+    margin-right: 5px;
+    color: var(--primary-color);
+}
+.viewlisting-desc {
+    color: var(--text-color);
+    font-family: var(--primary-font);
+    font-size: 25px;
+    align-self: center;
+    overflow-wrap: anywhere;
+    overflow: visible;
+    max-width: 560px;
+}
+.viewlisting-title {
+    color: var(--text-color);
+    font-family: var(--primary-font);
+    font-weight: bold;
+    font-size: 35px;
+    align-self: center;
+    overflow-wrap: anywhere;
+    overflow: visible;
+    max-width: 460px;
+}
+.viewlisting-left {
+    grid-column: 1; /* first column */
+    grid-row: 1; /* first row */
+    display:flex;
+    flex-direction:column;
 }
 
 .viewlisting-right {
-    flex: 1;
-    width: auto;
-    flex: 1;
+    align-items: center;
+    grid-column: 2; /* second column */
+    grid-row: 1; /* firrst row */
 }
-@media (max-width: 868px) {
+
+@media (max-width: 1024px) {
     .viewlisting {
-        flex-direction: column !important;
+        display: flex;
+        flex-direction: column;
         align-items: center;
         width: 100%;
     }
 
+    .viewlisting-left,
     .viewlisting-right {
-        width: 100%;
-        flex: 1;
+    }
+    .viewlisting {
+        display: flex;
+        margin: 20px;
+        width: 95%;
+        display: flex;
+        justify-content: center;
     }
 }
