@@ -1,7 +1,7 @@
 import './ViewListing.css'
 import { useParams } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
-import { ImagesViewer, UserOverview, UserPhone, CategoryDisplay } from '../../Components';
+import { ImagesViewer, UserOverview, UserPhone, CategoryDisplay, ColorDisplay, TagsDisplay } from '../../Components';
 
 function ViewListing() {
     const {userId, listingId } = useParams();
@@ -43,7 +43,11 @@ function ViewListing() {
                             <label className="viewlisting-title" > {listing.currency}</label>
                         </div>
                     </div>
-                    <CategoryDisplay category={listing.category}/>
+                    <div className="viewlisting-details">
+                        <CategoryDisplay category={listing.category}/>
+                        <ColorDisplay color={listing.color}/>
+                        <TagsDisplay tags={listing.tags}/>
+                    </div>
                 </div>
             </div>
         </main>

@@ -1,10 +1,15 @@
 import './ColorDisplay.css'
 
-function ColorDisplay() {
-
+function ColorDisplay({ color }) {
     return (
-        <div>
-        </div>
+        color ?
+            <div className="fade-in">
+                <div className="categorycolor-holder">
+                    <div className={color}/>
+                    <label className="categorydisplay-text">{color}</label>
+                </div>
+            </div>
+            : null
     );
 }
 

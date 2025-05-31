@@ -1,0 +1,113 @@
+.categorycolor-img {
+    width: 20px;
+    height: 20px;
+    color: var(--primary-color);
+}
+
+.categorycolor-holder {
+    display: flex;
+    justify-self: center;
+    align-items: center;
+    margin: 8px;
+    padding:10px;
+    border: none;
+    background-color: var(--secondary-color);
+    border-radius: 15px;
+}
+
+.categorycolor-text {
+    font-family: var(--primary-font);
+    font-size: 15px;
+    margin: 5px;
+    color: var(--primary-color);
+    pointer-events: none;
+    font-weight: bold;
+}
+
+.Red {
+    height:25px;
+    width:25px;
+    background-color:red;
+    border-radius:25px;
+}
+
+.Blue {
+    height: 25px;
+    width: 25px;
+    background-color: blue;
+    border-radius: 25px;
+}
+
+.Green {
+    height: 25px;
+    width: 25px;
+    background-color: green;
+    border-radius: 25px;
+}
+
+.Yellow {
+    height: 25px;
+    width: 25px;
+    background-color: yellow;
+    border-radius: 25px;
+}
+
+.Black {
+    height: 25px;
+    width: 25px;
+    background-color: black;
+    border-radius: 25px;
+}
+
+.White {
+    width: 25px;
+    background-color: white;
+    border-radius: 25px;
+}
+
+.Gray {
+    height: 25px;
+    width: 25px;
+    background-color: gray;
+    border-radius: 25px;
+}
+
+.Orange {
+    width: 25px;
+    background-color: orange;
+    border-radius: 25px;
+}
+
+.Purple {
+    height: 25px;
+    width: 25px;
+    background-color: purple;
+    border-radius: 25px;
+}
+
+.Brown {
+    width: 25px;
+    background-color: brown;
+    border-radius: 25px;
+}
+
+.Pink {
+    height: 25px;
+    width: 25px;
+    background-color: pink;
+    border-radius: 25px;
+}
+
+.Gold {
+    height: 25px;
+    width: 25px;
+    background-color: gold;
+    border-radius: 25px;
+}
+
+.Silver {
+    height: 25px;
+    width: 25px;
+    background-color: silver;
+    border-radius: 25px;
+}
