@@ -54,3 +54,15 @@
     padding: 5px;
     display: flex;
 }
+@media (max-width: 600px) {
+    .useroverview-holder {
+        height: 250px;
+        width: 350px;
+    }
+    .useroverview-img {
+        width: 80px;
+        height: 80px;
+        max-width: 80px;
+        max-height: 80px;
+    }
+}

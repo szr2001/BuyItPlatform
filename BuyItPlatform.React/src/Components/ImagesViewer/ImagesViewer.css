@@ -51,3 +51,9 @@
         width: 500px;
     }
 }
+@media (max-width: 600px) {
+    .imgview-background {
+        height: 250px;
+        width: 350px;
+    }
+}
