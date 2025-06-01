@@ -14,12 +14,16 @@ namespace BuyItPlatform.ListingsApi.Controllers
     {
         private readonly IMapper mapper;
         private readonly IListingsService listingService;
+        private readonly ITokenCookiesProvider tokenCookiesProvider;
+        private readonly IJwtTokenHandler jwtTokenHandler;
         private ResponseDto response = new();
-        public ListingsController(IMapper mapper, IListingsService listingService)
+        public ListingsController(IMapper mapper, IListingsService listingService, IJwtTokenHandler jwtTokenHandler, ITokenCookiesProvider tokenCookiesProvider)
         {
             response = new();
             this.mapper = mapper;
             this.listingService = listingService;
+            this.jwtTokenHandler = jwtTokenHandler;
+            this.tokenCookiesProvider = tokenCookiesProvider;
         }
 
         [HttpPost]
@@ -111,7 +115,10 @@ namespace BuyItPlatform.ListingsApi.Controllers
         {
             try
             {
-                await listingService.DeleteListingAsync(listingId);
+                var Token = tokenCookiesProvider.GetToken();
+                var tokenData = jwtTokenHandler.ExtractTokenData(Token);
+                var userId = tokenData.Where(i => i.Type == "nameid").First().Value;
+                await listingService.DeleteListingAsync(userId, listingId);
                 response.Result = null;
                 response.Success = true;
             }
@@ -126,12 +133,15 @@ namespace BuyItPlatform.ListingsApi.Controllers
         }
 
         [HttpGet]
-        [Route("deleteUserListings/{userid}")]
-        public async Task<IActionResult> DeleteUserListings(string userid)
+        [Route("deleteUserListings")]
+        public async Task<IActionResult> DeleteUserListings()
         {
             try
             {
-                await listingService.DeleteUserListingsAsync(userid);
+                var Token = tokenCookiesProvider.GetToken();
+                var tokenData = jwtTokenHandler.ExtractTokenData(Token);
+                var userId = tokenData.Where(i => i.Type == "nameid").First().Value;
+                await listingService.DeleteUserListingsAsync(userId);
                 response.Result = null;
                 response.Success = true;
             }

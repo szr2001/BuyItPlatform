@@ -16,7 +16,7 @@ function App() {
                     <Route path="/Village" element={<Village />} />
                     <Route path="/Profile/:userId" element={<Profile />} />
                     <Route path="/ViewListing/:userId/:listingId" element={<ViewListing />} />
-                    <Route path="/AddListing/" element={<AddListing />} />
+                    <Route path="/AddListing/:slotIndex" element={<AddListing />} />
                 </Routes>
             </Auth>
         </BrowserRouter>

@@ -1,6 +1,6 @@
 ﻿using System.Security.Claims;
 
-namespace BuyItPlatform.UserRatingApi.Services.IServices
+namespace BuyItPlatform.ListingsApi.Services.IServices
 {
     public interface IJwtTokenHandler
     {

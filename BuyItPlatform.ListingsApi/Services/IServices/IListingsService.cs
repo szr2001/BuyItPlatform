@@ -5,7 +5,7 @@ namespace BuyItPlatform.ListingsApi.Services.IServices
 {
     public interface IListingsService
     {
-        Task DeleteListingAsync(int listingId);
+        Task DeleteListingAsync(string userId, int listingId);
         Task DeleteUserListingsAsync(string userId);
         Task<ICollection<Listing>> GetListingsAsync(ListingFIlterDto listFilter, int count, int offset);
         Task<Listing> GetListingWithIdAsync(int id);

@@ -1,0 +1,23 @@
+.tag-holder {
+    display: flex;
+    justify-self: center;
+    align-items: center;
+    margin: 8px;
+    padding: 10px;
+    border: none;
+    background-color: var(--secondary-color);
+    border-radius: 15px;
+}
+.tag-img {
+    width: 20px;
+    height: 20px;
+    color: var(--primary-color);
+}
+.tag-text {
+    font-family: var(--primary-font);
+    font-size: 15px;
+    margin: 5px;
+    color: var(--primary-color);
+    pointer-events: none;
+    font-weight: bold;
+}

@@ -18,6 +18,7 @@ export { default as ImagesViewer } from '../Components/ImagesViewer/ImagesViewer
 export { default as ColorDisplay } from '../Components/ColorDisplay/ColorDisplay';
 export { default as CategoryDisplay } from '../Components/CategoryDisplay/CategoryDisplay';
 export { default as TagsDisplay } from '../Components/TagsDisplay/TagsDisplay';
+export { default as CommentsDisplay } from '../Components/CommentsDisplay/CommentsDisplay';
 
 //export components directly from this index file, and then we can import
 //components directly from the folder with one line

@@ -22,6 +22,22 @@
     animation-delay: 0.1s;
     justify-content: center;
 }
+.viewListing-delete {
+    border-block-style: none;
+    background-color: var(--highlight-color);
+    border-radius: 25px;
+    color: var(--background-color);
+    font-family: var(--primary-font);
+    font-weight: bold;
+    font-size: 25px;
+    transition:all 0.1s;
+    align-self: center;
+    padding:10px;
+    border-style:none;
+}
+.viewListing-delete:hover{
+    transform:scale(1.1);
+}
 .viewlisting-icon {
     width: 25px;
     height: 25px;

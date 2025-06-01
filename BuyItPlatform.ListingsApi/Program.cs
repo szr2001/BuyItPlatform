@@ -24,7 +24,9 @@ namespace BuyItPlatform.ListingsApi
 
             IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();
             builder.Services.AddSingleton(mapper);
-            
+
+            builder.Services.AddScoped<ITokenCookiesProvider, TokensProvider>();
+            builder.Services.AddScoped<IJwtTokenHandler, JwtTokenHandler>();
             builder.Services.AddScoped<IImageUploader, ImageUploaderMockService>();
             builder.Services.AddScoped<IListingsService, ListingsService>();
             builder.Services.AddControllers();

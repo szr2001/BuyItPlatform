@@ -1,0 +1,47 @@
+.addlisting-images-holder{
+
+}
+
+.addlisting-text {
+    color: var(--text-color);
+    font-family: var(--primary-font);
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 25px;
+    align-self: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 160px;
+}
+
+.addlisting-icon {
+    width: 30px;
+    margin: 5px;
+}
+
+.addlisting-name-input {
+    background-color: transparent;
+    padding: 5px;
+    outline: none;
+    border-style: none;
+    border-bottom-style: solid;
+    margin: 5px;
+    max-width: 150px;
+    outline-width: 2px;
+}
+
+.addlisting-desc-input {
+    background-color: transparent;
+    padding: 5px;
+    outline: none;
+    display: flex;
+    flex: 1;
+    resize: none;
+    margin: 10px;
+    min-height: 130px;
+    overflow: hidden;
+    border-style: none;
+    border-bottom-style: solid;
+    outline-width: 2px;
+}

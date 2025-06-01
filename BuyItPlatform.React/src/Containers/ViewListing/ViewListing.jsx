@@ -2,12 +2,37 @@ import './ViewListing.css'
 import { useParams } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import { ImagesViewer, UserOverview, UserPhone, CategoryDisplay, ColorDisplay, TagsDisplay } from '../../Components';
+import { toast } from 'react-toastify';
+import { useNavigate } from "react-router-dom";
+import Api from '../../Api/Api';
 
 function ViewListing() {
     const {userId, listingId } = useParams();
     const location = useLocation();
     const listing = location.state?.listing;
     const user = location.state?.user;
+    const navigate = useNavigate();
+
+    const deleteListing = async () =>
+    {
+        try {
+            const response = await Api.get(`listingsApi/deleteListing/${listingId}`);
+
+            if (!response.data.success) {
+                toast.error(response.data.message, {
+                    autoClose: 2000 + response.data.message.length * 50,
+                });
+                console.error(response);
+            }
+            navigate(`/Profile/${userId}`);
+        }
+        catch (error) {
+            toast.error(error.response.data.message, {
+                autoClose: 2000 + error.response.data.message.length * 50,
+            });
+            console.log(error);
+        }
+    }
 
     return (
         <main>
@@ -42,6 +67,7 @@ function ViewListing() {
                             <label className="viewlisting-title" >{listing.price}</label>
                             <label className="viewlisting-title" > {listing.currency}</label>
                         </div>
+                        <button onClick={deleteListing} className="viewListing-delete">Delete</button>
                     </div>
                     <div className="viewlisting-details">
                         <CategoryDisplay category={listing.category}/>

@@ -49,10 +49,10 @@ namespace BuyItPlatform.GatewayApi.Controllers
         }
 
         [HttpGet]
-        [Route("deleteUserListings/{userid:int}")]
-        public async Task<IActionResult> DeleteUserListings(int userid)
+        [Route("deleteUserListings")]
+        public async Task<IActionResult> DeleteUserListings()
         {
-            var apiResult = await listingsService.DeleteUserListingsAsync(userid);
+            var apiResult = await listingsService.DeleteUserListingsAsync();
             return StatusCode(apiResult.StatusCode, apiResult);
         }
     }

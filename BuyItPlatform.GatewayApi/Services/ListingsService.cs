@@ -23,11 +23,11 @@ namespace BuyItPlatform.GatewayApi.Services
             });
         }
 
-        public async Task<MicroserviceResponseDto<object>> DeleteUserListingsAsync(int userId)
+        public async Task<MicroserviceResponseDto<object>> DeleteUserListingsAsync()
         {
             return await apiCallsService.SendAsync<object>(new RequestDto()
             {
-                Url = $"{microservicesUrl.ListingsApiUrl}/deleteUserListings/{userId}"
+                Url = $"{microservicesUrl.ListingsApiUrl}/deleteUserListings"
             });
         }
 

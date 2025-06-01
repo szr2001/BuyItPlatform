@@ -1,5 +1,5 @@
 ﻿using BuyItPlatform.UserRatingApi.Models.Dto;
-using BuyItPlatform.UserRatingApi.Service.IService;
+using BuyItPlatform.UserRatingApi.Services.IServices;
 using BuyItPlatform.UserRatingApi.Services.IServices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

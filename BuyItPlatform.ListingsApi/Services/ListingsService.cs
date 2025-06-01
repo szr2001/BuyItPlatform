@@ -104,12 +104,19 @@ namespace BuyItPlatform.ListingsApi.Services
             }
         }
 
-        public async Task DeleteListingAsync(int listingId)
+        public async Task DeleteListingAsync(string userId,int listingId)
         {
-            await imageUploader.DeleteImagesAsync(listingId.ToString());
-            Listing listing = await dbContext.Listings.Where(i => i.Id == listingId).FirstAsync();
-            dbContext.Listings.Remove(listing);
-            await dbContext.SaveChangesAsync();
+            Listing listing = await dbContext.Listings.Where(i => i.Id == listingId && i.UserId == userId).FirstAsync();
+            if(listing != null)
+            {
+                await imageUploader.DeleteImagesAsync(listingId.ToString());
+                dbContext.Listings.Remove(listing);
+                await dbContext.SaveChangesAsync();
+            }
+            else
+            {
+                throw new ArgumentException("listing doesn't exist or you don't own that listing");
+            }
         }
 
         public async Task DeleteUserListingsAsync(string userId)

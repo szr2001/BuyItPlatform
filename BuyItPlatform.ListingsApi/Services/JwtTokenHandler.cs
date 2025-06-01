@@ -1,8 +1,8 @@
-﻿using BuyItPlatform.UserRatingApi.Services.IServices;
+﻿using BuyItPlatform.ListingsApi.Services.IServices;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
-namespace BuyItPlatform.UserRatingApi.Services
+namespace BuyItPlatform.ListingsApi.Services
 {
     public class JwtTokenHandler : IJwtTokenHandler
     {

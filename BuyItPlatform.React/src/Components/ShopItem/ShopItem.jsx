@@ -1,16 +1,17 @@
 import './ShopItem.css'
 import { useNavigate } from "react-router-dom";
 
-function ShopItem({ overrideClass, listing, user, editable }) {
+function ShopItem({ overrideClass, listings, user, slotIndex, editable }) {
     const navigate = useNavigate();
-
+    const listing = listings[slotIndex];
+    
     const viewItem = () =>
     {
         if (listing) {
             navigate(`/ViewListing/${listing.userId}/${listing.id}`, { state: { listing, user } });
         }
         else if (editable) {
-            navigate(`/AddListing/`);
+            navigate(`/AddListing/${slotIndex}`);
         }
 
     }
