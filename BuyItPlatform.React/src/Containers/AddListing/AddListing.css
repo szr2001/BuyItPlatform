@@ -1,7 +1,28 @@
-.addlisting-images-holder{
-
+.addlisting-img-holder {
+    padding: 10px;
+    width: 20%;
+    display: flex;
+    flex-wrap: wrap;
+    transition: all 0.1s;
+    margin: 25px;
+    background-color: var(--primary-color);
+    border-radius: 25px;
+    aspect-ratio: 1;
 }
-
+.addlisting-img-holder:hover{
+    transform:scale(1.05);
+}
+.addlisting-img {
+    width: 100%;
+    height: 100%;
+    border-radius:25px;
+    object-fit: fill;
+}
+.addlisting-img-icon {
+    color: var(--secondary-color);
+    width: 100%;
+    height: 100%;
+}
 .addlisting-text {
     color: var(--text-color);
     font-family: var(--primary-font);
@@ -12,14 +33,24 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
-    max-width: 160px;
 }
 
 .addlisting-icon {
     width: 30px;
     margin: 5px;
 }
-
+.addlisting-title {
+    color: var(--text-color);
+    font-family: var(--primary-font);
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 25px;
+    align-self: center;
+    margin:20px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
 .addlisting-name-input {
     background-color: transparent;
     padding: 5px;
@@ -27,21 +58,51 @@
     border-style: none;
     border-bottom-style: solid;
     margin: 5px;
-    max-width: 150px;
     outline-width: 2px;
 }
-
+.addlisting-holder {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    margin: 8px;
+    padding: 10px;
+    border: none;
+    background-color: var(--secondary-color);
+    border-radius: 15px;
+    flex-direction: row;
+}
+.addlisting-desc-holder {
+    border-style: solid;
+    margin: 10px;
+    padding: 10px;
+    display:flex;
+    justify-content:center;
+    width:87%;
+    border-color: var(--primary-color);
+    border-width: 2px;
+    border-radius: 15px;
+    color: var(--text-color);
+    font-family: var(--primary-font);
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 20px;
+}
 .addlisting-desc-input {
     background-color: transparent;
     padding: 5px;
     outline: none;
-    display: flex;
-    flex: 1;
     resize: none;
+    width: 100%;
+    max-width: 100%;
+    min-height: 150px;
+    word-wrap: break-word;
     margin: 10px;
-    min-height: 130px;
-    overflow: hidden;
     border-style: none;
     border-bottom-style: solid;
+    white-space: pre-wrap;
     outline-width: 2px;
+    box-sizing: border-box;
+    overflow-wrap: break-word;
 }

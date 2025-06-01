@@ -5,13 +5,15 @@ import { ImagesViewer, UserOverview, UserPhone, CategoryDisplay, ColorDisplay, T
 import { toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
 import Api from '../../Api/Api';
-
+import { useContext } from 'react';
+import { AuthContext } from '../../Components/Auth/Auth'
 function ViewListing() {
     const {userId, listingId } = useParams();
     const location = useLocation();
     const listing = location.state?.listing;
     const user = location.state?.user;
     const navigate = useNavigate();
+    const [authState, dispatch] = useContext(AuthContext);
 
     const deleteListing = async () =>
     {
@@ -30,6 +32,12 @@ function ViewListing() {
             toast.error(error.response.data.message, {
                 autoClose: 2000 + error.response.data.message.length * 50,
             });
+            if (error.status === 401) {
+                window.localStorage.setItem('user', null);
+                dispatch({ type: "SET_AUTH", payload: { isAuthenticated: false } });
+                dispatch({ type: "SET_USER", payload: { user: null } });
+                navigate('/Login/');
+            }
             console.log(error);
         }
     }
