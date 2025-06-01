@@ -85,6 +85,10 @@ namespace BuyItPlatform.ListingsApi.Services
             {
                 throw new ArgumentOutOfRangeException("Each listing can have a maximum of 3 images.");
             }
+            if(listingDto.Tags.Count > 5)
+            {
+                throw new ArgumentOutOfRangeException("You can only have a maximum of 5 tags.");
+            }
 
             var existingListing = await dbContext.Listings.Where((u) => u.UserId == listingDto.UserId && u.SlotId == listingDto.SlotId).SingleOrDefaultAsync();
             if(existingListing != null)

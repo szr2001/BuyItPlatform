@@ -1,7 +1,7 @@
-import './AddListing.css'
+﻿import './AddListing.css'
 import { toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
-import { Loading, Categories, Tags } from '../../Components';
+import { Loading, Categories, Tags, Colors } from '../../Components';
 import Api from '../../Api/Api';
 import { useParams } from 'react-router-dom';
 import { useContext, useState, useEffect } from 'react';
@@ -24,7 +24,7 @@ function AddListing() {
     const [activeCurrency, setCurrency] = useState("Eur");
     const [activeCategory, setCategory] = useState("");
     const [activeTags, setTags] = useState([]);
-    const [activeColors, setColors] = useState([]);
+    const [activeColor, setColor] = useState([]);
     const [activeSubCategory, setSubCategory] = useState("");
 
     useEffect(() => {
@@ -44,7 +44,37 @@ function AddListing() {
 
     const uploadListing = async () => {
         try {
-            const response = await Api.get(`listingsApi/deleteListing/${listingId}`);
+
+            const formData = new FormData();
+
+            formData.append("SlotId", String(slotIndex));
+            formData.append("Name", newName);
+            formData.append("Description", newDesc);
+            formData.append("Price", String(1500));
+            formData.append("Currency", "Eur");
+            formData.append("ListingType", "Sell");
+            formData.append("Category", activeCategory);
+            formData.append("SubCategory", "");
+            formData.append("Color", activeColor);
+
+            // Append multiple tags
+            activeTags.forEach(tag => {
+                formData.append("Tags", tag);
+            });
+
+            // Append multiple files
+            [file1, file2, file3].forEach(file => {
+                formData.append("ImageFiles", file);
+            });
+
+            const response = await Api.post(
+                'listingsApi/uploadListing',
+                formData, // <-- Make sure this is NOT being replaced accidentally!
+                {
+                    // ⛔ DO NOT set 'Content-Type' manually!
+                }
+            );
+
 
             if (!response.data.success) {
                 toast.error(response.data.message, {
@@ -55,8 +85,8 @@ function AddListing() {
             navigate(`/Profile/${userId}`);
         }
         catch (error) {
-            toast.error(error.response.data.message, {
-                autoClose: 2000 + error.response.data.message.length * 50,
+            toast.error("error.response.data.message", {
+                autoClose: 2000,
             });
             if (error.status === 401) {
                 window.localStorage.setItem('user', null);
@@ -242,7 +272,7 @@ function AddListing() {
     return (
         <main>
             <div className="holder">
-                <label className="addlisting-title"> What are you selling M'lord? </label>
+                <label className="addlisting-title"> Some Details M'lord? </label>
                 <input className="addlisting-name-input addlisting-text" autoComplete="off"
                     maxLength={15} type="text" value={newName}
                     onChange={(e) => { setNewName(e.target.value); }}
@@ -310,8 +340,12 @@ function AddListing() {
                         />
                     </label>
                 </div>
-                <Categories onCategorySelected={(e) => { setCategory(e); } } />
-                <Tags onTagsSelected={(e) => { setTags(e); } } />
+                <label className="addlisting-title"> A Category Perhaps? </label>
+                <Categories onCategorySelected={(e) => { setCategory(e); }} />
+                <Tags maxTags={5} onTagsChanged={(e) => { setTags(e); } } />
+                <label className="addlisting-title"> What Color Is It My King? </label>
+                <Colors onColorsChanged={(e) => { setColor(e); }} />
+                <button className="addlisting-button" onClick={uploadListing}>Publish</button>
             </div>
         </main>
   );

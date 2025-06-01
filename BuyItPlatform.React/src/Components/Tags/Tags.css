@@ -31,32 +31,26 @@
     pointer-events:none;
     font-weight:bold;
 }
-.almost-fade {
-    opacity: 1;
-    animation: almostFade 0.2s ease-in forwards;
+.tags-title {
+    color: var(--text-color);
+    font-family: var(--primary-font);
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 25px;
+    align-self: center;
+    margin: 20px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
-.fade-back {
-    opacity: 0.3;
-    animation: fadeBack 0.2s ease-in forwards;
-}
-.selected-tag{
-    background-color:var(--highlight-color);
-    transform:scale(0.85) !important;
+.selected-tag {
+    background-color: var(--highlight-color);
+    transform: scale(0.85) !important;
 }
 .selected-tag .tags-img {
     transform: rotate(-45deg) !important;
 }
 
-@keyframes almostFade {
-    to {
-        opacity: 0.3;
-    }
-}
-@keyframes fadeBack {
-    to {
-        opacity: 1;
-    }
-}
 .tags-img {
     transition: all 0.1s;
     width: 25px;

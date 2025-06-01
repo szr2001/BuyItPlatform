@@ -22,7 +22,7 @@ namespace BuyItPlatform.ListingsApi.Services
             //in production we replace this implementation
             //to something like AWS blob storage
             testPath = $@"{environment.ContentRootPath}\ListingPicsMock\";
-            testAdress = @"https://localhost:7002/ListingPicsMock/";
+            testAdress = @"https://localhost:7004/ListingPicsMock/";
         }
 
         public async Task DeleteImagesAsync(string id)

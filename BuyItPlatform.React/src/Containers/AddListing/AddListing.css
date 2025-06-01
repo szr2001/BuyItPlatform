@@ -39,6 +39,22 @@
     width: 30px;
     margin: 5px;
 }
+.addlisting-button {
+    border-block-style: none;
+    background-color: var(--highlight-color);
+    border-radius: 25px;
+    color: var(--background-color);
+    font-family: var(--primary-font);
+    font-weight: bold;
+    font-size: 25px;
+    transition: all 0.1s;
+    align-self: center;
+    padding: 10px;
+    border-style: none;
+}
+.addlisting-button:hover {
+    transform: scale(1.1);
+}
 .addlisting-title {
     color: var(--text-color);
     font-family: var(--primary-font);
@@ -46,7 +62,7 @@
     font-weight: bold;
     font-size: 25px;
     align-self: center;
-    margin:20px;
+    margin: 20px;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
