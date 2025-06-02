@@ -75,7 +75,13 @@ function ViewListing() {
                             <label className="viewlisting-title" >{listing.price}</label>
                             <label className="viewlisting-title" > {listing.currency}</label>
                         </div>
-                        <button onClick={deleteListing} className="viewListing-delete">Delete</button>
+                        {
+                            authState.user.id === userId
+                                ?
+                            <button onClick={deleteListing} className="viewListing-delete">Delete</button>
+                                :
+                            null
+                        }
                     </div>
                     <div className="viewlisting-details">
                         <CategoryDisplay category={listing.category}/>
