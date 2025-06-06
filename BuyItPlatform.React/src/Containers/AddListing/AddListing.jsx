@@ -67,13 +67,9 @@ function AddListing() {
                 formData.append("ImageFiles", file);
             });
 
-            const response = await Api.post(
-                'listingsApi/uploadListing',
-                formData, // <-- Make sure this is NOT being replaced accidentally!
-                {
-                    // ⛔ DO NOT set 'Content-Type' manually!
-                }
-            );
+            const response = await Api.post('listingsApi/uploadListing', formData);
+            //I'm losing my mind with this formData... the gateway doesn't forrward it correctly or some shit
+            //may god or even allah at this point I can't be picky, any god, please, save me
 
 
             if (!response.data.success) {
@@ -140,134 +136,6 @@ function AddListing() {
         }
     };
 
-    const categories = [
-        "Furniture",
-        "Animals",
-        "Electronics",
-        "Fashion",
-        "HomeGarden",
-        "Motors",
-        "Sports",
-        "CollectiblesArt",
-        "HealthBeauty",
-        "ToysHobbies",
-        "BusinessIndustrial",
-        "MusicMoviesGames"
-    ];
-    const tags = [
-        "New",
-        "Used",
-        "SlightlyUsed",
-        "Refurbished",
-        "EcoFriendly",
-        "Handmade",
-        "Vintage",
-        "Wood",
-        "Plastic",
-        "Ceramic",
-        "Metal",
-        "Glass",
-        "Leather",
-        "Cotton",
-        "Organic",
-        "Recycled",
-        "LimitedEdition",
-        "CustomMade",
-        "Rare",
-        "Collectible",
-        "Imported",
-        "LocallyMade",
-        "Artisanal",
-        "Waterproof",
-        "Shockproof",
-        "Wireless",
-        "SmartTechnology",
-        "Lightweight",
-        "HeavyDuty",
-        "Foldable",
-        "Compact",
-        "Expandable",
-        "MultiFunctional",
-        "ChildSafe",
-        "PetFriendly",
-        "EnergyEfficient",
-        "SolarPowered",
-        "Biodegradable",
-        "Hypoallergenic",
-        "FastCharging",
-        "HighPerformance",
-        "NoiseCancelling",
-        "VintageInspired",
-        "HandmadeCrafted",
-        "DIYKit",
-        "Electronic",
-        "Digital",
-        "Analog",
-        "BatteryOperated",
-        "Rechargeable",
-        "SmartHomeCompatible"
-    ];
-    const subCategories = [
-        "Smartphones",
-        "Laptops",
-        "Cameras",
-        "Audio",
-        "GamingConsoles",
-        "Accessories",
-        "Clothing",
-        "Shoes",
-        "Watches",
-        "Jewelry",
-        "BagsAccessories",
-        "Furniture",
-        "HomeDecor",
-        "Appliances",
-        "Tools",
-        "OutdoorGarden",
-        "Cars",
-        "Motorcycles",
-        "AutoParts",
-        "Boats",
-        "Fitness",
-        "Cycling",
-        "CampingHiking",
-        "TeamSports",
-        "Fishing",
-        "Antiques",
-        "Coins",
-        "Memorabilia",
-        "ArtPaintings",
-        "Makeup",
-        "Skincare",
-        "Haircare",
-        "Fragrances",
-        "ActionFigures",
-        "BoardGames",
-        "Dolls",
-        "ModelKits",
-        "OfficeEquipment",
-        "HeavyMachinery",
-        "LabEquipment",
-        "VinylRecords",
-        "VideoGames",
-        "DVDs",
-        "MusicalInstruments"
-    ];
-    const colors = [
-        "Red",
-        "Blue",
-        "Green",
-        "Yellow",
-        "Black",
-        "White",
-        "Gray",
-        "Orange",
-        "Purple",
-        "Brown",
-        "Pink",
-        "Gold",
-        "Silver"
-    ];
 
     return (
         <main>
@@ -344,7 +212,7 @@ function AddListing() {
                 <Categories onCategorySelected={(e) => { setCategory(e); }} />
                 <Tags maxTags={5} onTagsChanged={(e) => { setTags(e); } } />
                 <label className="addlisting-title"> What Color Is It My King? </label>
-                <Colors onColorsChanged={(e) => { setColor(e); }} />
+                <Colors onColorChanged={(e) => { setColor(e); }} />
                 <button className="addlisting-button" onClick={uploadListing}>Publish</button>
             </div>
         </main>
