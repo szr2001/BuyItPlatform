@@ -44,7 +44,6 @@ function AddListing() {
 
     const uploadListing = async () => {
         try {
-
             const formData = new FormData();
 
             formData.append("SlotId", String(slotIndex));
@@ -54,7 +53,6 @@ function AddListing() {
             formData.append("Currency", "Eur");
             formData.append("ListingType", "Sell");
             formData.append("Category", activeCategory);
-            formData.append("SubCategory", "");
             formData.append("Color", activeColor);
 
             // Append multiple tags
@@ -78,11 +76,11 @@ function AddListing() {
                 });
                 console.error(response);
             }
-            navigate(`/Profile/${userId}`);
+            navigate(`/Profile/${authState.user.id}`);
         }
         catch (error) {
-            toast.error("error.response.data.message", {
-                autoClose: 2000,
+            toast.error(error.response.data.message, {
+                autoClose: 2000 + error.response.data.message.length * 50,
             });
             if (error.status === 401) {
                 window.localStorage.setItem('user', null);
