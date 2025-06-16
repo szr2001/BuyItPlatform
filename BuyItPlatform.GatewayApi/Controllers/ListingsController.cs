@@ -1,4 +1,4 @@
-﻿using BuyItPlatform.GatewayApi.Models;
+﻿using BuyItPlatform.GatewayApi.Models.ListingApiDto;
 using BuyItPlatform.GatewayApi.Services.IServices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -18,7 +18,7 @@ namespace BuyItPlatform.GatewayApi.Controllers
 
         [HttpPost]
         [Route("uploadListing")]
-        public async Task<IActionResult> UploadListing([FromForm] ListingDto listingDto)
+        public async Task<IActionResult> UploadListing([FromForm] ListingUploadDto listingDto)
         {
             var apiResult = await listingsService.UploadListingAsync(listingDto);
             return StatusCode(apiResult.StatusCode, apiResult);

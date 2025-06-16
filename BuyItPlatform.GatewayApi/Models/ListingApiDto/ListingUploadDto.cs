@@ -1,16 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-
-namespace BuyItPlatform.GatewayApi.Models
+﻿namespace BuyItPlatform.GatewayApi.Models.ListingApiDto
 {
-    public class ListingDto
+    public class ListingUploadDto
     {
-        public int Id { get; set; }
         public int SlotId { get; set; }
-        public string UserId { get; set; } = "";
         public string Name { get; set; } = "";
         public string Description { get; set; } = "";
-        public ICollection<string> ImagePaths { get; set; } = new List<string>();
         public ICollection<IFormFile> ImageFiles { get; set; } = new List<IFormFile>();
         public float Price { get; set; }
         public string Currency { get; set; } = "";

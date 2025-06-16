@@ -9,7 +9,7 @@ namespace BuyItPlatform.ListingsApi.Services.IServices
         Task DeleteUserListingsAsync(string userId);
         Task<ICollection<Listing>> GetListingsAsync(ListingFIlterDto listFilter, int count, int offset);
         Task<Listing> GetListingWithIdAsync(int id);
-        Task UploadListingAsync(ListingDto listingDto);
+        Task UploadListingAsync(ListingUploadDto listingDto);
         Task<ICollection<Listing>> GetUserListings(string userId);
     }
 }

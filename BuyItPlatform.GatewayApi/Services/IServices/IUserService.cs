@@ -1,5 +1,5 @@
 ﻿using BuyItPlatform.GatewayApi.Models;
-using BuyItPlatform.GatewayApi.Models.Dto;
+using BuyItPlatform.GatewayApi.Models.AuthApiDto;
 
 namespace BuyItPlatform.GatewayApi.Service.IService
 {

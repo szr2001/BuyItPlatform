@@ -1,4 +1,5 @@
 ﻿using BuyItPlatform.GatewayApi.Models;
+using BuyItPlatform.GatewayApi.Models.AuthApiDto;
 using BuyItPlatform.GatewayApi.Services.IServices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

@@ -1,4 +1,4 @@
-﻿namespace BuyItPlatform.GatewayApi.Models.Dto
+﻿namespace BuyItPlatform.GatewayApi.Models.AuthApiDto
 {
     public class ImageDto
     {

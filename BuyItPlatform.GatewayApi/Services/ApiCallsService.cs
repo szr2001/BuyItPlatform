@@ -113,8 +113,9 @@ namespace BuyItPlatform.GatewayApi.Services
                 apiResponse = await client.SendAsync(message);
 
                 var apiContent = await apiResponse.Content.ReadAsStringAsync();
-                var apiResponseDto = JsonConvert.DeserializeObject<MicroserviceResponseDto<T>>(apiContent);
 
+
+                var apiResponseDto = JsonConvert.DeserializeObject<MicroserviceResponseDto<T>>(apiContent);
                 if (apiResponseDto == null)
                 {
                     return new()
@@ -125,6 +126,10 @@ namespace BuyItPlatform.GatewayApi.Services
                     };
                 }
                 apiResponseDto.StatusCode = (int)apiResponse.StatusCode;
+                if (!apiResponse.IsSuccessStatusCode && string.IsNullOrEmpty(apiResponseDto.Message))
+                {
+                    apiResponseDto.Message = apiContent;
+                }
 
                 return apiResponseDto;
             }

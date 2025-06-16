@@ -1,4 +1,6 @@
-﻿namespace BuyItPlatform.GatewayApi.Models.Dto
+﻿using BuyItPlatform.GatewayApi.Models.ListingApiDto;
+
+namespace BuyItPlatform.GatewayApi.Models.AuthApiDto
 {
     public class UserProfileDto
     {
@@ -9,6 +11,6 @@
         public int NumberOfRatings { get; set; }
         public string ProfileImgLink { get; set; }
         public string PhoneNumber { get; set; }
-        public ICollection<ListingDto> Listings { get; set; }
+        public ICollection<ListingViewDto> Listings { get; set; }
     }
 }

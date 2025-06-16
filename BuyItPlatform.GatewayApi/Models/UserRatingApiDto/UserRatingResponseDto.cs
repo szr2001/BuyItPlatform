@@ -1,4 +1,4 @@
-﻿namespace BuyItPlatform.GatewayApi.Models.Dto
+﻿namespace BuyItPlatform.GatewayApi.Models.UserRatingApiDto
 {
     public class UserRatingResponseDto
     {

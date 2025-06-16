@@ -1,4 +1,4 @@
-﻿namespace BuyItPlatform.GatewayApi.Models
+﻿namespace BuyItPlatform.GatewayApi.Models.ListingApiDto
 {
     public class ListingFIlterDto
     {

@@ -10,8 +10,8 @@ namespace BuyItPlatform.ListingsApi
         {
             MapperConfiguration mappingConfig = new(config => 
             {
-                config.CreateMap<ListingDto, Listing>();
-                config.CreateMap<Listing, ListingDto>();
+                config.CreateMap<ListingUploadDto, Listing>();
+                config.CreateMap<Listing, ListingViewDto>();
             });
 
             return mappingConfig;

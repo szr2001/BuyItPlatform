@@ -1,5 +1,5 @@
 ﻿using BuyItPlatform.GatewayApi.Models;
-using BuyItPlatform.GatewayApi.Models.Dto;
+using BuyItPlatform.GatewayApi.Models.UserRatingApiDto;
 using BuyItPlatform.GatewayApi.Service.IService;
 using BuyItPlatform.GatewayApi.Services;
 using BuyItPlatform.GatewayApi.Services.IServices;

@@ -28,10 +28,15 @@ namespace BuyItPlatform.ListingsApi.Controllers
 
         [HttpPost]
         [Route("uploadListing")]    
-        public async Task<IActionResult> UploadListing([FromForm] ListingDto listingDto)
+        public async Task<IActionResult> UploadListing([FromForm] ListingUploadDto listingDto)
         {
             try
             {
+                var Token = tokenCookiesProvider.GetToken();
+                var tokenData = jwtTokenHandler.ExtractTokenData(Token);
+                var userId = tokenData.Where(i => i.Type == "nameid").First().Value;
+                listingDto.UserId = userId;
+
                 await listingService.UploadListingAsync(listingDto);
                 response.Result = null;
                 response.Success = true;
@@ -53,7 +58,7 @@ namespace BuyItPlatform.ListingsApi.Controllers
             try
             {
                 ICollection<Listing> listing = await listingService.GetUserListings(userId);
-                List<ListingDto> responseDto = mapper.Map<List<ListingDto>>(listing);
+                List<ListingViewDto> responseDto = mapper.Map<List<ListingViewDto>>(listing);
                 response.Result = responseDto;
                 response.Success = true;
             }
@@ -74,7 +79,7 @@ namespace BuyItPlatform.ListingsApi.Controllers
             try
             {
                 Listing listing = await listingService.GetListingWithIdAsync(listingId);
-                ListingDto responseDto = mapper.Map<ListingDto>(listing);
+                ListingViewDto responseDto = mapper.Map<ListingViewDto>(listing);
                 response.Result = responseDto;
                 response.Success = true;
             }
@@ -95,7 +100,7 @@ namespace BuyItPlatform.ListingsApi.Controllers
             try
             {
                 ICollection<Listing> listings = await listingService.GetListingsAsync(listFilter, count, offset);
-                List<ListingDto> listingDtos = mapper.Map<List<ListingDto>>(listings);
+                List<ListingViewDto> listingDtos = mapper.Map<List<ListingViewDto>>(listings);
                 response.Result = listingDtos;
                 response.Success = true;
             }

@@ -79,7 +79,7 @@ namespace BuyItPlatform.ListingsApi.Services
             return listings;
         }
 
-        public async Task UploadListingAsync(ListingDto listingDto)
+        public async Task UploadListingAsync(ListingUploadDto listingDto)
         {
             if (listingDto.ImageFiles.Count > 3)
             {
