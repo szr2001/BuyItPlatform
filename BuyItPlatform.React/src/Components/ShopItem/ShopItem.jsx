@@ -1,10 +1,28 @@
 import './ShopItem.css'
-import { useNavigate } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
+import { useEffect, useState, useRef } from "react";
 
 function ShopItem({ overrideClass, listings, user, slotIndex, editable }) {
     const navigate = useNavigate();
-    const listing = listings[slotIndex];
-    
+    const [listing, setListing] = useState(null);
+    const isFirstRender = useRef(true); // because useEffect runs twitce due to StrictMode component
+
+    useEffect(() => {
+
+        const initListing = () => {
+            const foundListing = listings.find(item => item.slotId === slotIndex);
+            if (foundListing) {
+                setListing(foundListing);
+            }
+        };
+
+        if (isFirstRender.current) {
+            isFirstRender.current = false;
+            initListing();
+        }
+
+    }, []);
+
     const viewItem = () =>
     {
         if (listing) {
@@ -17,6 +35,7 @@ function ShopItem({ overrideClass, listings, user, slotIndex, editable }) {
     }
 
     return (
+        
         <div className={`${overrideClass} shop-item`} onClick={viewItem}>
             {
                 listing ?
