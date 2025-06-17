@@ -18,8 +18,7 @@ namespace BuyItPlatform.ListingsApi.Models
         //use AWS blob storage for storing Images and save the path in the db
         public ICollection<string> ImagePaths { get;set; } = new List<string>();
         public float Price { get; set; }
-        [MaxLength(10)]
-        public string Currency { get; set; } = "";
+        public Currency Currency { get; set; }
         public string UserId { get; set; } = "";
         public TransactionType ListingType { get; set; }
         public Category Category { get; set; }

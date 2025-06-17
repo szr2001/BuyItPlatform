@@ -31,7 +31,7 @@ namespace BuyItPlatform.ListingsApi.Services
 
             if (!string.IsNullOrEmpty(listFilter.Currency))
             {
-                query = query.Where(l => l.Currency == listFilter.Currency);
+                query = query.Where(l => l.Currency == Enum.Parse<Currency>(listFilter.Currency));
             }
 
             if (!string.IsNullOrEmpty(listFilter.Category))
@@ -81,13 +81,50 @@ namespace BuyItPlatform.ListingsApi.Services
 
         public async Task UploadListingAsync(ListingUploadDto listingDto)
         {
+            if (string.IsNullOrEmpty(listingDto.Name))
+            {
+                throw new ArgumentException("A name is required M'lord!");
+            }
+            if (string.IsNullOrEmpty(listingDto.Description))
+            {
+                throw new ArgumentException("A description is required M'lord!");
+            }
             if (listingDto.ImageFiles.Count > 3)
             {
-                throw new ArgumentOutOfRangeException("Each listing can have a maximum of 3 images.");
+                throw new ArgumentOutOfRangeException("You can only have a maximum of 3 images.");
             }
             if(listingDto.Tags.Count > 5)
             {
                 throw new ArgumentOutOfRangeException("You can only have a maximum of 5 tags.");
+            }
+            if (!Enum.TryParse<Category>(listingDto.Category,out _))
+            {
+                throw new ArgumentException("Category doesn't exist or is empty.");
+            }
+            if(listingDto.Color != null)
+            {
+                if (!Enum.TryParse<Color>(listingDto.Color, out _))
+                {
+                    throw new ArgumentException("Color doesn't exist.");
+                }
+            }
+            if (listingDto.SubCategory != null)
+            {
+                if (!Enum.TryParse<SubCategory>(listingDto.SubCategory, out _))
+                {
+                    throw new ArgumentException("SubCategory doesn't exist.");
+                }
+            }
+            if (!Enum.TryParse<Currency>(listingDto.Currency, out _))
+            {
+                throw new ArgumentException("Currency doesn't exist or is empty.");
+            }
+            foreach(var tag in listingDto.Tags)
+            {
+                if (!Enum.TryParse<Tag>(tag, out _))
+                {
+                    throw new ArgumentException($"Tag: '{tag}' doesn't exist.");
+                }
             }
 
             var existingListing = await dbContext.Listings.Where((u) => u.UserId == listingDto.UserId && u.SlotId == listingDto.SlotId).SingleOrDefaultAsync();

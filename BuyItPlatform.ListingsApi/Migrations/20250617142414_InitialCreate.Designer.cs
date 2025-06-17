@@ -11,8 +11,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BuyItPlatform.ListingsApi.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250214171159_SavingImagesInAwsBloblAndPathInDb")]
-    partial class SavingImagesInAwsBloblAndPathInDb
+    [Migration("20250617142414_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -35,13 +35,11 @@ namespace BuyItPlatform.ListingsApi.Migrations
                     b.Property<int>("Category")
                         .HasColumnType("integer");
 
-                    b.Property<int>("Color")
+                    b.Property<int?>("Color")
                         .HasColumnType("integer");
 
-                    b.Property<string>("Currency")
-                        .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("character varying(10)");
+                    b.Property<int>("Currency")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -64,7 +62,10 @@ namespace BuyItPlatform.ListingsApi.Migrations
                     b.Property<float>("Price")
                         .HasColumnType("real");
 
-                    b.Property<int>("SubCategory")
+                    b.Property<int>("SlotId")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("SubCategory")
                         .HasColumnType("integer");
 
                     b.PrimitiveCollection<int[]>("Tags")
@@ -72,8 +73,9 @@ namespace BuyItPlatform.ListingsApi.Migrations
                         .HasMaxLength(5)
                         .HasColumnType("integer[]");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("integer");
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 

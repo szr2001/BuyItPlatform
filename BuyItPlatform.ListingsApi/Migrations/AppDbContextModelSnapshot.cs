@@ -35,10 +35,8 @@ namespace BuyItPlatform.ListingsApi.Migrations
                     b.Property<int?>("Color")
                         .HasColumnType("integer");
 
-                    b.Property<string>("Currency")
-                        .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("character varying(10)");
+                    b.Property<int>("Currency")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Description")
                         .IsRequired()
