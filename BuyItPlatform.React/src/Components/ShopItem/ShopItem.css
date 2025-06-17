@@ -13,10 +13,81 @@
 .shop-item:hover {
     transform: scale(1.1);
 }
+.shop-item-name {
+    top: -38px;
+    position: absolute;
+    text-shadow: 2px 2px 3px black;
+    transform: scale(0);
+    color: white;
+    font-family: var(--primary-font);
+    font-weight: bold;
+    width:150px;
+    font-size: 25px;
+    align-self: center;
+    transition: all 0.2s;
+}
+.shop-item:hover .shop-item-name {
+    transform: scale(1);
+}
+.shop-item:hover .shop-item-type-Sell {
+    transform: scale(1);
+}
+
+.shop-item:hover .shop-item-type-Buy {
+    transform: scale(1);
+}
+.shop-item:hover .shop-item-price {
+    transform: scale(1);
+}
+.shop-item-type-Buy {
+    bottom: -35px;
+    width: 150px;
+    position: absolute;
+    text-shadow: 2px 2px 3px black;
+    color: skyblue;
+    font-family: var(--primary-font);
+    transform: scale(0);
+    font-weight: bold;
+    font-size: 25px;
+    align-self: center;
+    transition: all 0.2s;
+}
+.shop-item-price {
+    bottom: -55px;
+    width: 150px;
+    text-shadow: 2px 2px 3px black;
+    position: absolute;
+    color: white;
+    font-family: var(--primary-font);
+    font-weight: bold;
+    transform: scale(0);
+    font-size: 18px;
+    align-self: center;
+    transition: all 0.2s;
+}
+.shop-item-type-Sell {
+    bottom: -35px;
+    width: 150px;
+    text-shadow: 2px 2px 3px black;
+    position: absolute;
+    color: lawngreen;
+    font-family: var(--primary-font);
+    font-weight: bold;
+    transform: scale(0);
+    font-size: 25px;
+    align-self: center;
+    transition: all 0.2s;
+}
 .shop-item-icon {
     border-radius: 35%;
     width: 90%;
     height: 90%;
+}
+.shop-item-icon-empty {
+    border-radius: 35%;
+    width: 70%;
+    height: 70%;
+    margin-left:15%;
 }
 .shop-item-add-icon {
     display: flex;
