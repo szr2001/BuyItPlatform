@@ -21,6 +21,9 @@ export { default as TagsDisplay } from '../Components/TagsDisplay/TagsDisplay';
 export { default as CommentsDisplay } from '../Components/CommentsDisplay/CommentsDisplay';
 export { default as Tags } from './Tags/Tags';
 export { default as Colors } from './Colors/Colors';
+export { default as CurrencyType } from './CurrencyType/CurrencyType';
+export { default as ListingType } from './ListingType/ListingType';
+export { default as NumberInput } from './NumberInput/NumberInput';
 //export components directly from this index file, and then we can import
 //components directly from the folder with one line
 //like import { Navbar, Footer } from './Components'; where this index.js resides

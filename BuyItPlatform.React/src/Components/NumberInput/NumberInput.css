@@ -1,0 +1,14 @@
+.numberInput {
+    color: var(--text-color);
+    font-family: var(--primary-font);
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 20px;
+    background-color: transparent;
+    padding: 5px;
+    outline: none;
+    border-style: none;
+    border-bottom-style: solid;
+    max-width: 150px;
+    text-align:center;
+}

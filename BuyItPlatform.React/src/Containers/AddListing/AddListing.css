@@ -23,6 +23,13 @@
     width: 100%;
     height: 100%;
 }
+.addlisting-price-holder{
+    display:flex;
+    flex-direction:row;
+    gap:15px;
+    margin:10px;
+    align-items:center;
+}
 .addlisting-text {
     color: var(--text-color);
     font-family: var(--primary-font);

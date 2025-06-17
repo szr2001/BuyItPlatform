@@ -1,0 +1,23 @@
+.currencyType-input {
+    background-color: var(--secondary-color);
+    border-radius: 15px;
+    outline: none;
+    border: none;
+    padding: 10px;
+}
+
+.currencyType-option {
+    background-color: var(--secondary-color);
+    border-radius: 15px;
+    align-self: center;
+    overflow-wrap: anywhere;
+    overflow: visible;
+    max-width: 560px;
+}
+
+.currencyType-text {
+    color: var(--text-color);
+    font-family: var(--primary-font);
+    font-size: 25px;
+    font-weight: bold;
+}

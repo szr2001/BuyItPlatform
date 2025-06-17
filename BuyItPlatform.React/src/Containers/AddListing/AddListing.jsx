@@ -1,7 +1,7 @@
 ﻿import './AddListing.css'
 import { toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
-import { Loading, Categories, Tags, Colors } from '../../Components';
+import { Loading, Categories, Tags, Colors, CurrencyType, NumberInput, ListingType } from '../../Components';
 import Api from '../../Api/Api';
 import { useParams } from 'react-router-dom';
 import { useContext, useState, useEffect } from 'react';
@@ -20,8 +20,9 @@ function AddListing() {
     const [preview1, setPreview1] = useState(null);
     const [preview2, setPreview2] = useState(null);
     const [preview3, setPreview3] = useState(null);
-    const [activePrice, setPrice] = useState(0);
+    const [activePrice, setPrice] = useState(25);
     const [activeCurrency, setCurrency] = useState("Eur");
+    const [activeListingType, setListingType] = useState("Sell");
     const [activeCategory, setCategory] = useState("");
     const [activeTags, setTags] = useState([]);
     const [activeColor, setColor] = useState([]);
@@ -49,9 +50,9 @@ function AddListing() {
             formData.append("SlotId", String(slotIndex));
             formData.append("Name", newName);
             formData.append("Description", newDesc);
-            formData.append("Price", String(1500));
-            formData.append("Currency", "Eur");
-            formData.append("ListingType", "Sell");
+            formData.append("Price", activePrice);
+            formData.append("Currency", activeCurrency);
+            formData.append("ListingType", activeListingType);
             formData.append("Category", activeCategory);
             formData.append("Color", activeColor);
 
@@ -205,6 +206,12 @@ function AddListing() {
                             onChange={handleFile3Change}
                         />
                     </label>
+                </div>
+                <label className="addlisting-title"> What Price M'lord? </label>
+                <div className="addlisting-price-holder">
+                    <ListingType onTypeChangedCallback={(newType) => { setListingType(newType); }} />
+                    <NumberInput onNumberChangedCallback={(newNr) => { setPrice(newNr); }} />
+                    <CurrencyType onCurrencyChangedCallback={(newCur => { setCurrency(newCur); }) } />
                 </div>
                 <label className="addlisting-title"> A Category Perhaps? </label>
                 <Categories onCategorySelected={(e) => { setCategory(e); }} />
