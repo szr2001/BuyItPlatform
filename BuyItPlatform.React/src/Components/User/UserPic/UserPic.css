@@ -104,3 +104,13 @@
     right: 5px;
     margin: 10px;
 }
+@media (max-width: 480px) {
+    .userpic-icon-hover {
+        width: 30px;
+    }
+
+    .userpic-edit-icon {
+        padding: 5px;
+        width: 30px;
+    }
+}

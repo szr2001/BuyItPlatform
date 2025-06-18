@@ -60,3 +60,8 @@
 .userphone-input:focus {
     border-color: var(--highlight-color);
 }
+@media (max-width: 480px) {
+    .userphone-icon-hover {
+        width: 30px;
+    }
+}

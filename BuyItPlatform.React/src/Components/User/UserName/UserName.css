@@ -46,3 +46,8 @@
     transition: all 0.1s;
     margin: 10px;
 }
+@media (max-width: 480px) {
+    .username-edit-icon {
+        width: 30px;
+    }
+}
