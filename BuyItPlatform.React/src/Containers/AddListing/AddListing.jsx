@@ -146,7 +146,7 @@ function AddListing() {
                     placeholder="Listing name..."></input>
                 <div className="addlisting-desc-holder">
                     <textarea className="addlisting-desc-input addlisting-text" autoComplete="off"
-                        maxLength={250} type="text" value={newDesc}
+                        maxLength={200} type="text" value={newDesc}
                         onChange={(e) => { setNewDesc(e.target.value); }}
                         placeholder="Listing description..."></textarea>
                 </div>
@@ -210,7 +210,7 @@ function AddListing() {
                 <label className="addlisting-title"> What Price M'lord? </label>
                 <div className="addlisting-price-holder">
                     <ListingType onTypeChangedCallback={(newType) => { setListingType(newType); }} />
-                    <NumberInput onNumberChangedCallback={(newNr) => { setPrice(newNr); }} />
+                    <NumberInput maxChar={6} onNumberChangedCallback={(newNr) => { setPrice(newNr); }} />
                     <CurrencyType onCurrencyChangedCallback={(newCur => { setCurrency(newCur); }) } />
                 </div>
                 <label className="addlisting-title"> A Category Perhaps? </label>

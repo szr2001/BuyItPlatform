@@ -1,7 +1,7 @@
 import './NumberInput.css'
 import { useState } from 'react';
 
-function NumberInput({onNumberChangedCallback}) {
+function NumberInput({onNumberChangedCallback, maxChar}) {
 
     const [price, setPrice] = useState(25);
 
@@ -9,11 +9,11 @@ function NumberInput({onNumberChangedCallback}) {
         
         <div>
             <input className="numberInput" autoComplete="off"
-                maxLength={15} type="tel" value={price}
+                maxLength={maxChar} type="tel" value={price}
                 onChange={(e) => {
                     const numericValue = e.target.value.replace(/\D/g, '');
                     setPrice(numericValue);
-                    onNumberChangedCallback(numericValue);
+                    onNumberChangedCallback?.(numericValue);
                 }}
                 placeholder="phone..."></input>
         </div>

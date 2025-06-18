@@ -1,19 +1,55 @@
 import './ViewListing.css'
-import { useParams } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
-import { ImagesViewer, UserOverview, UserPhone, CategoryDisplay, ColorDisplay, TagsDisplay } from '../../Components';
+import { useParams, useLocation, useNavigate } from 'react-router-dom';
+import { ImagesViewer, UserOverview, UserPhone, CategoryDisplay, ColorDisplay, TagsDisplay, Loading} from '../../Components';
 import { toast } from 'react-toastify';
-import { useNavigate } from "react-router-dom";
 import Api from '../../Api/Api';
-import { useContext } from 'react';
+import { useContext, useState, useEffect, useRef } from 'react';
 import { AuthContext } from '../../Components/Auth/Auth'
 function ViewListing() {
     const {userId, listingId } = useParams();
     const location = useLocation();
     const listing = location.state?.listing;
-    const user = location.state?.user;
+    const [user, setUser] = useState(location.state?.user);
     const navigate = useNavigate();
     const [authState, dispatch] = useContext(AuthContext);
+    const isFirstRender = useRef(true); // because useEffect runs twitce due to StrictMode component
+
+    useEffect(() => {
+        const getUser = async () => {
+            //if we don't also pass the user directly to this page from another page, then use the UserId to get the user manually.
+            try {
+                const response = await Api.get(`authApi/user/getUserProfile/${userId}`);
+
+                if (!response.data.success) {
+                    toast.error(response.data.message, {
+                        autoClose: 2000 + response.data.message.length * 50,
+                    });
+                    console.error(response);
+                }
+
+                console.log(response);
+                setUser(response.data.result);
+            }
+            catch (error) {
+                toast.error(error.response.data.message, {
+                    autoClose: 2000 + error.response.data.message.length * 50,
+                });
+                if (error.status === 401) {
+                    window.localStorage.setItem('user', null);
+                    dispatch({ type: "SET_AUTH", payload: { isAuthenticated: false } });
+                    dispatch({ type: "SET_USER", payload: { user: null } });
+                    navigate('/Login/');
+                }
+                console.log(error);
+            }
+        };
+
+        if (!user && isFirstRender.current) {
+            isFirstRender.current = false;
+            getUser();
+        }
+
+    }, []);
 
     const deleteListing = async () =>
     {
@@ -52,8 +88,15 @@ function ViewListing() {
                         <label className="viewlisting-desc" >{listing.description}</label>
                     </div>
                     <div className="viewlisting-right">
-                        <UserOverview user={user} overrideClasas={"viewlisting-user"} />
-                        <UserPhone editable={false} phone={user.phoneNumber} overrideClasas={"viewlisting-user"} />
+                        {
+                            !user ? 
+                                <Loading />
+                                :
+                                <>
+                                    <UserOverview user={user} overrideClasas={"viewlisting-user"} />
+                                    <UserPhone editable={false} phone={user?.phoneNumber} overrideClasas={"viewlisting-user"} />
+                                </>
+                        }
                         <div>
                             {
                                 listing.listingType === "Sell" ?

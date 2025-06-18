@@ -81,13 +81,13 @@ namespace BuyItPlatform.ListingsApi.Services
 
         public async Task UploadListingAsync(ListingUploadDto listingDto)
         {
-            if (string.IsNullOrEmpty(listingDto.Name))
+            if (string.IsNullOrEmpty(listingDto.Name) && listingDto.Name?.Length > 20)
             {
-                throw new ArgumentException("A name is required M'lord!");
+                throw new ArgumentException("Name must be between 1-20 characters M'lord!");
             }
-            if (string.IsNullOrEmpty(listingDto.Description))
+            if (string.IsNullOrEmpty(listingDto.Description) && listingDto.Name?.Length > 200)
             {
-                throw new ArgumentException("A description is required M'lord!");
+                throw new ArgumentException("Description must be between 1-200 characters M'lord!");
             }
             if (listingDto.ImageFiles.Count > 3)
             {

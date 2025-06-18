@@ -1,0 +1,92 @@
+.listingOverview-holder {
+    background-color: var(--primary-color);
+    border-radius: 25px;
+    transition: all 0.1s;
+    padding: 10px;
+    width: 400px;
+    height: 200px;
+    justify-content: space-evenly;
+    margin: 10px;
+    display: flex;
+    flex-direction: row;
+}
+
+    .listingOverview-holder:hover {
+        transform: scale(1.02);
+    }
+
+.listingOverview-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.listingOverview-title {
+    color: var(--secondary-color);
+    font-weight: bold;
+    font-size: 25px;
+}
+
+.listingOverview-price {
+    color: var(--secondary-color);
+    margin: 5px;
+    font-weight: bold;
+    font-size: 35px;
+}
+.listing-category {
+    padding: 6px;
+    align-items: center;
+    margin: 8px;
+    align-self:center;
+    border: none;
+    cursor: pointer;
+    background-color: var(--secondary-color);
+    border-radius: 15px;
+}
+.listing-category-text {
+    font-family: var(--primary-font);
+    font-size: 15px;
+    margin: 5px;
+    color: var(--primary-color);
+    pointer-events: none;
+    font-weight: bold;
+}
+.listingOverview-Sell {
+    color: lawngreen !important;
+}
+.listingOverview-Buy {
+    color: skyblue !important;
+}
+.listingOverview-icon {
+    color: var(--secondary-color);
+    width: 25px;
+    margin: 2px;
+}
+
+.listingOverview-holder-price {
+    display: flex;
+    flex-direction: row;
+    justify-content:center;
+}
+
+.listingOverview-desc {
+    color: var(--secondary-color);
+    font-size: 15px;
+    word-break: break-word;
+    max-height:80px;
+    margin:5px;
+    overflow:hidden;
+}
+
+.listingOverview-img {
+    flex: 1;
+    width: 100px;
+    height: 100px;
+    max-width: 100px;
+    max-height: 100px;
+    border-radius: 15px;
+    background-color: var(--secondary-color);
+    object-fit: cover;
+    padding: 5px;
+    display: flex;
+}
