@@ -10,8 +10,39 @@ function Home() {
     const [name, setName] = useState(null);
     const [location, setLocation] = useState(null);
     const isFirstRender = useRef(true); // because useEffect runs twitce due to StrictMode component
-    const listingRequestingCount = 10;
-    const listingPageDisplayCount = 4;
+    const listingRequestingCount = 5;
+
+    const loadMoreListings = async (listingCount) => {
+        if (listingsCount === listingCount) return;
+
+        try {
+            const listingFilter = { categorry: category, name: null }; //problem
+            console.log(listingFilter);
+            const listingResponse = await Api.post(`listingsApi/getListings?count=${listingRequestingCount}&offset=${listingCount}`, listingFilter);
+
+            if (!listingResponse.data.success) {
+                toast.error(listingResponse.data.message, {
+                    autoClose: 2000 + listingResponse.data.message.length * 50,
+                });
+                console.error(listingResponse);
+            }
+
+            console.log(listingResponse);
+            setListings(listings.concat(listingResponse.data.result));
+        }
+        catch (error) {
+            toast.error(error.response.data.message, {
+                autoClose: 2000 + error.response.data.message.length * 50,
+            });
+            if (error.status === 401) {
+                window.localStorage.setItem('user', null);
+                dispatch({ type: "SET_AUTH", payload: { isAuthenticated: false } });
+                dispatch({ type: "SET_USER", payload: { user: null } });
+                navigate('/Login/');
+            }
+            console.log(error);
+        }
+    }
 
     const handleSearch = ({ title, location }) => {
         setName(title);
@@ -72,8 +103,7 @@ function Home() {
           <div className = "holder">
               <ListingSearch onSearch={handleSearch} />
               <Categories onCategorySelected={(c) => { setCategory(c); } } />
-              <ListingsDisplay listingsPerPageCount={listingPageDisplayCount} onPageChangedCallback={(e) => { }}
-                  onReachedTheEndCallback={() => { }} totalListings={listingsCount} listingsChunk={listings} />
+              <ListingsDisplay listingsChunk={listings} onScrolledToBottomCallback={loadMoreListings} />
           </div>
         </main>
   );

@@ -22,26 +22,9 @@
     align-items: center;
     border-radius: 15px;
     position: relative;
-    padding-bottom:55px;
+    padding-bottom:150px;
 }
-.listing-page-number {
-    font-family: var(--primary-font);
-    display: inline-block;
-    font-size: 20px;
-    margin: 5px;
-    padding: 5px;
-    padding-left:10px;
-    padding-right:10px;
-    transition: all 0.1s;
-    border-radius: 155px;
-    color: white;
-    font-weight: bold;
-    background-color: var(--primary-color);
-}
-.listing-page-number:hover {
-    transform: scale(1.1);
-}
-.listing-pages-holder {
+.listing-loading {
     position: absolute;
     bottom: 15px;
 }

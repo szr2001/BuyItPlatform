@@ -1,53 +1,46 @@
 import './ListingsDisplay.css'
-import { useState, useEffect } from 'react';
 import { ListingOverview, Loading} from '../../Components';
+import { useEffect, useState } from "react";
 
-function ListingsDisplay({ listingsChunk, listingsPerPageCount, totalListings, maxVisiblePages, onPageChangedCallback, onReachedTheEndCallback }) {
-    const [activePage, setActivePage] = useState(1);
-    const totalPage = Math.max(Math.ceil(totalListings / listingsPerPageCount), 1);
-    const [activeListings, setActiveListings] = useState([]);
-
-    const displayListings = (skip,take) => {
-        if (listingsChunk && listingsChunk.length > 0) {
-            console.log("Skip,Take", {skip,take});
-            console.log(listingsChunk);
-            setActiveListings(listingsChunk.slice(skip, take));
-        }
-    }
+function ListingsDisplay({ listingsChunk, onScrolledToBottomCallback }) {
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        console.log(listingsChunk);
-        displayListings(0, listingsPerPageCount);
-    }, [listingsChunk, listingsPerPageCount]);
+        const handleScroll = () => {
+            const scrollTop = window.scrollY;
+            const windowHeight = window.innerHeight;
+            const fullHeight = document.documentElement.scrollHeight;
 
-    const openPage = (page) => {
-        setActivePage(page);
-        let skip = listingsPerPageCount * (page);
-        let take = skip + listingsPerPageCount;
-        displayListings(skip, take);
-    }
+            if (scrollTop + windowHeight >= fullHeight - 50) {
+                if (!loading) {
+                    setLoading(true);
+                    onScrolledToBottomCallback?.(listingsChunk.length).finally(() => {
+                        setLoading(false);
+                    });
+                    console.log("END");
+                }
+            }
+        };
+
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, [loading, onScrolledToBottomCallback]);
 
     return (
-        <div className = "listing-holder" >
+        <div className="listing-holder">
             <div className="listingDisplay">
-                {
-                    activeListings.length === 0 ?
-                    <Loading />
-                    :
-                    activeListings.map((listing, i) => (
+                {listingsChunk.length === 0
+                    ? <Loading />
+                    : listingsChunk.map((listing, i) => (
                         <ListingOverview listing={listing} key={`listing-${i}`} />
-                    ))
-            }
-            </div>
-            <div className="listing-pages-holder">
-                {
-                    Array.from({ length: totalPage }).map((_, x) => (
-                        <label className="listing-page-number" key={`listing-page-${x}`} onClick={() => { openPage(x); } }>{x + 1}</label>
                     ))
                 }
             </div>
-        </div >
-  );
+            <div className="listing-loading">
+                {loading && <Loading />}
+            </div>
+        </div>
+    );
 }
 
 export default ListingsDisplay;
