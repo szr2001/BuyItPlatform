@@ -5,44 +5,61 @@ import { useState, useEffect, useRef } from 'react';
 import { ListingSearch, Categories, ListingsDisplay } from '../../Components';
 function Home() {
     const [listings, setListings] = useState([]);
+    const [listingsCount, setListingsCount] = useState(0);
     const [category, setCategory] = useState(null);
+    const [name, setName] = useState(null);
+    const [location, setLocation] = useState(null);
     const isFirstRender = useRef(true); // because useEffect runs twitce due to StrictMode component
-    const displayedListingsCount = 10;
+    const listingRequestingCount = 10;
+    const listingPageDisplayCount = 4;
 
     const handleSearch = ({ title, location }) => {
-        console.log(title + location);
+        setName(title);
+        setLocation(location);
+        readListings();
     };
+    const readListings = async () => {
+        try {
+            const listingFilter = { categorry: category, name: null }; //problem
+            console.log(listingFilter);
+            const listingResponse = await Api.post(`listingsApi/getListings?count=${listingRequestingCount}&offset=${0}`, listingFilter);
 
-    useEffect(() => {
-
-        const readListings = async () => {
-            try {
-                const listingFilter = {};
-                const response = await Api.post(`listingsApi/getListings?count=${displayedListingsCount}&offset=${0}`, listingFilter);
-
-                if (!response.data.success) {
-                    toast.error(response.data.message, {
-                        autoClose: 2000 + response.data.message.length * 50,
-                    });
-                    console.error(response);
-                }
-
-                console.log(response);
-                setListings(response.data.result);
-            }
-            catch (error) {
-                toast.error(error.response.data.message, {
-                    autoClose: 2000 + error.response.data.message.length * 50,
+            if (!listingResponse.data.success) {
+                toast.error(listingResponse.data.message, {
+                    autoClose: 2000 + listingResponse.data.message.length * 50,
                 });
-                if (error.status === 401) {
-                    window.localStorage.setItem('user', null);
-                    dispatch({ type: "SET_AUTH", payload: { isAuthenticated: false } });
-                    dispatch({ type: "SET_USER", payload: { user: null } });
-                    navigate('/Login/');
-                }
-                console.log(error);
+                console.error(listingResponse);
             }
-        };
+
+            console.log(listingResponse);
+            setListings(listingResponse.data.result);
+
+            const countResponse = await Api.post(`listingsApi/countListings`, listingFilter);
+
+            if (!countResponse.data.success) {
+                toast.error(listingResponse.data.message, {
+                    autoClose: 2000 + listingResponse.data.message.length * 50,
+                });
+                console.error(listingResponse);
+            }
+
+            console.log(countResponse);
+            setListingsCount(countResponse.data.result);
+        }
+        catch (error) {
+            toast.error(error.response.data.message, {
+                autoClose: 2000 + error.response.data.message.length * 50,
+            });
+            if (error.status === 401) {
+                window.localStorage.setItem('user', null);
+                dispatch({ type: "SET_AUTH", payload: { isAuthenticated: false } });
+                dispatch({ type: "SET_USER", payload: { user: null } });
+                navigate('/Login/');
+            }
+            console.log(error);
+        }
+    };
+    useEffect(() => {
 
         if (isFirstRender.current) {
             isFirstRender.current = false;
@@ -55,9 +72,9 @@ function Home() {
           <div className = "holder">
               <ListingSearch onSearch={handleSearch} />
               <Categories onCategorySelected={(c) => { setCategory(c); } } />
-              <ListingsDisplay listingsPerPageCount={displayedListingsCount} listings={listings} />
+              <ListingsDisplay listingsPerPageCount={listingPageDisplayCount} onPageChangedCallback={(e) => { }}
+                  onReachedTheEndCallback={() => { }} totalListings={listingsCount} listingsChunk={listings} />
           </div>
-
         </main>
   );
 }
