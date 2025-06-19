@@ -114,6 +114,25 @@ namespace BuyItPlatform.ListingsApi.Controllers
             return Ok(response);
         }
 
+        [HttpPost]
+        [Route("countListings")]
+        public async Task<IActionResult> CountListingsAsync([FromBody] ListingFIlterDto listFilter)
+        {
+            try
+            {
+                response.Result = await listingService.CountListingsAsync(listFilter);
+                response.Success = true;
+            }
+            catch (Exception ex)
+            {
+                response.Success = false;
+                response.Message = ex.Message;
+                return BadRequest(response);
+            }
+
+            return Ok(response);
+        }
+
         [HttpGet]
         [Route("deleteListing/{listingId:int}")]
         public async Task<IActionResult> DeleteListing(int listingId)

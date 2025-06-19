@@ -2,7 +2,6 @@
 using BuyItPlatform.GatewayApi.Models.ListingApiDto;
 using BuyItPlatform.GatewayApi.Services.IServices;
 using BuyItPlatform.GatewayApi.Utility;
-using System.Collections.Generic;
 
 namespace BuyItPlatform.GatewayApi.Services
 {
@@ -14,6 +13,16 @@ namespace BuyItPlatform.GatewayApi.Services
         {
             this.apiCallsService = serviceBase;
             this.microservicesUrl = microservicesUrl;
+        }
+
+        public async Task<MicroserviceResponseDto<int>> CountListingsAsync(ListingFIlterDto listFilter)
+        {
+            return await apiCallsService.SendAsync<int>(new RequestDto()
+            {
+                ApiType = Enums.ApiType.POST,
+                Url = $"{microservicesUrl.ListingsApiUrl}/countListings",
+                BodyData = listFilter
+            });
         }
 
         public async Task<MicroserviceResponseDto<object>> DeleteListingAsync(int listingId)

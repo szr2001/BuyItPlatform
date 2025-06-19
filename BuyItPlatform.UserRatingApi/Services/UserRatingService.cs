@@ -17,6 +17,8 @@ namespace BuyItPlatform.UserRatingApi.Services
 
         public async Task DeleteOfferedRatingsAsync(string userId)
         {
+            // ALSO DELETE FROM CACHE //
+
             var ratings = await dbContext.Ratings.Where(r => r.UserId == userId).FirstOrDefaultAsync();
             if (ratings == null)
             {
@@ -29,6 +31,10 @@ namespace BuyItPlatform.UserRatingApi.Services
 
         public async Task<UserRatingResponseDto> GetUserRatingAsync(string targetUserId)
         {
+            // GET FROM CACHE //
+
+            // if it's not in cache, get from db
+
             UserRatingResponseDto result = new();
 
             var averageRating = await dbContext.Ratings
@@ -44,11 +50,18 @@ namespace BuyItPlatform.UserRatingApi.Services
                 result.NumberOfRatings = numberOfRatings;
             }
 
+            // SAVE TO CACHE //
+
             return result;
         }
 
         public async Task<UserRatingResponseDto[]> GetUsersScoreboardAsync(int count, int offset)
         {
+            // GET FROM CACHE //
+
+            // if it's not in cache, get from db
+
+            // SAVE TO CACHE //
             return await dbContext.Ratings
                     .GroupBy(r => r.TargetUserId)
                     .Select(g => new UserRatingResponseDto
@@ -65,6 +78,10 @@ namespace BuyItPlatform.UserRatingApi.Services
 
         public async Task RateUserAsync(UserRatingRequestDto ratingRequest)
         {
+            // GET FROM CACHE //
+
+            // if it's not in cache, get from db
+
             var existingRating = await dbContext.Ratings.FirstOrDefaultAsync(e => e.UserId == ratingRequest.UserId && e.TargetUserId == ratingRequest.TargetUserId);
 
             if(existingRating != null)
@@ -81,6 +98,7 @@ namespace BuyItPlatform.UserRatingApi.Services
                 };
                 dbContext.Ratings.Add(rating);
             }
+            // SAVE TO CACHE //
 
             await dbContext.SaveChangesAsync();
         }

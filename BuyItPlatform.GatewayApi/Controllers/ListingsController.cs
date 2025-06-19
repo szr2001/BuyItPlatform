@@ -40,6 +40,14 @@ namespace BuyItPlatform.GatewayApi.Controllers
             return StatusCode(apiResult.StatusCode, apiResult);
         }
 
+        [HttpPost]
+        [Route("countListings")]
+        public async Task<IActionResult> CountListingsAsync([FromBody] ListingFIlterDto listFilter)
+        {
+            var apiResult = await listingsService.CountListingsAsync(listFilter);
+            return StatusCode(apiResult.StatusCode, apiResult);
+        }
+
         [HttpGet]
         [Route("deleteListing/{listingId:int}")]
         public async Task<IActionResult> DeleteListing(int listingId)

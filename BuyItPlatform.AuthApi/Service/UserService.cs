@@ -29,6 +29,12 @@ namespace BuyItPlatform.AuthApi.Service
 
         public async Task<UserProfileDto> GetUserProfileAsync(string userId)
         {
+            // GET FROM CACHE //
+
+            // if it's not in cache, get from db
+
+            // SAVE TO CACHE //
+
             var user = await userManager.FindByIdAsync(userId);
             if (user == null)
             {
@@ -42,6 +48,12 @@ namespace BuyItPlatform.AuthApi.Service
 
         public async Task<UserProfileDto[]> GetUsersProfilesAsync(string[] userId)
         {
+            // GET FROM CACHE //
+
+            // if it's not in cache, get from db
+
+            // SAVE TO CACHE //
+
             var userProfiles = await userManager.Users.Where(u => userId.Contains(u.Id)).ToArrayAsync();
             var userProfilesDto = mapper.Map<UserProfileDto[]>(userProfiles);
 
@@ -50,6 +62,9 @@ namespace BuyItPlatform.AuthApi.Service
 
         public async Task SetUserDescAsync(string userId, string desc)
         {
+
+            // SAVE TO CACHE //
+
             if (string.IsNullOrEmpty(userId))
             {
                 throw new KeyNotFoundException("user could not be found");
@@ -70,6 +85,8 @@ namespace BuyItPlatform.AuthApi.Service
 
         public async Task SetUserNameAsync(string userId, string name)
         {
+            // SAVE TO CACHE //
+
             if (string.IsNullOrEmpty(userId))
             {
                 throw new KeyNotFoundException("User could not be found");
@@ -95,6 +112,8 @@ namespace BuyItPlatform.AuthApi.Service
 
         public async Task SetUserPhoneNumberAsync(string userId, string phoneNumber)
         {
+            // SAVE TO CACHE //
+
             if (string.IsNullOrEmpty(userId))
             {
                 throw new KeyNotFoundException("User could not be found");
@@ -119,6 +138,8 @@ namespace BuyItPlatform.AuthApi.Service
 
         public async Task<string> SetUserProfilePicAsync(string userId, ImageDto profilePic)
         {
+            // SAVE TO CACHE //
+
             if (string.IsNullOrEmpty(userId))
             {
                 throw new KeyNotFoundException("User could not be found");
@@ -147,6 +168,12 @@ namespace BuyItPlatform.AuthApi.Service
 
         public async Task AreUserIdsPresentAsync(string[] userIds)
         {
+            // GET FROM CACHE //
+
+            // if it's not in cache, get from db
+
+            // SAVE TO CACHE //
+
             if (userIds == null || userIds.Length == 0)
             {
                 throw new IndexOutOfRangeException("userIds is empty");
@@ -167,6 +194,12 @@ namespace BuyItPlatform.AuthApi.Service
 
         public async Task IsUserIdPresentAsync(string userId)
         {
+            // GET FROM CACHE //
+
+            // if it's not in cache, get from db
+
+            // SAVE TO CACHE //
+
             if (string.IsNullOrEmpty(userId))
             {
                 throw new IndexOutOfRangeException("userId empty");

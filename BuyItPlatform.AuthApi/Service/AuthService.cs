@@ -26,7 +26,9 @@ namespace BuyItPlatform.AuthApi.Service
 
         public async Task RegisterUserAsync(RegisterRequestDto registerData)
         {
-            if(registerData.Password != registerData.RepeatPassword)
+            // SAVE TO CACHE //
+
+            if (registerData.Password != registerData.RepeatPassword)
             {
                 throw new ArgumentException("Passwords doesn't match.");
             }
@@ -80,7 +82,9 @@ namespace BuyItPlatform.AuthApi.Service
 
         public async Task<LoginResponseDto> RefreshTokenAsync(string refreshToken)
         {
-            if (string.IsNullOrEmpty(refreshToken)) 
+            // SAVE TO CACHE //
+
+            if (string.IsNullOrEmpty(refreshToken))
             { 
                 throw new UnauthorizedAccessException("Refresh token is missing or expired"); 
             }
@@ -129,6 +133,8 @@ namespace BuyItPlatform.AuthApi.Service
 
         public async Task LogoutAsync(string? refreshToken)
         {
+            // SAVE TO CACHE //
+
             if (string.IsNullOrEmpty(refreshToken))
             {
                 throw new UnauthorizedAccessException("Refresh token is missing or expired");

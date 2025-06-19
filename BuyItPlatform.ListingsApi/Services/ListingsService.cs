@@ -22,11 +22,23 @@ namespace BuyItPlatform.ListingsApi.Services
 
         public async Task<Listing> GetListingWithIdAsync(int id)
         {
+            // GET FROM CACHE //
+
+            // if it's not in cache, get from db
+
+            // SAVE TO CACHE //
+
             return await dbContext.Listings.Where(i => i.Id == id).FirstAsync();
         }
 
         public async Task<ICollection<Listing>> GetListingsAsync(ListingFIlterDto listFilter, int count, int offset)
         {
+            // GET FROM CACHE //
+
+            // if it's not in cache, get from db
+
+            // SAVE TO CACHE //
+
             IQueryable<Listing> query = dbContext.Listings.AsQueryable();
 
             if (!string.IsNullOrEmpty(listFilter.Currency))
@@ -81,6 +93,8 @@ namespace BuyItPlatform.ListingsApi.Services
 
         public async Task UploadListingAsync(ListingUploadDto listingDto)
         {
+            // SAVE TO CACHE //
+            
             if (string.IsNullOrEmpty(listingDto.Name) && listingDto.Name?.Length > 20)
             {
                 throw new ArgumentException("Name must be between 1-20 characters M'lord!");
@@ -147,6 +161,8 @@ namespace BuyItPlatform.ListingsApi.Services
 
         public async Task DeleteListingAsync(string userId,int listingId)
         {
+            // SAVE TO CACHE //
+            
             Listing listing = await dbContext.Listings.Where(i => i.Id == listingId && i.UserId == userId).FirstAsync();
             if(listing != null)
             {
@@ -162,6 +178,8 @@ namespace BuyItPlatform.ListingsApi.Services
 
         public async Task DeleteUserListingsAsync(string userId)
         {
+            // SAVE TO CACHE //
+
             var listing = await dbContext.Listings.Where(i => i.UserId == userId).ToListAsync();
             dbContext.Listings.RemoveRange(listing);
             await dbContext.SaveChangesAsync();
@@ -169,7 +187,71 @@ namespace BuyItPlatform.ListingsApi.Services
 
         public async Task<ICollection<Listing>> GetUserListings(string userId)
         {
+            // GET FROM CACHE //
+
+            // if it's not in cache, get from db
+
+            // SAVE TO CACHE //
+
             return await dbContext.Listings.Where((e) => e.UserId == userId).ToListAsync();
+        }
+
+        public async Task<int> CountListingsAsync(ListingFIlterDto listFilter)
+        {
+            // GET FROM CACHE //
+
+            // if it's not in cache, get from db
+
+            // SAVE TO CACHE //
+
+            IQueryable<Listing> query = dbContext.Listings.AsQueryable();
+
+            if (!string.IsNullOrEmpty(listFilter.Currency))
+            {
+                query = query.Where(l => l.Currency == Enum.Parse<Currency>(listFilter.Currency));
+            }
+
+            if (!string.IsNullOrEmpty(listFilter.Category))
+            {
+                query = query.Where(l => l.Category == Enum.Parse<Category>(listFilter.Category));
+            }
+
+            if (!string.IsNullOrEmpty(listFilter.SubCategory))
+            {
+                query = query.Where(l => l.SubCategory == Enum.Parse<SubCategory>(listFilter.SubCategory));
+            }
+
+            if (!string.IsNullOrEmpty(listFilter.ListingType))
+            {
+                query = query.Where(l => l.ListingType == Enum.Parse<TransactionType>(listFilter.ListingType));
+            }
+
+            if (!string.IsNullOrEmpty(listFilter.Color))
+            {
+                query = query.Where(l => l.Color == Enum.Parse<Color>(listFilter.Color));
+            }
+
+            if (listFilter.Tags.Count > 0)
+            {
+                query = query.Where(l => listFilter.Tags.All(tag => l.Tags.Select(t => t.ToString()).Contains(tag)));
+            }
+
+            if (!string.IsNullOrEmpty(listFilter.Name))
+            {
+                query = query.Where(l => EF.Functions.Like(l.Name, $"%{listFilter.Name}%"));
+            }
+
+            if (listFilter.MinPrice >= 0)
+            {
+                query = query.Where(l => l.Price >= listFilter.MinPrice);
+            }
+
+            if (listFilter.MinPrice < listFilter.MaxPrice)
+            {
+                query = query.Where(l => l.Price <= listFilter.MaxPrice);
+            }
+
+            return await query.CountAsync();
         }
     }
 }
