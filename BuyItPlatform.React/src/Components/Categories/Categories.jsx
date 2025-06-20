@@ -23,6 +23,7 @@ function Categories({onCategorySelected}) {
 
         if (button === selectedBtn) {
             setbtn(null);
+            onCategorySelected?.(null);
             return;
         }
         const label = button.querySelector('.category-text');

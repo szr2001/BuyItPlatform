@@ -9,14 +9,14 @@ function Home() {
     const [category, setCategory] = useState(null);
     const [name, setName] = useState(null);
     const [location, setLocation] = useState(null);
-    const isFirstRender = useRef(true); // because useEffect runs twitce due to StrictMode component
+    const isFirstRender = useRef(true); // because useRef runs twitce due to StrictMode component
     const listingRequestingCount = 5;
 
     const loadMoreListings = async (listingCount) => {
         if (listingsCount === listingCount) return;
 
         try {
-            const listingFilter = { categorry: category, name: null }; //problem
+            const listingFilter = { category, name }; //problem
             console.log(listingFilter);
             const listingResponse = await Api.post(`listingsApi/getListings?count=${listingRequestingCount}&offset=${listingCount}`, listingFilter);
 
@@ -47,11 +47,11 @@ function Home() {
     const handleSearch = ({ title, location }) => {
         setName(title);
         setLocation(location);
-        readListings();
+        readListings(category, title);
     };
-    const readListings = async () => {
+    const readListings = async (newCategory, newName) => {
         try {
-            const listingFilter = { categorry: category, name: null }; //problem
+            const listingFilter = { category: newCategory, name: newName };// use property name
             console.log(listingFilter);
             const listingResponse = await Api.post(`listingsApi/getListings?count=${listingRequestingCount}&offset=${0}`, listingFilter);
 
@@ -94,14 +94,14 @@ function Home() {
 
         if (isFirstRender.current) {
             isFirstRender.current = false;
-            readListings();
+            readListings(category, name);
         }
 
     }, []);
   return (
         <main>
           <div className = "holder">
-              <ListingSearch onSearch={handleSearch} />
+              <ListingSearch onSearchCallback={handleSearch} />
               <Categories onCategorySelected={(c) => { setCategory(c); } } />
               <ListingsDisplay listingsChunk={listings} onScrolledToBottomCallback={loadMoreListings} />
           </div>
