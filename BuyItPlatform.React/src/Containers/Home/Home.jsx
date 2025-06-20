@@ -51,7 +51,7 @@ function Home() {
     };
     const readListings = async (newCategory, newName) => {
         try {
-            const listingFilter = { category: newCategory, name: newName };// use property name
+            const listingFilter = { category: newCategory, name: newName };
             console.log(listingFilter);
             const listingResponse = await Api.post(`listingsApi/getListings?count=${listingRequestingCount}&offset=${0}`, listingFilter);
 
@@ -63,7 +63,12 @@ function Home() {
             }
 
             console.log(listingResponse);
-            setListings(listingResponse.data.result);
+            if (listingResponse.data.result.length > 0) {
+                setListings(listingResponse.data.result);
+            }
+            else {
+                setListings(null);
+            }
 
             const countResponse = await Api.post(`listingsApi/countListings`, listingFilter);
 

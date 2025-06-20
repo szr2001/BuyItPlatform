@@ -28,3 +28,35 @@
     position: absolute;
     bottom: 15px;
 }
+.listing-notfound-text {
+    font-family: var(--primary-font);
+    font-size: 25px;
+    margin: 5px;
+    color: var(--primary-color);
+    pointer-events: none;
+    font-weight: bold;
+}
+.listing-notfound-holder{
+    display:flex;
+    flex-direction:column;
+}
+.listing-notfound-icon {
+    width: 150px;
+    margin: 5px;
+    height: 150px;
+    color: var(--primary-color);
+    pointer-events: none;
+    animation: pulse 0.5s ease-in-out ;
+}
+/*percentages represent stages, at 0 and 100% it's scale 1, at 30% it's scale 1.1*/
+@keyframes pulse {
+    0%, 100% { 
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    30% {
+        transform: scale(1.1);
+        opacity: 0.8;
+    }
+}
