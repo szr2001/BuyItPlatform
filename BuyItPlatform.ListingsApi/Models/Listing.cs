@@ -8,7 +8,7 @@ namespace BuyItPlatform.ListingsApi.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public int Id { get; set; } //replace with guid
         public int SlotId { get; set; }
         [MaxLength(20)]
         public string Name { get; set; } = "";
@@ -19,7 +19,7 @@ namespace BuyItPlatform.ListingsApi.Models
         public ICollection<string> ImagePaths { get;set; } = new List<string>();
         public float Price { get; set; }
         public Currency Currency { get; set; }
-        public string UserId { get; set; } = "";
+        public string UserId { get; set; } = ""; // use maxlength to limit to the guid size
         public TransactionType ListingType { get; set; }
         public Category Category { get; set; }
         public SubCategory? SubCategory { get; set; }

@@ -12,5 +12,6 @@ namespace BuyItPlatform.ListingsApi.Services.IServices
         Task UploadListingAsync(ListingUploadDto listingDto);
         Task<ICollection<Listing>> GetUserListings(string userId);
         Task<int> CountListingsAsync(ListingFIlterDto listFilter);
+        Task IsListingIdPresentAsync(string listingId);
     }
 }

@@ -163,7 +163,7 @@ namespace BuyItPlatform.ListingsApi.Services
         {
             // SAVE TO CACHE //
             
-            Listing listing = await dbContext.Listings.Where(i => i.Id == listingId && i.UserId == userId).FirstAsync();
+            Listing listing = await dbContext.Listings.Where(i => i.Id == listingId && i.UserId == userId).FirstAsync(); //why do I use userid and listingid....?
             if(listing != null)
             {
                 await imageUploader.DeleteImagesAsync(listingId.ToString());
@@ -180,7 +180,7 @@ namespace BuyItPlatform.ListingsApi.Services
         {
             // SAVE TO CACHE //
 
-            var listing = await dbContext.Listings.Where(i => i.UserId == userId).ToListAsync();
+            var listing = await dbContext.Listings.Where(i => i.UserId == userId).ToListAsync(); //replace with find
             dbContext.Listings.RemoveRange(listing);
             await dbContext.SaveChangesAsync();
         }
@@ -252,6 +252,21 @@ namespace BuyItPlatform.ListingsApi.Services
             }
 
             return await query.CountAsync();
+        }
+
+        public async Task IsListingIdPresentAsync(string listingId)
+        {
+            // GET FROM CACHE //
+
+            // if it's not in cache, get from db
+
+            // SAVE TO CACHE //
+
+            var listing = await dbContext.Listings.FindAsync(listingId);
+            if(listing == null)
+            {
+                throw new KeyNotFoundException("listingId does't exist");
+            }
         }
     }
 }
