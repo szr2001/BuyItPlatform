@@ -49,13 +49,13 @@ namespace BuyItPlatform.CommentsApi.Services
             }
         }
 
-        public async Task<ICollection<Comment>> GetListingCommentsAsync(string listingId)
+        public async Task<ICollection<Comment>> GetListingCommentsAsync(string listingId, int count, int offset)
         {
-            return await dbContext.Comments.Where(c => c.ListingId == listingId).ToListAsync();
+            return await dbContext.Comments.Where(c => c.ListingId == listingId).Skip(offset).Take(count).ToListAsync();
         }
-        public async Task<ICollection<Comment>> GetUserCommentsAsync(string userId)
+        public async Task<ICollection<Comment>> GetUserCommentsAsync(string userId, int count, int offset)
         {
-            return await dbContext.Comments.Where(c => c.UserId == userId).ToListAsync();
+            return await dbContext.Comments.Where(c => c.UserId == userId).Skip(offset).Take(count).ToListAsync();
         }
 
         public async Task UploadCommentAsync(CommentDto commentDto)

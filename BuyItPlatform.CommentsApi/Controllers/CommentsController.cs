@@ -98,12 +98,12 @@ namespace BuyItPlatform.CommentsApi.Controllers
             return Ok(response);
         }
         [HttpGet]
-        [Route("getListingCommentsAsync/{listingId}")]
-        public async Task<IActionResult> GetListingCommentsAsync(string listingId)
+        [Route("getListingCommentsAsync/{listingId}/{count:int}/{offset:int}")]
+        public async Task<IActionResult> GetListingCommentsAsync(string listingId, int count, int offset)
         {
             try
             {
-                var comments = await commentsService.GetListingCommentsAsync(listingId);
+                var comments = await commentsService.GetListingCommentsAsync(listingId, count, offset);
                 var commentsDto = mapper.Map<List<CommentDto>>(comments);
                 response.Result = commentsDto;
                 response.Success = true;
@@ -118,12 +118,12 @@ namespace BuyItPlatform.CommentsApi.Controllers
             return Ok(response);
         }
         [HttpGet]
-        [Route("getUserCommentsAsync/{userId}")]
-        public async Task<IActionResult> GetUserCommentsAsync(string userId)
+        [Route("getUserCommentsAsync/{userId}/{count:int}/{offset:int}")]
+        public async Task<IActionResult> GetUserCommentsAsync(string userId, int count, int offset)
         {
             try
             {
-                var comments = await commentsService.GetUserCommentsAsync(userId);
+                var comments = await commentsService.GetUserCommentsAsync(userId, count, offset);
                 var commentsDto = mapper.Map<List<CommentDto>>(comments);
                 response.Result = commentsDto;
                 response.Success = true;

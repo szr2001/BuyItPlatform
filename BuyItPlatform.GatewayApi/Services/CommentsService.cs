@@ -43,21 +43,21 @@ namespace BuyItPlatform.GatewayApi.Services
             });
         }
 
-        public async Task<MicroserviceResponseDto<List<CommentDto>>> GetListingCommentsAsync(string listingId)
+        public async Task<MicroserviceResponseDto<List<CommentDto>>> GetListingCommentsAsync(string listingId, int count, int offset)
         {
             return await apiCallsService.SendAsync<List<CommentDto>>(new RequestDto()
             {
                 ApiType = Enums.ApiType.POST,
-                Url = $"{microservicesUrl.CommentsApiUrl}/getListingComments/{listingId}",
+                Url = $"{microservicesUrl.CommentsApiUrl}/getListingComments/{listingId}/{count}/{offset}",
             });
         }
 
-        public async Task<MicroserviceResponseDto<List<CommentDto>>> GetUserCommentsAsync(string userId)
+        public async Task<MicroserviceResponseDto<List<CommentDto>>> GetUserCommentsAsync(string userId, int count, int offset)
         {
             return await apiCallsService.SendAsync<List<CommentDto>>(new RequestDto()
             {
                 ApiType = Enums.ApiType.POST,
-                Url = $"{microservicesUrl.CommentsApiUrl}/getUserComments/{userId}",
+                Url = $"{microservicesUrl.CommentsApiUrl}/getUserComments/{userId}/{count}/{offset}",
             });
         }
 
