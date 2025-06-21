@@ -1,6 +1,6 @@
 import './ViewListing.css'
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
-import { ImagesViewer, UserOverview, UserPhone, CategoryDisplay, ColorDisplay, TagsDisplay, Loading} from '../../Components';
+import { ImagesViewer, UserOverview, UserPhone, CategoryDisplay, ColorDisplay, TagsDisplay, Loading, CommentInput, CommentsDisplay } from '../../Components';
 import { toast } from 'react-toastify';
 import Api from '../../Api/Api';
 import { useContext, useState, useEffect, useRef } from 'react';
@@ -131,6 +131,10 @@ function ViewListing() {
                         <ColorDisplay color={listing.color}/>
                         <TagsDisplay tags={listing.tags}/>
                     </div>
+                </div>
+                <div className="comments-holder">
+                    <CommentInput/>
+                    <CommentsDisplay/>
                 </div>
             </div>
         </main>

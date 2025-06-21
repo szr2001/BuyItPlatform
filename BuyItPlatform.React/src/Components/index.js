@@ -19,6 +19,7 @@ export { default as ColorDisplay } from '../Components/ColorDisplay/ColorDisplay
 export { default as CategoryDisplay } from '../Components/CategoryDisplay/CategoryDisplay';
 export { default as TagsDisplay } from '../Components/TagsDisplay/TagsDisplay';
 export { default as CommentsDisplay } from '../Components/CommentsDisplay/CommentsDisplay';
+export { default as CommentInput } from '../Components/CommentInput/CommentInput';
 export { default as Tags } from './Tags/Tags';
 export { default as Colors } from './Colors/Colors';
 export { default as CurrencyType } from './CurrencyType/CurrencyType';
