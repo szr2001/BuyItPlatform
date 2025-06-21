@@ -132,10 +132,10 @@ function ViewListing() {
                         <TagsDisplay tags={listing.tags}/>
                     </div>
                 </div>
-                <div className="comments-holder">
-                    <CommentInput/>
-                    <CommentsDisplay/>
-                </div>
+                {/*<div className="comments-holder">*/}
+                {/*    <CommentInput/>*/}
+                {/*    <CommentsDisplay/>*/}
+                {/*</div>*/}
             </div>
         </main>
     );

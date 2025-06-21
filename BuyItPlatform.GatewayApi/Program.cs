@@ -39,6 +39,7 @@ namespace BuyItPlatform.GatewayApi
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IAuthService, AuthService>();
             builder.Services.AddScoped<IUserRatingService, UserRatingService>();
+            builder.Services.AddScoped<ICommentsService, CommentsService>();
             builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection("ApiSettings:JwtOptions"));
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

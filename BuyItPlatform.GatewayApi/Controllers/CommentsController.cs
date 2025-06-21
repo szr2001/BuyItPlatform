@@ -47,18 +47,18 @@ namespace BuyItPlatform.GatewayApi.Controllers
             return StatusCode(apiResult.StatusCode, apiResult);
         }
         [HttpGet]
-        [Route("getListingCommentsAsync/{listingId}")]
-        public async Task<IActionResult> GetListingCommentsAsync(string listingId)
+        [Route("getListingCommentsAsync/{listingId}/{count:int}/{offset:int}")]
+        public async Task<IActionResult> GetListingCommentsAsync(string listingId, int count, int offset)
         {
-            var apiResult = await commentsService.GetListingCommentsAsync(listingId);
+            var apiResult = await commentsService.GetListingCommentsAsync(listingId, count, offset);
             return StatusCode(apiResult.StatusCode, apiResult);
 
         }
         [HttpGet]
-        [Route("getUserCommentsAsync/{userId}")]
-        public async Task<IActionResult> GetUserCommentsAsync(string userId)
+        [Route("getUserCommentsAsync/{userId}/{count:int}/{offset:int}")]
+        public async Task<IActionResult> GetUserCommentsAsync(string userId, int count, int offset)
         {
-            var apiResult = await commentsService.GetUserCommentsAsync(userId);
+            var apiResult = await commentsService.GetUserCommentsAsync(userId, count, offset);
             return StatusCode(apiResult.StatusCode, apiResult);
         }
     }
