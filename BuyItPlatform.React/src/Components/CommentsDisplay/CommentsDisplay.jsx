@@ -1,32 +1,43 @@
 import './CommentsDisplay.css'
-import Api from '../../Api/Api';
-import { useState, useEffect } from 'react';
-function CommentsDisplay({ listingId }) {
-    const [loading, setIsLoading] = useState(false);
+import { Loading } from '../../Components'
+import { useState } from 'react';
+function CommentsDisplay({ comments, onScrolledToBottomCallback }) {
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        const loadComments = async () => {
-            const userFromStorage = JSON.parse(localStorage.getItem('user'));
+        const handleScroll = () => {
+            const scrollTop = window.scrollY;
+            const windowHeight = window.innerHeight;
+            const fullHeight = document.documentElement.scrollHeight;
 
-            dispatch({ type: "SET_USER", payload: { user: userFromStorage } });
-            dispatch({ type: "SET_AUTH", payload: { isAuthenticated: userFromStorage !== null } });
-
-            try {
-                const response = await axios.get('https://localhost:7000/gateway/ping');
-                console.log(response);
+            if (scrollTop + windowHeight >= fullHeight - 50) {
+                if (!loading && comments) {
+                    setLoading(true);
+                    onScrolledToBottomCallback?.(comments.length).finally(() => {
+                        setLoading(false);
+                    });
+                    console.log("END");
+                }
             }
-            catch (ex) {
+        };
 
-                console.error(ex);
-            }
-            setIsLoading(false);
-        }
-        //loadComments();
-
-    }, []); 
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, [loading, onScrolledToBottomCallback]);
 
     return (
-        <></>
+        <div className="comments-holder" >
+            {
+                comments === null ?
+                    null
+                    :
+                    comments.length > 0 ? 
+                        <div>
+                        </div>
+                        :
+                        <Loading/>
+            }
+        </div>
     );
 }
 

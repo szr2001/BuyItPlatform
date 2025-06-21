@@ -10,6 +10,7 @@ function ViewListing() {
     const location = useLocation();
     const listing = location.state?.listing;
     const [user, setUser] = useState(location.state?.user);
+    const [comments, setComments] = useState([]);
     const navigate = useNavigate();
     const [authState, dispatch] = useContext(AuthContext);
     const isFirstRender = useRef(true); // because useEffect runs twitce due to StrictMode component
@@ -132,10 +133,10 @@ function ViewListing() {
                         <TagsDisplay tags={listing.tags}/>
                     </div>
                 </div>
-                {/*<div className="comments-holder">*/}
-                {/*    <CommentInput/>*/}
-                {/*    <CommentsDisplay/>*/}
-                {/*</div>*/}
+                <div className="comments-holder">
+                    <CommentInput/>
+                    <CommentsDisplay comments={comments} onScrolledToBottomCallback={async () => {  } } /> 
+                </div>
             </div>
         </main>
     );

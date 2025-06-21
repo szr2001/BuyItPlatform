@@ -44,6 +44,14 @@ namespace BuyItPlatform.GatewayApi.Controllers
             return StatusCode(apiResult.StatusCode, apiResult);
         }
 
+        [HttpGet]
+        [Route("getUsersProfiles")]
+        public async Task<IActionResult> GetUsersProfiles([FromBody] string[] userIds)
+        {
+            var apiResult = await userService.GetUsersProfilesAsync(userIds);
+            return StatusCode(apiResult.StatusCode, apiResult);
+        }
+
         [HttpPost]
         [Route("updateUserDesc/{desc}")]
         public async Task<IActionResult> UpdateUserDesc(string desc)
