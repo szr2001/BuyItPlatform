@@ -1,23 +1,48 @@
-.tag-holder {
-    display: flex;
-    justify-self: center;
-    align-items: center;
-    margin: 8px;
-    padding: 10px;
-    border: none;
+.comment-input-holder {
     background-color: var(--secondary-color);
+    border-radius: 20px;
+    padding: 10px;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+}
+.comment-input {
+    background-color: transparent;
+    padding: 5px;
+    outline: none;
+    resize: none;
+    margin: 10px;
+    width:80%;
+    overflow: hidden;
+    border-style: none;
+    border-bottom-style: solid;
+    outline-width: 2px;
+}
+.comment-input-btn-icon{
+    width:50px;
+    height:50px;
+}
+.comment-input-pic {
+    width: 45px;
     border-radius: 15px;
-}
-.tag-img {
-    width: 20px;
-    height: 20px;
-    color: var(--primary-color);
-}
-.tag-text {
-    font-family: var(--primary-font);
-    font-size: 15px;
+    height: 45px;
+    align-self: center;
+    object-fit: cover;
+    transition: all 0.2s;
     margin: 5px;
-    color: var(--primary-color);
-    pointer-events: none;
+    padding: 3px;
+    background-color: var(--primary-color);
+}
+.comment-input-text {
+    color: var(--text-color);
+    font-family: var(--primary-font);
+    text-decoration: none;
     font-weight: bold;
+    font-size: 25px;
+    align-self: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }

@@ -1,6 +1,6 @@
 import './CommentsDisplay.css'
 import { Loading } from '../../Components'
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 function CommentsDisplay({ comments, onScrolledToBottomCallback }) {
     const [loading, setLoading] = useState(false);
 

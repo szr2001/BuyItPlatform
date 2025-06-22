@@ -70,7 +70,7 @@
     flex-direction:column;
 }
 .comments-holder{
-
+    width:90%;
 }
 .viewlisting-right {
     align-items: center;

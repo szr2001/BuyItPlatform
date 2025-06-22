@@ -11,9 +11,9 @@
     flex-direction: row;
 }
 
-    .listingOverview-holder:hover {
-        transform: scale(1.02);
-    }
+.listingOverview-holder:hover {
+    transform: scale(1.02);
+}
 
 .listingOverview-right {
     display: flex;

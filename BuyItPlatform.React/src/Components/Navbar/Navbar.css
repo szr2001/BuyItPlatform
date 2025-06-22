@@ -14,9 +14,19 @@
 .navbar-right {
     display: flex;
     gap: 1rem;
-    margin-left: auto; /* Pushes it to the end */
+    margin-left: auto;
 }
-
+.navbar-profile-icon {
+    width: 35px;
+    border-radius: 15px;
+    height: 35px;
+    align-self: center;
+    object-fit: cover;
+    transition: all 0.2s;
+    margin: 5px;
+    padding: 2px;
+    background-color: var(--primary-color);
+}
 .navbar-option {
     padding: 20px;
     display: flex;
@@ -38,6 +48,10 @@
 }
 
 .navbar-option:hover .navbar-icon {
+    transform: rotate(10deg);
+    transition: all 0.2s;
+}
+.navbar-option:hover .navbar-profile-icon {
     transform: rotate(10deg);
     transition: all 0.2s;
 }

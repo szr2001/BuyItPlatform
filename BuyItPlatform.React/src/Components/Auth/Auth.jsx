@@ -8,7 +8,7 @@ const AuthContext = createContext();
 
 const initialAuthState = {
     isAuthenticated: false,
-    user: { username: "", email: "", id: "" },
+    user: { username: "", email: "", id: "", profileImgLink:"" },
     gatewayActive: false,
 };
 

@@ -15,6 +15,19 @@ function ViewListing() {
     const [authState, dispatch] = useContext(AuthContext);
     const isFirstRender = useRef(true); // because useEffect runs twitce due to StrictMode component
 
+    const sendComment = async(comment) => {
+
+    }
+
+    const loadMoreComments = async () => {
+
+    }
+
+    const loadComments = async () => {
+
+    }
+
+
     useEffect(() => {
         const getUser = async () => {
             //if we don't also pass the user directly to this page from another page, then use the UserId to get the user manually.
@@ -134,8 +147,8 @@ function ViewListing() {
                     </div>
                 </div>
                 <div className="comments-holder">
-                    <CommentInput/>
-                    <CommentsDisplay comments={comments} onScrolledToBottomCallback={async () => {  } } /> 
+                    <CommentInput onCommentedCallback={sendComment} />
+                    <CommentsDisplay comments={comments} onScrolledToBottomCallback={loadMoreComments} /> 
                 </div>
             </div>
         </main>
