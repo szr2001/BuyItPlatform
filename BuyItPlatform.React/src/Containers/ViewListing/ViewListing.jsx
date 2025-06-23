@@ -28,8 +28,9 @@ function ViewListing() {
                 });
                 console.error(response);
             }
-            let uploadedComment = { content: newComment, listingId: listingId, userId: user.id, userName: user.userName, userProfilePic: user.userProfilePic};
-            setComments([...comments, uploadedComment]);
+            let uploadedComment = { content: newComment, listingId: listingId, userId: user.id, userName: user.userName, userProfilePic: authState.user.profileImgLink };
+            setComments([uploadedComment, ...comments]);
+            console.log("new Comment", uploadedComment);
             console.log(comments);
         }
         catch (error) {
@@ -51,8 +52,34 @@ function ViewListing() {
 
     }
 
-    const loadComments = async () => {
+    const loadComments = async (take, skip) => {
+        {
+            try {
+                const response = await Api.get(`commentsApi/getListingComments/${listingId}/${take}/${skip}`);
 
+                if (!response.data.success) {
+                    toast.error(response.data.message, {
+                        autoClose: 2000 + response.data.message.length * 50,
+                    });
+                    console.error(response);
+                }
+
+                console.log(response);
+                setComments(response.data.result.reverse());
+            }
+            catch (error) {
+                toast.error(error.response.data.message, {
+                    autoClose: 2000 + error.response.data.message.length * 50,
+                });
+                if (error.status === 401) {
+                    window.localStorage.setItem('user', null);
+                    dispatch({ type: "SET_AUTH", payload: { isAuthenticated: false } });
+                    dispatch({ type: "SET_USER", payload: { user: null } });
+                    navigate('/Login/');
+                }
+                console.log(error);
+            }
+        }
     }
 
 
@@ -72,19 +99,22 @@ function ViewListing() {
                 setUser(response.data.result);
             }
             catch (error) {
-                toast.error(error.response.data.message, {
-                    autoClose: 2000 + error.response.data.message.length * 50,
-                });
                 if (error.status === 401) {
                     window.localStorage.setItem('user', null);
                     dispatch({ type: "SET_AUTH", payload: { isAuthenticated: false } });
                     dispatch({ type: "SET_USER", payload: { user: null } });
                     navigate('/Login/');
+                    return;
                 }
+                toast.error(error.response.data.message, {
+                    autoClose: 2000 + error.response.data.message.length * 50,
+                });
                 console.log(error);
             }
         };
-
+        if (isFirstRender.current) {
+            loadComments(10, 0);
+        }
         if (!user && isFirstRender.current) {
             isFirstRender.current = false;
             getUser();
@@ -173,7 +203,7 @@ function ViewListing() {
                         <TagsDisplay tags={listing.tags}/>
                     </div>
                 </div>
-                <div className="comments-holder">
+                <div className="viewlisting-comments-holder">
                     <CommentInput maxLength={200} onCommentedCallback={sendComment} />
                     <CommentsDisplay comments={comments} onScrolledToBottomCallback={loadMoreComments} /> 
                 </div>

@@ -1,3 +1,39 @@
-.comments-holder{
-
+.comments-holder {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.comment {
+    padding: 10px;
+    margin:10px;
+    background-color: var(--secondary-color);
+    border-radius: 15px;
+    width:100%;
+    display:flex;
+    flex-direction:row;
+    justify-items:start;
+}
+.comment-icon {
+    width: 45px;
+    border-radius: 15px;
+    height: 45px;
+    align-self: start;
+    vertical-align: top;
+    object-fit: cover;
+    transition: all 0.2s;
+    margin: 5px;
+    padding: 3px;
+    background-color: var(--primary-color);
+    color: var(--background-color);
+}
+.comment-text {
+    color: var(--text-color);
+    font-family: var(--primary-font);
+    padding-left: 15px;
+    font-size: 25px;
+    align-self: center;
+    overflow-wrap: anywhere;
+    overflow: visible;
 }

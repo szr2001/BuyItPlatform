@@ -47,7 +47,7 @@ namespace BuyItPlatform.GatewayApi.Services
         {
             return await apiCallsService.SendAsync<List<CommentViewDto>>(new RequestDto()
             {
-                ApiType = Enums.ApiType.POST,
+                ApiType = Enums.ApiType.GET,
                 Url = $"{microservicesUrl.CommentsApiUrl}/getListingComments/{listingId}/{count}/{offset}",
             });
         }
@@ -56,7 +56,7 @@ namespace BuyItPlatform.GatewayApi.Services
         {
             return await apiCallsService.SendAsync<List<CommentViewDto>>(new RequestDto()
             {
-                ApiType = Enums.ApiType.POST,
+                ApiType = Enums.ApiType.GET,
                 Url = $"{microservicesUrl.CommentsApiUrl}/getUserComments/{userId}/{count}/{offset}",
             });
         }
