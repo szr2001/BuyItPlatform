@@ -48,7 +48,36 @@ function ViewListing() {
             console.log(error);
         }
     };
-    
+
+    const deleteComment = async (deleteComment) => {
+        try {
+            const response = await Api.post(`commentsApi/deleteComment/${deleteComment.id}`);
+
+            if (!response.data.success) {
+                toast.error(response.data.message, {
+                    autoClose: 2000 + response.data.message.length * 50,
+                });
+                console.error(response);
+                setComments((prevComments) =>
+                    prevComments.filter((comment) => comment.id !== deleteComment.id)
+                );
+            }
+        }
+        catch (error) {
+            if (error.status === 401) {
+                window.localStorage.setItem('user', null);
+                dispatch({ type: "SET_AUTH", payload: { isAuthenticated: false } });
+                dispatch({ type: "SET_USER", payload: { user: null } });
+                navigate('/Login/');
+                return;
+            }
+            const errorText = error?.response?.data?.message || error.message || "An unexpected error occurred";
+            toast.error(errorText, {
+                autoClose: 2000 + errorText.length * 50,
+            });
+            console.log(error);
+        }
+    }
 
     const loadMoreComments = async () => {
 
@@ -212,7 +241,7 @@ function ViewListing() {
                 </div>
                 <div className="viewlisting-comments-holder">
                     <CommentInput maxLength={200} onCommentedCallback={sendComment} />
-                    <CommentsDisplay comments={comments} onScrolledToBottomCallback={loadMoreComments} /> 
+                    <CommentsDisplay onCommentDeleteCallback={deleteComment} comments={comments} onScrolledToBottomCallback={loadMoreComments} /> 
                 </div>
             </div>
         </main>
