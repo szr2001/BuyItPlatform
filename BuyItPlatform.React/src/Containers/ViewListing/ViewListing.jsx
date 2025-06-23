@@ -16,7 +16,8 @@ function ViewListing() {
     const isFirstRender = useRef(true); // because useEffect runs twitce due to StrictMode component
 
     const sendComment = async(comment) => {
-
+        console.log(comment);
+        await new Promise(resolve => setTimeout(resolve, 5000));
     }
 
     const loadMoreComments = async () => {
@@ -147,7 +148,7 @@ function ViewListing() {
                     </div>
                 </div>
                 <div className="comments-holder">
-                    <CommentInput onCommentedCallback={sendComment} />
+                    <CommentInput maxLength={200} onCommentedCallback={sendComment} />
                     <CommentsDisplay comments={comments} onScrolledToBottomCallback={loadMoreComments} /> 
                 </div>
             </div>
