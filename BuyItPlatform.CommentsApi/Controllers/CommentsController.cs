@@ -26,8 +26,8 @@ namespace BuyItPlatform.CommentsApi.Controllers
         }
 
         [HttpPost]
-        [Route("uploadCommentAsync")]
-        public async Task<IActionResult> UploadCommentAsync([FromBody] CommentDto commentDto)
+        [Route("uploadComment")]
+        public async Task<IActionResult> UploadComment([FromBody] CommentDto commentDto)
         {
             try
             {
@@ -50,8 +50,8 @@ namespace BuyItPlatform.CommentsApi.Controllers
             return Ok(response);
         }
         [HttpPost]
-        [Route("deleteCommentAsync/{commentId}")]
-        public async Task<IActionResult> DeleteCommentAsync(string commentId)
+        [Route("deleteComment/{commentId}")]
+        public async Task<IActionResult> DeleteComment(string commentId)
         {
             try
             {
@@ -69,8 +69,8 @@ namespace BuyItPlatform.CommentsApi.Controllers
             return Ok(response);
         }
         [HttpPost]
-        [Route("deleteUserCommentsAsync/{userId}")]
-        public async Task<IActionResult> DeleteUserCommentsAsync(string userId)
+        [Route("deleteUserComments/{userId}")]
+        public async Task<IActionResult> DeleteUserComments(string userId)
         {
             try
             {
@@ -88,8 +88,8 @@ namespace BuyItPlatform.CommentsApi.Controllers
             return Ok(response);
         }
         [HttpPost]
-        [Route("deleteListingCommentsAsync/{listingId}")]
-        public async Task<IActionResult> DeleteListingCommentsAsync(string listingId)
+        [Route("deleteListingComments/{listingId}")]
+        public async Task<IActionResult> DeleteListingComments(string listingId)
         {
             try
             {
@@ -107,8 +107,8 @@ namespace BuyItPlatform.CommentsApi.Controllers
             return Ok(response);
         }
         [HttpGet]
-        [Route("getListingCommentsAsync/{listingId}/{count:int}/{offset:int}")]
-        public async Task<IActionResult> GetListingCommentsAsync(string listingId, int count, int offset)
+        [Route("getListingComments/{listingId}/{count:int}/{offset:int}")]
+        public async Task<IActionResult> GetListingComments(string listingId, int count, int offset)
         {
             try
             {
@@ -127,8 +127,8 @@ namespace BuyItPlatform.CommentsApi.Controllers
             return Ok(response);
         }
         [HttpGet]
-        [Route("getUserCommentsAsync/{userId}/{count:int}/{offset:int}")]
-        public async Task<IActionResult> GetUserCommentsAsync(string userId, int count, int offset)
+        [Route("getUserComments/{userId}/{count:int}/{offset:int}")]
+        public async Task<IActionResult> GetUserComments(string userId, int count, int offset)
         {
             try
             {

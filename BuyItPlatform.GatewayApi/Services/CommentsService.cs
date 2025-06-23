@@ -61,12 +61,12 @@ namespace BuyItPlatform.GatewayApi.Services
             });
         }
 
-        public async Task<MicroserviceResponseDto<object>> UploadCommentAsync(CommentViewDto commentDto)
+        public async Task<MicroserviceResponseDto<object>> UploadCommentAsync(CommentUploadDto commentDto)
         {
             return await apiCallsService.SendAsync<object>(new RequestDto()
             {
                 ApiType = Enums.ApiType.POST,
-                Url = $"{microservicesUrl.CommentsApiUrl}/UploadComment",
+                Url = $"{microservicesUrl.CommentsApiUrl}/uploadComment",
                 BodyData = commentDto
             });
         }

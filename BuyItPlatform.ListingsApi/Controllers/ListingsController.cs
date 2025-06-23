@@ -116,7 +116,7 @@ namespace BuyItPlatform.ListingsApi.Controllers
 
         [HttpPost]
         [Route("countListings")]
-        public async Task<IActionResult> CountListingsAsync([FromBody] ListingFIlterDto listFilter)
+        public async Task<IActionResult> CountListings([FromBody] ListingFIlterDto listFilter)
         {
             try
             {

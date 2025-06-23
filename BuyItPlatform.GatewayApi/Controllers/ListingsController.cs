@@ -42,7 +42,7 @@ namespace BuyItPlatform.GatewayApi.Controllers
 
         [HttpPost]
         [Route("countListings")]
-        public async Task<IActionResult> CountListingsAsync([FromBody] ListingFIlterDto listFilter)
+        public async Task<IActionResult> CountListings([FromBody] ListingFIlterDto listFilter)
         {
             var apiResult = await listingsService.CountListingsAsync(listFilter);
             return StatusCode(apiResult.StatusCode, apiResult);

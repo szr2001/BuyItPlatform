@@ -5,7 +5,7 @@ namespace BuyItPlatform.GatewayApi.Services.IServices
 {
     public interface ICommentsService
     {
-        Task<MicroserviceResponseDto<object>> UploadCommentAsync(CommentViewDto commentDto);
+        Task<MicroserviceResponseDto<object>> UploadCommentAsync(CommentUploadDto commentDto);
         Task<MicroserviceResponseDto<object>> DeleteCommentAsync(string commentId);
         Task<MicroserviceResponseDto<object>> DeleteUserCommentsAsync(string userId);
         Task<MicroserviceResponseDto<object>> DeleteListingCommentsAsync(string listingId);

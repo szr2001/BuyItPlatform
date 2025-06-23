@@ -15,10 +15,37 @@ function ViewListing() {
     const [authState, dispatch] = useContext(AuthContext);
     const isFirstRender = useRef(true); // because useEffect runs twitce due to StrictMode component
 
-    const sendComment = async(comment) => {
-        console.log(comment);
-        await new Promise(resolve => setTimeout(resolve, 5000));
-    }
+    const sendComment = async(newComment) => {
+        try {
+
+            let commentData = { listingId: listingId, content: newComment }
+
+            const response = await Api.post(`commentsApi/uploadComment`, commentData);
+
+            if (!response.data.success) {
+                toast.error(response.data.message, {
+                    autoClose: 2000 + response.data.message.length * 50,
+                });
+                console.error(response);
+            }
+            let uploadedComment = { content: newComment, listingId: listingId, userId: user.id, userName: user.userName, userProfilePic: user.userProfilePic};
+            setComments([...comments, uploadedComment]);
+            console.log(comments);
+        }
+        catch (error) {
+            toast.error(error.response.data.message, {
+                autoClose: 2000 + error.response.data.message.length * 50,
+            });
+            if (error.status === 401) {
+                window.localStorage.setItem('user', null);
+                dispatch({ type: "SET_AUTH", payload: { isAuthenticated: false } });
+                dispatch({ type: "SET_USER", payload: { user: null } });
+                navigate('/Login/');
+            }
+            console.log(error);
+        }
+    };
+    
 
     const loadMoreComments = async () => {
 
@@ -31,7 +58,6 @@ function ViewListing() {
 
     useEffect(() => {
         const getUser = async () => {
-            //if we don't also pass the user directly to this page from another page, then use the UserId to get the user manually.
             try {
                 const response = await Api.get(`authApi/user/getUserProfile/${userId}`);
 
