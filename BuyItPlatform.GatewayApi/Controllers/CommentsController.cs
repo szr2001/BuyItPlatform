@@ -24,7 +24,7 @@ namespace BuyItPlatform.GatewayApi.Controllers
 
         [HttpPost]
         [Route("uploadCommentAsync")]
-        public async Task<IActionResult> UploadCommentAsync([FromBody] CommentDto commentDto)
+        public async Task<IActionResult> UploadCommentAsync([FromBody] CommentViewDto commentDto)
         {
             var apiResult = await commentsService.UploadCommentAsync(commentDto);
             return StatusCode(apiResult.StatusCode, apiResult);

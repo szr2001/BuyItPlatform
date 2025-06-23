@@ -1,7 +1,7 @@
 ﻿
 namespace BuyItPlatform.GatewayApi.Models.CommentsApiDto
 {
-    public class CommentDto
+    public class CommentViewDto
     {
         public string Content { get; set; }
         public string ListingId { get; set; }

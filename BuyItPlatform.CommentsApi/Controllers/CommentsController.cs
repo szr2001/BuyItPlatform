@@ -13,12 +13,16 @@ namespace BuyItPlatform.CommentsApi.Controllers
     {
         private readonly ICommentsService commentsService;
         private readonly IMapper mapper;
+        private IJwtTokenHandler jwtTokenHandler;
+        private ITokenCookiesProvider tokenCookiesProvider;
         private ResponseDto response = new();
-        
-        public CommentsController(ICommentsService commentsService, IMapper mapper)
+
+        public CommentsController(ICommentsService commentsService, IMapper mapper, ITokenCookiesProvider tokenCookiesProvider, IJwtTokenHandler jwtTokenHandler)
         {
             this.commentsService = commentsService;
             this.mapper = mapper;
+            this.tokenCookiesProvider = tokenCookiesProvider;
+            this.jwtTokenHandler = jwtTokenHandler;
         }
 
         [HttpPost]
@@ -27,6 +31,11 @@ namespace BuyItPlatform.CommentsApi.Controllers
         {
             try
             {
+                var Token = tokenCookiesProvider.GetToken();
+                var tokenData = jwtTokenHandler.ExtractTokenData(Token);
+                var userId = tokenData.Where(i => i.Type == "nameid").First().Value;
+                commentDto.UserId = userId;
+
                 await commentsService.UploadCommentAsync(commentDto);
                 response.Result = null;
                 response.Success = true;

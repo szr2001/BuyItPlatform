@@ -3,8 +3,10 @@ using BuyItPlatform.CommentsApi.Data;
 using BuyItPlatform.CommentsApi.Services;
 using BuyItPlatform.CommentsApi.Services.IServices;
 using BuyItPlatform.ListingsApi.Extensions;
+using BuyItPlatform.ListingsApi.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
 namespace BuyItPlatform.CommentsApi
@@ -25,6 +27,8 @@ namespace BuyItPlatform.CommentsApi
             builder.Services.AddSingleton(mapper);
 
             builder.Services.AddScoped<ICommentsService, CommentsService>();
+            builder.Services.AddScoped<IJwtTokenHandler, JwtTokenHandler>();
+            builder.Services.AddScoped<ITokenCookiesProvider, TokensProvider>();
 
             // Add services to the container.
 
