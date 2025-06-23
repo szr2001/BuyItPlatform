@@ -46,8 +46,9 @@ function Register() {
             navigate("/Login");
         }
         catch (error) {
-            toast.error(error.response.data.message, {
-                autoClose: 2000 + error.response.data.message.length * 50,
+            const errorText = error?.response?.data?.message || error.message || "An unexpected error occurred";
+            toast.error(errorText, {
+                autoClose: 2000 + errorText.length * 50,
             });
             console.error(error);
         }
