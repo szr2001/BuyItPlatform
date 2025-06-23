@@ -28,12 +28,26 @@
     background-color: var(--primary-color);
     color: var(--background-color);
 }
-.comment-text {
+.comment-body{
+    display:flex;
+    flex-direction:column;
+}
+.comment-name {
+    color: var(--text-color);
+    font-family: var(--primary-font);
+    padding-left: 15px;
+    font-size: 30px;
+    font-weight:bold;
+    align-self: start;
+    overflow-wrap: anywhere;
+    overflow: visible;
+}
+.comment-content {
     color: var(--text-color);
     font-family: var(--primary-font);
     padding-left: 15px;
     font-size: 25px;
-    align-self: center;
+    align-self: start;
     overflow-wrap: anywhere;
     overflow: visible;
 }

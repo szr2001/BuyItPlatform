@@ -68,15 +68,16 @@ function ViewListing() {
                 setComments(response.data.result.reverse());
             }
             catch (error) {
-                toast.error(error.response.data.message, {
-                    autoClose: 2000 + error.response.data.message.length * 50,
-                });
                 if (error.status === 401) {
                     window.localStorage.setItem('user', null);
                     dispatch({ type: "SET_AUTH", payload: { isAuthenticated: false } });
                     dispatch({ type: "SET_USER", payload: { user: null } });
                     navigate('/Login/');
+                    return;
                 }
+                toast.error(error.response.data.message, {
+                    autoClose: 2000 + error.response.data.message.length * 50,
+                });
                 console.log(error);
             }
         }

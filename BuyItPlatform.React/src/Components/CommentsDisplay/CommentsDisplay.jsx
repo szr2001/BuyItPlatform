@@ -40,7 +40,10 @@ function CommentsDisplay({ comments, onScrolledToBottomCallback }) {
                                     :
                                     <img className="comment-icon" src={comment.userProfilePic} />
                                 }
-                                <label className="comment-text"> { comment.content } </label>
+                                <div className="comment-body">
+                                <label className="comment-name"> {comment.userName } </label>
+                                <label className="comment-content"> { comment.content } </label>
+                                </div>
                             </div>
                         ))
                         :
