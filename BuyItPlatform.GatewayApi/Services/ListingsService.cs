@@ -25,7 +25,7 @@ namespace BuyItPlatform.GatewayApi.Services
             });
         }
 
-        public async Task<MicroserviceResponseDto<object>> DeleteListingAsync(int listingId)
+        public async Task<MicroserviceResponseDto<object>> DeleteListingAsync(string listingId)
         {
             return await apiCallsService.SendAsync<object>(new RequestDto() 
             {
@@ -51,11 +51,11 @@ namespace BuyItPlatform.GatewayApi.Services
             });
         }
 
-        public async Task<MicroserviceResponseDto<ListingViewDto>> GetListingWithIdAsync(int id)
+        public async Task<MicroserviceResponseDto<ListingViewDto>> GetListingWithIdAsync(string listingId)
         {
             return await apiCallsService.SendAsync<ListingViewDto>(new RequestDto()
             {
-                Url = $"{microservicesUrl.ListingsApiUrl}/getListingWithId/{id}"
+                Url = $"{microservicesUrl.ListingsApiUrl}/getListingWithId/{listingId}"
             });
         }
 

@@ -46,6 +46,7 @@
     transition: all 0.2s;
     margin: 5px;
     padding: 3px;
+    color:var(--background-color);
     background-color: var(--primary-color);
 }
 .comment-input-text {

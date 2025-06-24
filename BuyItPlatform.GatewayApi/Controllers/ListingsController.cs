@@ -11,8 +11,11 @@ namespace BuyItPlatform.GatewayApi.Controllers
     public class ListingsController : Controller
     {
         private readonly IListingsService listingsService;
-        public ListingsController(IListingsService listingsService)
+        private readonly ICommentsService commentsService;
+
+        public ListingsController(ICommentsService commentsService, IListingsService listingsService)
         {
+            this.commentsService = commentsService;
             this.listingsService = listingsService;
         }
 
@@ -25,8 +28,8 @@ namespace BuyItPlatform.GatewayApi.Controllers
         }
 
         [HttpGet]
-        [Route("getListingWithId/{listingId:int}")]
-        public async Task<IActionResult> GetListingWithId(int listingId)
+        [Route("getListingWithId/{listingId}")]
+        public async Task<IActionResult> GetListingWithId(string listingId)
         {
             var apiResult = await listingsService.GetListingWithIdAsync(listingId);
             return StatusCode(apiResult.StatusCode, apiResult);
@@ -49,10 +52,14 @@ namespace BuyItPlatform.GatewayApi.Controllers
         }
 
         [HttpGet]
-        [Route("deleteListing/{listingId:int}")]
-        public async Task<IActionResult> DeleteListing(int listingId)
+        [Route("deleteListing/{listingId}")]
+        public async Task<IActionResult> DeleteListing(string listingId)
         {
             var apiResult = await listingsService.DeleteListingAsync(listingId);
+            if (apiResult.Success)
+            {
+                await commentsService.DeleteListingCommentsAsync(listingId);
+            }
             return StatusCode(apiResult.StatusCode, apiResult);
         }
 

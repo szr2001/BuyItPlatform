@@ -73,8 +73,8 @@ namespace BuyItPlatform.ListingsApi.Controllers
         }
 
         [HttpGet]
-        [Route("getListingWithId/{listingId:int}")]
-        public async Task<IActionResult> GetListingWithId(int listingId)
+        [Route("getListingWithId/{listingId}")]
+        public async Task<IActionResult> GetListingWithId(string listingId)
         {
             try
             {
@@ -134,8 +134,8 @@ namespace BuyItPlatform.ListingsApi.Controllers
         }
 
         [HttpGet]
-        [Route("deleteListing/{listingId:int}")]
-        public async Task<IActionResult> DeleteListing(int listingId)
+        [Route("deleteListing/{listingId}")]
+        public async Task<IActionResult> DeleteListing(string listingId)
         {
             try
             {

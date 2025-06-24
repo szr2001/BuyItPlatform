@@ -1,12 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace BuyItPlatform.UserRatingApi.Migrations
 {
     /// <inheritdoc />
-    public partial class firstMigration : Migration
+    public partial class initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,10 +15,9 @@ namespace BuyItPlatform.UserRatingApi.Migrations
                 name: "Ratings",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    TargetUserId = table.Column<string>(type: "character varying(25)", maxLength: 25, nullable: false),
-                    UserId = table.Column<string>(type: "character varying(25)", maxLength: 25, nullable: false),
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    TargetUserId = table.Column<string>(type: "character varying(80)", maxLength: 80, nullable: false),
+                    UserId = table.Column<string>(type: "character varying(80)", maxLength: 80, nullable: false),
                     Rating = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>

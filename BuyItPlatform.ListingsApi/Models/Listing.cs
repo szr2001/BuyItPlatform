@@ -8,7 +8,7 @@ namespace BuyItPlatform.ListingsApi.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; } //replace with guid
+        public Guid Id { get; set; } = Guid.NewGuid();
         public int SlotId { get; set; }
         [MaxLength(20)]
         public string Name { get; set; } = "";

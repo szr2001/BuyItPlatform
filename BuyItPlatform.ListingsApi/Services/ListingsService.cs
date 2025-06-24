@@ -20,7 +20,7 @@ namespace BuyItPlatform.ListingsApi.Services
             this.imageUploader = imageUploader;
         }
 
-        public async Task<Listing> GetListingWithIdAsync(int id)
+        public async Task<Listing> GetListingWithIdAsync(string listingId)
         {
             // GET FROM CACHE //
 
@@ -28,7 +28,7 @@ namespace BuyItPlatform.ListingsApi.Services
 
             // SAVE TO CACHE //
 
-            return await dbContext.Listings.Where(i => i.Id == id).FirstAsync();
+            return await dbContext.Listings.Where(i => i.Id == Guid.Parse(listingId)).FirstAsync();
         }
 
         public async Task<ICollection<Listing>> GetListingsAsync(ListingFIlterDto listFilter, int count, int offset)
@@ -159,14 +159,14 @@ namespace BuyItPlatform.ListingsApi.Services
             }
         }
 
-        public async Task DeleteListingAsync(string userId,int listingId)
+        public async Task DeleteListingAsync(string userId, string listingId)
         {
             // SAVE TO CACHE //
             
-            Listing listing = await dbContext.Listings.Where(i => i.Id == listingId && i.UserId == userId).FirstAsync(); //why do I use userid and listingid....?
+            Listing listing = await dbContext.Listings.Where(i => i.Id == Guid.Parse(listingId) && i.UserId == userId).FirstAsync(); //why do I use userid and listingid....?
             if(listing != null)
             {
-                await imageUploader.DeleteImagesAsync(listingId.ToString());
+                await imageUploader.DeleteImagesAsync(listingId);
                 dbContext.Listings.Remove(listing);
                 await dbContext.SaveChangesAsync();
             }
@@ -262,7 +262,7 @@ namespace BuyItPlatform.ListingsApi.Services
 
             // SAVE TO CACHE //
 
-            var listing = await dbContext.Listings.FindAsync(listingId);
+            var listing = await dbContext.Listings.FindAsync(Guid.Parse(listingId));
             if(listing == null)
             {
                 throw new KeyNotFoundException("listingId does't exist");

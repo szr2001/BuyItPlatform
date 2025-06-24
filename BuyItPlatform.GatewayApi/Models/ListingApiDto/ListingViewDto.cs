@@ -2,7 +2,7 @@
 {
     public class ListingViewDto
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public int SlotId { get; set; }
         public string UserId { get; set; } = "";
         public string Name { get; set; } = "";

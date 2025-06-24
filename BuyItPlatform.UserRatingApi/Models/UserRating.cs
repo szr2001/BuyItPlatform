@@ -6,10 +6,9 @@ namespace BuyItPlatform.UserRatingApi.Models
 {
     public class UserRating
     {
-        //specify to auto increment ID
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public Guid Id { get; set; } = Guid.NewGuid();
 
         [MaxLength(80)]
         [NotNull]
