@@ -34,48 +34,46 @@ function ViewListing() {
             console.log(comments);
         }
         catch (error) {
-            if (error.status === 401) {
-                window.localStorage.setItem('user', null);
-                dispatch({ type: "SET_AUTH", payload: { isAuthenticated: false } });
-                dispatch({ type: "SET_USER", payload: { user: null } });
-                navigate('/Login/');
-                return;
-            }
             const errorText = error?.response?.data?.message || error.message || "An unexpected error occurred";
             toast.error(errorText, {
                 autoClose: 2000 + errorText.length * 50,
             });
             console.log(error);
+            if (error.status === 401) {
+                window.localStorage.setItem('user', null);
+                dispatch({ type: "SET_AUTH", payload: { isAuthenticated: false } });
+                dispatch({ type: "SET_USER", payload: { user: null } });
+                navigate('/Login/');
+            }
         }
     };
 
-    const deleteComment = async (deleteComment) => {
+    const deleteComment = async (commentId) => {
         try {
-            const response = await Api.post(`commentsApi/deleteComment/${deleteComment.id}`);
+            const response = await Api.post(`commentsApi/deleteComment/${commentId}`);
 
             if (!response.data.success) {
                 toast.error(response.data.message, {
                     autoClose: 2000 + response.data.message.length * 50,
                 });
                 console.error(response);
-                setComments((prevComments) =>
-                    prevComments.filter((comment) => comment.id !== deleteComment.id)
-                );
             }
+            setComments((prevComments) =>
+                prevComments.filter((comment) => comment.id !== commentId)
+            );
         }
         catch (error) {
-            if (error.status === 401) {
-                window.localStorage.setItem('user', null);
-                dispatch({ type: "SET_AUTH", payload: { isAuthenticated: false } });
-                dispatch({ type: "SET_USER", payload: { user: null } });
-                navigate('/Login/');
-                return;
-            }
             const errorText = error?.response?.data?.message || error.message || "An unexpected error occurred";
             toast.error(errorText, {
                 autoClose: 2000 + errorText.length * 50,
             });
             console.log(error);
+            if (error.status === 401) {
+                window.localStorage.setItem('user', null);
+                dispatch({ type: "SET_AUTH", payload: { isAuthenticated: false } });
+                dispatch({ type: "SET_USER", payload: { user: null } });
+                navigate('/Login/');
+            }
         }
     }
 
@@ -99,18 +97,17 @@ function ViewListing() {
                 setComments(response.data.result.reverse());
             }
             catch (error) {
-                if (error.status === 401) {
-                    window.localStorage.setItem('user', null);
-                    dispatch({ type: "SET_AUTH", payload: { isAuthenticated: false } });
-                    dispatch({ type: "SET_USER", payload: { user: null } });
-                    navigate('/Login/');
-                    return;
-                }
                 const errorText = error?.response?.data?.message || error.message || "An unexpected error occurred";
                 toast.error(errorText, {
                     autoClose: 2000 + errorText.length * 50,
                 });
                 console.log(error);
+                if (error.status === 401) {
+                    window.localStorage.setItem('user', null);
+                    dispatch({ type: "SET_AUTH", payload: { isAuthenticated: false } });
+                    dispatch({ type: "SET_USER", payload: { user: null } });
+                    navigate('/Login/');
+                }
             }
         }
     }
@@ -170,18 +167,17 @@ function ViewListing() {
             navigate(`/Profile/${userId}`);
         }
         catch (error) {
-            if (error.status === 401) {
-                window.localStorage.setItem('user', null);
-                dispatch({ type: "SET_AUTH", payload: { isAuthenticated: false } });
-                dispatch({ type: "SET_USER", payload: { user: null } });
-                navigate('/Login/');
-                return;
-            }
             const errorText = error?.response?.data?.message || error.message || "An unexpected error occurred";
             toast.error(errorText, {
                 autoClose: 2000 + errorText.length * 50,
             });
             console.log(error);
+            if (error.status === 401) {
+                window.localStorage.setItem('user', null);
+                dispatch({ type: "SET_AUTH", payload: { isAuthenticated: false } });
+                dispatch({ type: "SET_USER", payload: { user: null } });
+                navigate('/Login/');
+            }
         }
     }
 

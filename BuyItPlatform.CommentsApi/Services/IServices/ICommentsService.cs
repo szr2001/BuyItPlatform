@@ -6,7 +6,7 @@ namespace BuyItPlatform.CommentsApi.Services.IServices
     public interface ICommentsService
     {
         Task UploadCommentAsync(CommentDto commentDto);
-        Task DeleteCommentAsync(string commentId);
+        Task DeleteCommentAsync(string commentId, string userId);
         Task DeleteUserCommentsAsync(string userId);
         Task DeleteListingCommentsAsync(string listingId);
         Task<ICollection<Comment>> GetListingCommentsAsync(string listingId, int count, int offset);

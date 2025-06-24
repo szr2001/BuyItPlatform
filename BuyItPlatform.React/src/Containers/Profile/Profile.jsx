@@ -34,18 +34,17 @@ function Profile() {
                 setUser(response.data.result);
             }
             catch (error) {
-                if (error.status === 401) {
-                    window.localStorage.setItem('user', null);
-                    dispatch({ type: "SET_AUTH", payload: { isAuthenticated: false } });
-                    dispatch({ type: "SET_USER", payload: { user: null } });
-                    navigate('/Login/');
-                    return;
-                }
                 const errorText = error?.response?.data?.message || error.message || "An unexpected error occurred";
                 toast.error(errorText, {
                     autoClose: 2000 + errorText.length * 50,
                 });
                 console.log(error);
+                if (error.status === 401) {
+                    window.localStorage.setItem('user', null);
+                    dispatch({ type: "SET_AUTH", payload: { isAuthenticated: false } });
+                    dispatch({ type: "SET_USER", payload: { user: null } });
+                    navigate('/Login/');
+                }
             }
             finally {
                 setIsOwnProfile(userId === authState.user.id);

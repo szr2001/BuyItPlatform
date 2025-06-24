@@ -55,7 +55,10 @@ namespace BuyItPlatform.CommentsApi.Controllers
         {
             try
             {
-                await commentsService.DeleteCommentAsync(commentId);
+                var Token = tokenCookiesProvider.GetToken();
+                var tokenData = jwtTokenHandler.ExtractTokenData(Token);
+                var userId = tokenData.Where(i => i.Type == "nameid").First().Value;
+                await commentsService.DeleteCommentAsync(commentId, userId);
                 response.Result = null;
                 response.Success = true;
             }

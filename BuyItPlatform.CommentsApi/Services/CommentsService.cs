@@ -17,12 +17,16 @@ namespace BuyItPlatform.CommentsApi.Services
             this.mapper = mapper;
         }
 
-        public async Task DeleteCommentAsync(string commentId)
+        public async Task DeleteCommentAsync(string commentId, string userId)
         {
-            var comment = await dbContext.Comments.FindAsync(commentId);
+            var comment = await dbContext.Comments.FindAsync(Guid.Parse(commentId));
             if (comment == null)
             {
                 throw new KeyNotFoundException("commentId does't exist");
+            }
+            if(comment.UserId != userId)
+            {
+                throw new UnauthorizedAccessException("You don't own that comment");
             }
             dbContext.Comments.Remove(comment);
             await dbContext.SaveChangesAsync();

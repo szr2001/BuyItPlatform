@@ -82,3 +82,8 @@
     overflow-wrap: anywhere;
     overflow: visible;
 }
+@media (max-width: 480px) {
+    .comment-body-delete {
+       transform:scale(1);
+    }
+}
