@@ -24,7 +24,24 @@ namespace BuyItPlatform.CommentsApi.Controllers
             this.tokenCookiesProvider = tokenCookiesProvider;
             this.jwtTokenHandler = jwtTokenHandler;
         }
+        [HttpGet]
+        [Route("countListingComments/{listingId}")]
+        public async Task<IActionResult> CountListingComments(string listingId)
+        {
+            try
+            {
+                response.Result = await commentsService.CountListingCommentsAsync(listingId);
+                response.Success = true;
+            }
+            catch (Exception ex)
+            {
+                response.Success = false;
+                response.Message += ex.Message;
+                return BadRequest(response);
+            }
 
+            return Ok(response);
+        }
         [HttpPost]
         [Route("uploadComment")]
         public async Task<IActionResult> UploadComment([FromBody] CommentDto commentDto)

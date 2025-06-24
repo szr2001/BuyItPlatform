@@ -17,6 +17,11 @@ namespace BuyItPlatform.CommentsApi.Services
             this.mapper = mapper;
         }
 
+        public async Task<int> CountListingCommentsAsync(string listingId)
+        {
+            return await dbContext.Comments.Where(c => c.ListingId == listingId).CountAsync();
+        }
+
         public async Task DeleteCommentAsync(string commentId, string userId)
         {
             var comment = await dbContext.Comments.FindAsync(Guid.Parse(commentId));

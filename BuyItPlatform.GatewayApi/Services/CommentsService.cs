@@ -16,6 +16,15 @@ namespace BuyItPlatform.GatewayApi.Services
             this.microservicesUrl = microservicesUrl;
         }
 
+        public async Task<MicroserviceResponseDto<int>> CountListingCommentsAsync(string listingId)
+        {
+            return await apiCallsService.SendAsync<int>(new RequestDto()
+            {
+                ApiType = Enums.ApiType.GET,
+                Url = $"{microservicesUrl.CommentsApiUrl}/countListingComments/{listingId}",
+            });
+        }
+
         public async Task<MicroserviceResponseDto<object>> DeleteCommentAsync(string commentId)
         {
             return await apiCallsService.SendAsync<object>(new RequestDto()

@@ -11,9 +11,11 @@ function ViewListing() {
     const listing = location.state?.listing;
     const [user, setUser] = useState(location.state?.user);
     const [comments, setComments] = useState([]);
+    const [commentsCount, setCommentsCount] = useState(0);
     const navigate = useNavigate();
     const [authState, dispatch] = useContext(AuthContext);
     const isFirstRender = useRef(true); // because useEffect runs twitce due to StrictMode component
+    const loadListingsCount = 5;
 
     const sendComment = async(newComment) => {
         try {
@@ -29,7 +31,7 @@ function ViewListing() {
                 console.error(response);
             }
             let uploadedComment = { content: newComment, listingId: listingId, userId: user.id, userName: user.userName, userProfilePic: authState.user.profileImgLink };
-            setComments([uploadedComment, ...comments]);
+            setComments(comments === null ? [uploadedComment] : [uploadedComment, ...comments]);
             console.log("new Comment", uploadedComment);
             console.log(comments);
         }
@@ -58,9 +60,14 @@ function ViewListing() {
                 });
                 console.error(response);
             }
-            setComments((prevComments) =>
-                prevComments.filter((comment) => comment.id !== commentId)
-            );
+            if (comments.length === 1) {
+                setComments(null);
+            }
+            else {
+                setComments((prevComments) =>
+                    prevComments.filter((comment) => comment.id !== commentId)
+                );
+            }
         }
         catch (error) {
             const errorText = error?.response?.data?.message || error.message || "An unexpected error occurred";
@@ -78,13 +85,39 @@ function ViewListing() {
     }
 
     const loadMoreComments = async () => {
+        if (comments.length === commentsCount) return;
+        try {
+            const response = await Api.get(`commentsApi/getListingComments/${listingId}/${loadListingsCount}/${comments.length}`);
 
+            if (!response.data.success) {
+                toast.error(response.data.message, {
+                    autoClose: 2000 + response.data.message.length * 50,
+                });
+                console.error(response);
+            }
+
+            console.log(response);
+            setComments([...response.data.result.reverse(), ...comments]);
+        }
+        catch (error) {
+            const errorText = error?.response?.data?.message || error.message || "An unexpected error occurred";
+            toast.error(errorText, {
+                autoClose: 2000 + errorText.length * 50,
+            });
+            console.log(error);
+            if (error.status === 401) {
+                window.localStorage.setItem('user', null);
+                dispatch({ type: "SET_AUTH", payload: { isAuthenticated: false } });
+                dispatch({ type: "SET_USER", payload: { user: null } });
+                navigate('/Login/');
+            }
+        }
     }
 
-    const loadComments = async (take, skip) => {
+    const loadComments = async () => {
         {
             try {
-                const response = await Api.get(`commentsApi/getListingComments/${listingId}/${take}/${skip}`);
+                const response = await Api.get(`commentsApi/getListingComments/${listingId}/${loadListingsCount}/${0}`);
 
                 if (!response.data.success) {
                     toast.error(response.data.message, {
@@ -94,7 +127,8 @@ function ViewListing() {
                 }
 
                 console.log(response);
-                setComments(response.data.result.reverse());
+
+                setComments(response.data.result.length == 0 ? null : response.data.result.reverse());
             }
             catch (error) {
                 const errorText = error?.response?.data?.message || error.message || "An unexpected error occurred";
@@ -143,8 +177,38 @@ function ViewListing() {
                 console.log(error);
             }
         };
+        const getCommentsCount = async () => {
+            try {
+                const response = await Api.get(`commentsApi/countListingComments/${listingId}`);
+
+                if (!response.data.success) {
+                    toast.error(response.data.message, {
+                        autoClose: 2000 + response.data.message.length * 50,
+                    });
+                    console.error(response);
+                }
+
+                console.log(response);
+                setCommentsCount(response.data.result);
+            }
+            catch (error) {
+                if (error.status === 401) {
+                    window.localStorage.setItem('user', null);
+                    dispatch({ type: "SET_AUTH", payload: { isAuthenticated: false } });
+                    dispatch({ type: "SET_USER", payload: { user: null } });
+                    navigate('/Login/');
+                    return;
+                }
+                const errorText = error?.response?.data?.message || error.message || "An unexpected error occurred";
+                toast.error(errorText, {
+                    autoClose: 2000 + errorText.length * 50,
+                });
+                console.log(error);
+            }
+        }
         if (isFirstRender.current) {
-            loadComments(10, 0);
+            getCommentsCount();
+            loadComments();
         }
         if (!user && isFirstRender.current) {
             isFirstRender.current = false;

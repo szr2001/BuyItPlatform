@@ -29,6 +29,13 @@ namespace BuyItPlatform.GatewayApi.Controllers
             var apiResult = await commentsService.UploadCommentAsync(commentDto);
             return StatusCode(apiResult.StatusCode, apiResult);
         }
+        [HttpGet]
+        [Route("countListingComments/{listingId}")]
+        public async Task<IActionResult> CountListingComments(string listingId)
+        {
+            var apiResult = await commentsService.CountListingCommentsAsync(listingId);
+            return StatusCode(apiResult.StatusCode, apiResult);
+        }
         [HttpPost]
         [Route("deleteComment/{commentId}")]
         public async Task<IActionResult> DeleteComment(string commentId)

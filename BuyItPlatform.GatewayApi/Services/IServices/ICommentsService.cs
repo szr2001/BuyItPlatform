@@ -9,6 +9,7 @@ namespace BuyItPlatform.GatewayApi.Services.IServices
         Task<MicroserviceResponseDto<object>> DeleteCommentAsync(string commentId);
         Task<MicroserviceResponseDto<object>> DeleteUserCommentsAsync(string userId);
         Task<MicroserviceResponseDto<object>> DeleteListingCommentsAsync(string listingId);
+        Task<MicroserviceResponseDto<int>> CountListingCommentsAsync(string listingId);
         Task<MicroserviceResponseDto<List<CommentViewDto>>> GetListingCommentsAsync(string listingId, int count, int offset);
         Task<MicroserviceResponseDto<List<CommentViewDto>>> GetUserCommentsAsync(string userId, int count, int offset);
     }
