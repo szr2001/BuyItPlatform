@@ -30,7 +30,7 @@ function ViewListing() {
                 });
                 console.error(response);
             }
-            let uploadedComment = { createdDate:null, id:response.data.result, content: newComment, listingId: listingId, userId: user.id, userName: user.userName, userProfilePic: authState.user.profileImgLink };
+            let uploadedComment = { createdDate: null, id: response.data.result, content: newComment, listingId: listingId, userId: authState.user.id, userName: authState.user.userName, userProfilePic: authState.user.profileImgLink };
             setComments(comments === null ? [uploadedComment] : [uploadedComment, ...comments]);
             console.log("new Comment", uploadedComment);
             console.log(comments);
