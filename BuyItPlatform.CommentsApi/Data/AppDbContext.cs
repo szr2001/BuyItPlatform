@@ -13,6 +13,11 @@ namespace BuyItPlatform.CommentsApi.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            //tell postgresql, if no DateTime is provided to use the current dateTime
+            modelBuilder.Entity<Comment>() 
+            .Property(c => c.CreatedDate)
+            .HasDefaultValueSql("NOW()");
+
             base.OnModelCreating(modelBuilder);
         }
     }

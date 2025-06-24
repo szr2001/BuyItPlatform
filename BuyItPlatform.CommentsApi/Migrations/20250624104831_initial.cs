@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace BuyItPlatform.CommentsApi.Migrations
 {
     /// <inheritdoc />
-    public partial class initialMigration : Migration
+    public partial class initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -16,7 +16,8 @@ namespace BuyItPlatform.CommentsApi.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Content = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", maxLength: 200, nullable: false, defaultValueSql: "NOW()"),
+                    Content = table.Column<string>(type: "text", nullable: false),
                     ListingId = table.Column<string>(type: "character varying(38)", maxLength: 38, nullable: false),
                     UserId = table.Column<string>(type: "character varying(38)", maxLength: 38, nullable: false)
                 },

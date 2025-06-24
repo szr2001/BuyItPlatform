@@ -57,9 +57,10 @@
     background-color: var(--primary-color);
     color: var(--background-color);
 }
-.comment-body{
-    display:flex;
-    flex-direction:column;
+.comment-body {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
     padding-left: 15px;
 }
 .comment-body-name {
@@ -70,9 +71,21 @@
     overflow-wrap: anywhere;
     overflow: visible;
 }
+.comment-body-time {
+    color: var(--text-color);
+    font-family: var(--primary-font);
+    font-size: 20px;
+    margin: 10px;
+    justify-self: end;
+    margin-left: auto;
+    white-space: nowrap;
+    overflow-wrap: anywhere;
+    overflow: visible;
+}
 .comment-body-name-holder {
     display: flex;
     flex-direction: row;
+    width:100%;
 }
 .comment-content {
     color: var(--text-color);

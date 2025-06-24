@@ -67,17 +67,17 @@ namespace BuyItPlatform.CommentsApi.Services
             return await dbContext.Comments.Where(c => c.UserId == userId).Skip(offset).Take(count).ToListAsync();
         }
 
-        public async Task UploadCommentAsync(CommentDto commentDto)
+        public async Task<Guid> UploadCommentAsync(CommentDto commentDto)
         {
-            if (string.IsNullOrEmpty(commentDto.Content) && commentDto.Content?.Length > 200)
+            if (string.IsNullOrEmpty(commentDto.Content) || commentDto.Content?.Length > 200)
             {
                 throw new ArgumentException("Comment must be between 1-200 characters M'lord!");
             }
 
             var comment = mapper.Map<Comment>(commentDto);
-
             dbContext.Comments.Add(comment);
             await dbContext.SaveChangesAsync();
+            return comment.Id;
         }
     }
 }

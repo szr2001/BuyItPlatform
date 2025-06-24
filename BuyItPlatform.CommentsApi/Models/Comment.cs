@@ -9,6 +9,7 @@ namespace BuyItPlatform.CommentsApi.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; } = Guid.NewGuid();
         [MaxLength(200)]
+        public DateTime CreatedDate { get; set; }
         public string Content { get; set; }
         [MaxLength(38)]
         public string ListingId { get; set; }

@@ -30,7 +30,7 @@ function ViewListing() {
                 });
                 console.error(response);
             }
-            let uploadedComment = { content: newComment, listingId: listingId, userId: user.id, userName: user.userName, userProfilePic: authState.user.profileImgLink };
+            let uploadedComment = { createdDate:null, id:response.data.result, content: newComment, listingId: listingId, userId: user.id, userName: user.userName, userProfilePic: authState.user.profileImgLink };
             setComments(comments === null ? [uploadedComment] : [uploadedComment, ...comments]);
             console.log("new Comment", uploadedComment);
             console.log(comments);
@@ -85,7 +85,9 @@ function ViewListing() {
     }
 
     const loadMoreComments = async () => {
-        if (comments.length === commentsCount) return;
+        console.log(commentsCount);
+        console.log(comments.length);
+        if (comments.length >= commentsCount) return;
         try {
             const response = await Api.get(`commentsApi/getListingComments/${listingId}/${loadListingsCount}/${comments.length}`);
 

@@ -14,6 +14,27 @@ function CommentsDisplay({ comments, onScrolledToBottomCallback, onCommentDelete
         navigate(`/Profile/${userId}`);
     }
 
+    const getTimeAgo = (createdDate) => {
+        if (createdDate === null) return "Now";
+
+        const created = new Date(createdDate);
+        const now = new Date();
+        const diffMs = now - created;
+        const diffMins = Math.floor(diffMs / (1000 * 60));
+        const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+        const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+
+        if (diffDays >= 1) {
+            return `${diffDays} day${diffDays > 1 ? 's' : ''} ago`;
+        } else if (diffHours >= 1) {
+            return `${diffHours} hour${diffHours > 1 ? 's' : ''} ago`;
+        } else if (diffMins >= 1) {
+            return `${diffMins} minute${diffMins > 1 ? 's' : ''} ago`;
+        } else {
+            return "Now";
+        }
+    }
+
     const deleteComment = async (e, commentId) => {
         e.target.disabled = true;
         onCommentDeleteCallback?.(commentId)
@@ -73,6 +94,7 @@ function CommentsDisplay({ comments, onScrolledToBottomCallback, onCommentDelete
                                                 :
                                                 null
                                             }
+                                            <label className="comment-body-time"> {getTimeAgo(comment.createdDate)} </label>
                                         </div>
                                     <label className="comment-content"> { comment.content } </label>
                                 </div>

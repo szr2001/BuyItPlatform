@@ -53,8 +53,7 @@ namespace BuyItPlatform.CommentsApi.Controllers
                 var userId = tokenData.Where(i => i.Type == "nameid").First().Value;
                 commentDto.UserId = userId;
 
-                await commentsService.UploadCommentAsync(commentDto);
-                response.Result = null;
+                response.Result = await commentsService.UploadCommentAsync(commentDto);
                 response.Success = true;
             }
             catch (Exception ex)
