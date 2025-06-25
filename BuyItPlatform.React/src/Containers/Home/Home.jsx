@@ -1,9 +1,12 @@
 ﻿import './Home.css'
 import { toast } from 'react-toastify';
 import Api from '../../Api/Api';
-import { useState, useEffect, useRef } from 'react';
+import { AuthContext } from '../../Components/Auth/Auth'
+import { useState, useEffect, useRef, useContext } from 'react';
 import { ListingSearch, Categories, ListingsDisplay } from '../../Components';
+import { useNavigate } from "react-router-dom";
 function Home() {
+    const [authState, dispatch] = useContext(AuthContext);
     const [listings, setListings] = useState([]);
     const [listingsCount, setListingsCount] = useState(0);
     const [category, setCategory] = useState(null);
@@ -11,12 +14,13 @@ function Home() {
     const [location, setLocation] = useState(null);
     const isFirstRender = useRef(true); // because useRef runs twitce due to StrictMode component
     const listingRequestingCount = 5;
+    const navigate = useNavigate();
 
     const loadMoreListings = async (listingCount) => {
         if (listingsCount === listingCount) return;
 
         try {
-            const listingFilter = { category, name }; //problem
+            const listingFilter = { category, name };
             console.log(listingFilter);
             const listingResponse = await Api.post(`listingsApi/getListings?count=${listingRequestingCount}&offset=${listingCount}`, listingFilter);
 
@@ -31,12 +35,13 @@ function Home() {
             setListings(listings.concat(listingResponse.data.result));
         }
         catch (error) {
+            if (error.status === 401) return;
             const errorText = error?.response?.data?.message || error.message || "An unexpected error occurred";
             toast.error(errorText, {
                 autoClose: 2000 + errorText.length * 50,
             });
             console.log(error);
-            if (error.status === 401) {
+            if (error.status === 403) {
                 window.localStorage.setItem('user', null);
                 dispatch({ type: "SET_AUTH", payload: { isAuthenticated: false } });
                 dispatch({ type: "SET_USER", payload: { user: null } });
@@ -84,18 +89,18 @@ function Home() {
             setListingsCount(countResponse.data.result);
         }
         catch (error) {
-            if (error.status === 401) {
-                window.localStorage.setItem('user', null);
-                dispatch({ type: "SET_AUTH", payload: { isAuthenticated: false } });
-                dispatch({ type: "SET_USER", payload: { user: null } });
-                navigate('/Login/');
-                return;
-            }
+            if (error.status === 401) return;
             const errorText = error?.response?.data?.message || error.message || "An unexpected error occurred";
             toast.error(errorText, {
                 autoClose: 2000 + errorText.length * 50,
             });
             console.log(error);
+            if (error.status === 403) {
+                window.localStorage.setItem('user', null);
+                dispatch({ type: "SET_AUTH", payload: { isAuthenticated: false } });
+                dispatch({ type: "SET_USER", payload: { user: null } });
+                navigate('/Login/');
+            }
         }
     };
     useEffect(() => {

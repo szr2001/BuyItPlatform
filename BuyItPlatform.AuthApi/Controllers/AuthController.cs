@@ -72,13 +72,13 @@ namespace BuyItPlatform.AuthApi.Controllers
             {
                 response.Success = false;
                 response.Message = $"{ex.Message}";
-                return Unauthorized(response);
+                return StatusCode(403, response);
             }
             catch (Exception ex)
             {
                 response.Success = false;
                 response.Message = $"{ex.Message}";
-                return BadRequest(response);
+                return StatusCode(403, response);
             }
             return Ok(response);
         }
