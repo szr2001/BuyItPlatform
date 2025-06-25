@@ -19,11 +19,17 @@ namespace BuyItPlatform.CommentsApi.Services
 
         public async Task<int> CountListingCommentsAsync(string listingId)
         {
+            // GET FROM CACHE //
+
+            // if it's not in cache, get from db
+
+            // SAVE TO CACHE //
             return await dbContext.Comments.Where(c => c.ListingId == listingId).CountAsync();
         }
 
         public async Task DeleteCommentAsync(string commentId, string userId)
         {
+            // DELETE FROM CACHE //
             var comment = await dbContext.Comments.FindAsync(Guid.Parse(commentId));
             if (comment == null)
             {
@@ -39,6 +45,7 @@ namespace BuyItPlatform.CommentsApi.Services
 
         public async Task DeleteListingCommentsAsync(string listingId)
         {
+            // DELETE FROM CACHE //
             var comment = await dbContext.Comments.Where(c => c.ListingId == listingId).ToListAsync();
             if (comment == null)
             {
@@ -50,6 +57,7 @@ namespace BuyItPlatform.CommentsApi.Services
 
         public async Task DeleteUserCommentsAsync(string userId)
         {
+            // DELETE FROM CACHE //
             var comment = await dbContext.Comments.Where(c => c.UserId == userId).ToListAsync();
             if (comment != null)
             {
@@ -60,15 +68,26 @@ namespace BuyItPlatform.CommentsApi.Services
 
         public async Task<ICollection<Comment>> GetListingCommentsAsync(string listingId, int count, int offset)
         {
+            // GET FROM CACHE //
+
+            // if it's not in cache, get from db
+
+            // SAVE TO CACHE //
             return await dbContext.Comments.Where(c => c.ListingId == listingId).Skip(offset).Take(count).ToListAsync();
         }
         public async Task<ICollection<Comment>> GetUserCommentsAsync(string userId, int count, int offset)
         {
+            // GET FROM CACHE //
+
+            // if it's not in cache, get from db
+
+            // SAVE TO CACHE //
             return await dbContext.Comments.Where(c => c.UserId == userId).Skip(offset).Take(count).ToListAsync();
         }
 
         public async Task<Guid> UploadCommentAsync(CommentDto commentDto)
         {
+            // SAVE TO CACHE //
             if (string.IsNullOrEmpty(commentDto.Content) || commentDto.Content?.Length > 200)
             {
                 throw new ArgumentException("Comment must be between 1-200 characters M'lord!");
