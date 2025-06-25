@@ -9,6 +9,13 @@ using System.Text.Json.Serialization;
 namespace BuyItPlatform.GatewayApi.Services
 {
     //handles all api requests
+    //bug with token refresh handling in frontend and backend
+    //if the token expired, it returns unauthrozied, then the frontend picks it up and tries to do the api call to refresh the token
+    //if that one also returns unauthorized, then it redirects the user to login page, if it returns 200, then it tries to call the previous api again
+    //so it refreshse the token in the frontend automatically
+    //but sometimes the frontend does 2 api calls one after the other, and both of them return unauthorized, so the frontend redirects the user to login
+    //before the refresh token api call was a success or not, so in the backend return another http code instead of 401 and modify the forntend
+    //so it won't redirect the user to login page after 2 consecutive 401 but after a specific http code, this way the problem will go away.
     public class ApiCallsService : IApiCallsService
     {
         private readonly IHttpClientFactory httpClientFactory;
